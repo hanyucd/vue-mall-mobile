@@ -12,7 +12,7 @@
     * ================================================
     *  设置根元素 font-size
     * 当设备宽度为 375(iPhone6)时，根元素 font-size = 16px; 
-    × ================================================
+    * ================================================
     */
   var refreshRem = function () {
     var clientWidth = win.innerWidth || doc.documentElement.clientWidth || doc.body.clientWidth;

@@ -2,14 +2,14 @@
 // const path = require('path');
 // const debug = process.env.NODE_ENV !== 'production';
 
-// module.exports = {
+module.exports = {
 //   // 基本路径
 //   publicPath: '/',
 //   // 输出文件目录
 //   outputDir: 'dist',
 //   assetsDir: 'assets', // 静态资源目录 (js, css, img, fonts)
 //   // eslint-loader 是否在保存的时候检查
-//   lintOnSave: 'error',
+  lintOnSave: false,
 //   // lintOnSave: true,
 //   // webpack配置
 //   // see https://github.com/vuejs/vue-cli/blob/dev/docs/webpack.md   webpack链接API，用于生成和修改webapck配置
@@ -72,4 +72,4 @@
 //   pluginOptions: {
 //     // ...
 //   }
-// };
+};

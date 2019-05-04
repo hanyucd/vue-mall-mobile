@@ -7,7 +7,7 @@ Vue.use(Lazyload);
 
 import 'vant/lib/index.css';
 
-require('./util/deviceAdapter');
+require('./utils/adapter');
 
 Vue.use(Vant);
 
