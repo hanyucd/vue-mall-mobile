@@ -1,7 +1,10 @@
 import axios from 'axios';
 import { Toast } from 'vant';
 
-export default function ajax(path, method, data) {
+/**
+ * 数据请求 | 封装 axios
+ */
+export default function ajax(path, method, data = {}) {
   let options = {};
   options.url = path;
   
