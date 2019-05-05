@@ -1,15 +1,14 @@
-const Koa = require('koa')
-const app = new Koa()
-const views = require('koa-views')
-const json = require('koa-json')
-const onerror = require('koa-onerror')
-const bodyparser = require('koa-bodyparser')
-const logger = require('koa-logger')
-
+const Koa = require('koa');
+const app = new Koa();
+const views = require('koa-views');
+const json = require('koa-json');
+const onerror = require('koa-onerror');
+const bodyparser = require('koa-bodyparser');
+const logger = require('koa-logger');
 const { connect } = require('./utils/connect'); 
 
-const index = require('./routes/index')
-const users = require('./routes/users')
+const index = require('./routes/index');
+const users = require('./routes/users');
 
 // error handler
 onerror(app)
@@ -34,12 +33,6 @@ app.use(async (ctx, next) => {
   console.log(`${ctx.method} ${ctx.url} - ${ms}ms`)
 })
 
-// 立即执行函数
-;(async () => {
-  // 执行连接数据库函数
-  await connect();
-})();
-
 // routes
 app.use(index.routes(), index.allowedMethods());
 app.use(users.routes(), users.allowedMethods());
@@ -48,5 +41,16 @@ app.use(users.routes(), users.allowedMethods());
 app.on('error', (err, ctx) => {
   console.error('server error', err, ctx)
 });
+
+var Users = require('./models/user');
+
+// 立即执行函数
+(async () => {
+  // 执行连接数据库函数
+  await connect();
+  Users.find({}, (error, userDoc) => {
+    console.log(userDoc);
+  });
+})();
 
 module.exports = app

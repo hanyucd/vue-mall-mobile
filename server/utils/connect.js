@@ -1,6 +1,5 @@
 let mongoose = require('mongoose');
 const db = 'mongodb://127.0.0.1/vue_mall_mobile';
-mongoose.Promise = global.Promise;
 
 // 导出一个方法
 exports.connect = () => {
