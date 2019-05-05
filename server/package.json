@@ -19,7 +19,8 @@
     "koa-onerror": "^1.2.1",
     "koa-router": "^7.1.1",
     "koa-static": "^3.0.0",
-    "koa-views": "^5.2.1"
+    "koa-views": "^5.2.1",
+    "mongoose": "^5.5.5"
   },
   "devDependencies": {
     "nodemon": "^1.8.1"

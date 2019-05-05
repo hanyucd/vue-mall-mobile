@@ -6,6 +6,8 @@ const onerror = require('koa-onerror')
 const bodyparser = require('koa-bodyparser')
 const logger = require('koa-logger')
 
+const { connect } = require('./utils/connect'); 
+
 const index = require('./routes/index')
 const users = require('./routes/users')
 
@@ -32,9 +34,15 @@ app.use(async (ctx, next) => {
   console.log(`${ctx.method} ${ctx.url} - ${ms}ms`)
 })
 
+// 立即执行函数
+;(async () => {
+  // 执行连接数据库函数
+  await connect();
+})();
+
 // routes
-app.use(index.routes(), index.allowedMethods())
-app.use(users.routes(), users.allowedMethods())
+app.use(index.routes(), index.allowedMethods());
+app.use(users.routes(), users.allowedMethods());
 
 // error-handling
 app.on('error', (err, ctx) => {
