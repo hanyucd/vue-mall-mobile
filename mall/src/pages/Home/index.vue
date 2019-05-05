@@ -111,12 +111,19 @@
       }
     },
     created() {
-      this._getHomeData();
+      Promise.all([this._getHomeData()])
+        .finally(_ => {
+          this.$toast.clear();
+        });
     },
     methods: {
       async _getHomeData() {
         let method = 'get';
-        let path = Url.homeDataUrl;
+        let path = Url.homeDataApi;
+        this.$toast.loading({
+          mask: true,
+          message: '数据加载中...'
+        })
         try {
           let homeData = await fetchHomeData(path, method);
           this.bannerResource = homeData.data.slides;
