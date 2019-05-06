@@ -7,7 +7,7 @@
           <img class="location-icon" width="80%" :src="locIcon" alt="" />
         </van-col>
         <van-col :span="14">
-          <input type="text" class="search-input" placeholder="输入商品..." />
+          <input type="text" class="search-input" placeholder="搜索商品..." />
         </van-col>
         <van-col :span="7" style="text-align: center">
           <van-button round size="mini">搜索</van-button>

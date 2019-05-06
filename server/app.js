@@ -48,9 +48,11 @@ var Users = require('./models/user');
 (async () => {
   // 执行连接数据库函数
   await connect();
-  Users.find({}, (error, userDoc) => {
-    console.log(userDoc);
-  });
+
+  // Users.create({userName: 'hanyu_1', passWord: '123456'}, function(err, doc) {
+  //   if (err) return console.log(err);
+  //   console.log(doc);
+  // })
 })();
 
 module.exports = app

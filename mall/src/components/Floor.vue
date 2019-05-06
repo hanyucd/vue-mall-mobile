@@ -13,7 +13,7 @@
       </div>
       <div class="floor-rule">
         <section v-for="(item, index) in floorData.slice(3)" :key="index">
-          <img :src="item.image" width="100%"/>
+          <img :src="item.image" width="100%" height="100%" />
         </section>
       </div>
     </section>
