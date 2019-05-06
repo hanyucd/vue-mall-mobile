@@ -7,7 +7,7 @@
       <van-field v-model.trim="passWordAgain" label="密码" placeholder="请在次输入密码..." required  type="password" />
     </van-cell-group>
     <section class="register-btn">
-      <van-button type="primary" size="large" :loading="loading" @click="register">马上注册</van-button>
+      <van-button type="primary" size="large" :loading="loading" @click="register">立即注册</van-button>
     </section>
   </div>
 </template>
