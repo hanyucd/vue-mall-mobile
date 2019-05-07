@@ -5,6 +5,8 @@ const json = require('koa-json');
 const onerror = require('koa-onerror');
 const bodyparser = require('koa-bodyparser');
 const logger = require('koa-logger');
+const cors = require('koa2-cors'); // 解决跨域的中间件 koa2-cors
+// 导入数据库连接文件
 const { connect } = require('./utils/connect'); 
 // 导入路由文件
 const user = require('./routes/user');
@@ -14,7 +16,7 @@ const router = new Router();
 
 // error handler
 onerror(app);
-
+app.use(cors());
 // middlewares
 app.use(bodyparser({
   enableTypes:['json', 'form', 'text']
@@ -37,8 +39,8 @@ app.use(async (ctx, next) => {
 
 // routes
 router.use('/user', user.routes());
-app.use(router.routes());
-app.use(router.allowedMethods());
+app.use(router.routes())
+   .use(router.allowedMethods());
 
 // error-handling
 app.on('error', (err, ctx) => {

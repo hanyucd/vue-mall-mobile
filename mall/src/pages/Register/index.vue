@@ -13,6 +13,9 @@
 </template>
 
 <script>
+  import { registerUser } from '@/api';
+  import { Url } from '@/api/url';
+  
   export default {
     name: 'Register',
     data() {
@@ -27,7 +30,39 @@
       goBack() {
         this.$router.go(-1);
       },
-      register() {}
+      /**
+       * 表单验证
+       */
+      _checkForm() {
+        if (!this.userName || !this.passWord) {
+          this.$toast.fail('用户名或密码不能为空');
+          return fasle;
+        } else if (this.userName.length < 5) {
+          this.$toast.fail('用户名不能少于5位');
+          return false;
+        } else if (this.passWord.length < 6) {
+          this.$toast.fail('密码不能少于6位');
+          return false;
+        } else if (this.passWord !== this.passWordAgain) {
+          this.$toast.fail('两次密码输入不一致');
+          return false;
+        }
+        return true;
+      },
+      /**
+       * 用户注册
+       */
+      async register() {
+        
+        if (!this._checkForm()) return; 
+        let method = 'post';
+        let path = Url.registerApi;
+        let data = {
+          userName: this.userName,
+          passWord: this.passWord
+        };
+        await registerUser(path, method, data);
+      }
     }
   }
 </script>
