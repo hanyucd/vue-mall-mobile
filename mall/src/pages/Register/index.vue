@@ -63,8 +63,8 @@
         };
         try {
           this.loading = true; // 开启按钮注册状态
-          let resData = await registerUser(path, method, params);
-          this.$toast.success(resData.message);
+          let res = await registerUser(path, method, params);
+          this.$toast.success(res.message);
         } catch (error) {
           this.$toast.fail('注册失败');
         } finally {

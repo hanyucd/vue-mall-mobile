@@ -29,5 +29,17 @@ userSchema.pre('save', function(next) {
   });
 });
 
+/**
+ * 密码比对的方法
+ * 第一个参数：客户端传递的; 第二个参数：数据库的
+ */
+userSchema.methods.comparePassword = (_passWrod, passWord) => {
+  return new Promise((resolve, reject) => {
+    bcrypt.compare(_passWrod, passWord, (error, result) => {
+      !error ? resolve(result) : reject(error);
+    });
+  });
+};
+
 //发布模型
 module.exports = mongoose.model('User', userSchema);
