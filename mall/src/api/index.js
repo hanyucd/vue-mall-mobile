@@ -10,6 +10,6 @@ export const fetchHomeData = (path, method = 'get') => {
 /**
  * 用户注册 | POST
  */
-export const registerUser = (path, method, data) => {
+export const registerUser = (path, method = 'post', data) => {
   return ajax(path, method, data);
 };

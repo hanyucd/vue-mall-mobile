@@ -106,6 +106,7 @@
       };
     },
     filters: {
+      // 对数据做处理
       moneyFilter(money) {
         return money.toFixed(2);
       }
@@ -117,13 +118,16 @@
         });
     },
     methods: {
+      /**
+       * 获取首页数据
+       */
       async _getHomeData() {
         let method = 'get';
         let path = Url.homeDataApi;
         this.$toast.loading({
           mask: true,
           message: '数据加载中...'
-        })
+        });
         try {
           let homeData = await fetchHomeData(path, method);
           this.bannerResource = homeData.data.slides;
@@ -135,7 +139,6 @@
           this.floorThree = homeData.data.floor3;
           this.floorName = homeData.data.floorName;
           this.hotGoods = homeData.data.hotGoods;
-          console.log(homeData)
         } catch(error) {
           console.log(error);
         }

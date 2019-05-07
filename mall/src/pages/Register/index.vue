@@ -36,7 +36,7 @@
       _checkForm() {
         if (!this.userName || !this.passWord) {
           this.$toast.fail('用户名或密码不能为空');
-          return fasle;
+          return false;
         } else if (this.userName.length < 5) {
           this.$toast.fail('用户名不能少于5位');
           return false;
@@ -53,15 +53,24 @@
        * 用户注册
        */
       async register() {
-        
         if (!this._checkForm()) return; 
+
         let method = 'post';
         let path = Url.registerApi;
-        let data = {
+        let params = {
           userName: this.userName,
           passWord: this.passWord
         };
-        await registerUser(path, method, data);
+        try {
+          this.loading = true; // 开启按钮注册状态
+          let resData = await registerUser(path, method, params);
+          console.log(resData)
+          this.$toast.success(resData.message);
+        } catch (error) {
+          this.$toast.fail('注册失败');
+        } finally {
+          this.loading = false;
+        }
       }
     }
   }

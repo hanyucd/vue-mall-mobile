@@ -19,13 +19,12 @@ export default function ajax(path, method, data = {}) {
   return new Promise((resolve, reject) => {
     axios(options)
       .then(response => {
-        if(response.status === 200) {
+        if (response.status === 200) {
           if (response.data.code === 200 || !response.data.code) {
             // 请求成功
             resolve(response.data);
           } else {
             // 请求错误
-            Toast.fail(response.data.message);
             reject(response.data);
           }
         } else {

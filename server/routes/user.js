@@ -1,15 +1,28 @@
 const Router = require('koa-router');
+const User = require('../models/user');
 
 const router = new Router();
 
-router.get('/', async (ctx) => {
-  ctx.body = '首页'
-});
-
+/**
+ * 用户注册
+ */
 router.post('/register', async(ctx) => {
-  console.log(ctx.request.body);
-  console.log(ctx);
-  ctx.body = ctx.request.body;
+  let body = ctx.request.body;
+  let user = new User(body);
+
+  try {
+    await user.save().then(user => {
+      ctx.body = {
+        code: 200,
+        message: '注册成功'
+      };
+    });
+  } catch (error) {
+    ctx.body = {
+      code: 500,
+      message: error
+    };
+  }
 });
 
 module.exports = router;
