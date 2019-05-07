@@ -64,7 +64,6 @@
         try {
           this.loading = true; // 开启按钮注册状态
           let resData = await registerUser(path, method, params);
-          console.log(resData)
           this.$toast.success(resData.message);
         } catch (error) {
           this.$toast.fail('注册失败');
@@ -77,11 +76,11 @@
 </script>
 
 <style scoped>
-.input-wrap {
-  margin: 2rem 0;
-}
-.register-btn {
-  width: 90%;
-  margin: 0 auto;
-}
+  .input-wrap {
+    margin: 2rem 0;
+  }
+  .register-btn {
+    width: 90%;
+    margin: 0 auto;
+  }
 </style>
