@@ -10,6 +10,7 @@ const cors = require('koa2-cors'); // 解决跨域的中间件 koa2-cors
 const { connect } = require('./utils/connect'); 
 // 导入路由文件
 const user = require('./routes/user');
+const goods = require('./routes/goods');
 
 const app = new Koa();
 const router = new Router();
@@ -39,6 +40,7 @@ app.use(async (ctx, next) => {
 
 // routes
 router.use('/user', user.routes());
+router.use('/goods', goods.routes());
 app.use(router.routes())
    .use(router.allowedMethods());
 
