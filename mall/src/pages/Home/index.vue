@@ -62,6 +62,7 @@
               :goodsImage="item.image"
               :goodsName="item.name"
               :goodsPrice="item.price"
+              :goodsId="item.goodsId"
              >
              </goods-list>
            </li>

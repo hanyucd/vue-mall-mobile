@@ -20,3 +20,10 @@ export const registerUser = (path, method = 'post', data) => {
 export const loginUser = (path, method = 'post', data) => {
   return ajax(path, method, data);
 };
+
+/**
+ * 获取首页数据 | Post
+ */
+export const fetchGoodsInfoData = (path, method = 'post', data) => {
+  return ajax(path, method, data);
+};

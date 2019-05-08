@@ -1,5 +1,5 @@
 <template>
-  <div class="goods-list">
+  <div class="goods-list" @click="goGoodsInfo">
     <div class="goods-image">
       <img v-lazy="goodsImage" width="90%" />
     </div>
@@ -11,7 +11,17 @@
 <script>
   export default {
     name: 'GoodsList',
-    props: [ 'goodsImage', 'goodsName', 'goodsPrice' ]
+    props: [ 'goodsImage', 'goodsName', 'goodsPrice', 'goodsId' ],
+    methods: {
+      goGoodsInfo() {
+        this.$router.push({
+          name: 'GoodsInfo',
+          params: {
+            goodsId: this.goodsId
+          }
+        })
+      }
+    }
   }
 </script>
 

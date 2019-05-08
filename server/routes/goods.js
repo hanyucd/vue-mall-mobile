@@ -80,4 +80,20 @@ router.get('/insertAllCategorySub', async (ctx) => {
   ctx.body = '插入数据接口...';
 });
 
+/**
+ * 获取商品详细信息的接口
+ */
+router.post('/goodsDetailInfo', async (ctx) => {
+  const goodsId = ctx.request.body.goodsId;
+
+  try {
+    let goods = await GoodsModel.findOne({ ID: goodsId });
+    (goods)
+      ? ctx.body = { code: 200, message: 'success', result: goods }
+      : ctx.body = { code: 404, message: '未找到商品信息' };
+  } catch(error) {
+    ctx.body = { code: 500, message: error }
+  }
+});
+
 module.exports = router;

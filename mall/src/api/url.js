@@ -5,4 +5,5 @@ export const Url = {
   homeDataApi: baseURL + '/index', // 商城首页所有数据接口
   registerApi: LOCALURL + '/user/register', // 用户注册接口
   loginApi: LOCALURL + '/user/login', // 用户登录接口
+  goodsDetailInfoApi: LOCALURL + '/goods/goodsDetailInfo', // 商品信息接口
 };
