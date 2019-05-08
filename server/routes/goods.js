@@ -90,7 +90,7 @@ router.post('/goodsDetailInfo', async (ctx) => {
     let goods = await GoodsModel.findOne({ ID: goodsId });
     (goods)
       ? ctx.body = { code: 200, message: 'success', result: goods }
-      : ctx.body = { code: 404, message: '未找到商品信息' };
+      : ctx.body = { code: 404, message: '无商品信息' };
   } catch(error) {
     ctx.body = { code: 500, message: error }
   }

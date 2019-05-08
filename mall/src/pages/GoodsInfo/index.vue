@@ -1,6 +1,27 @@
 <template>
   <div>
-    商品信息
+    <section class="navbar-nav">
+      <van-nav-bar title="商品信息" left-text="返回" left-arrow @click-left="$router.go(-1)"></van-nav-bar>
+    </section>
+    <section class="top-image">
+      <img :src="goodsInfo.IMAGE1" width="100%" />
+    </section>
+    <section class="goods-price">￥{{ goodsInfo.PRESENT_PRICE }}</section>
+    <section class="goods-name">{{ goodsInfo.NAME }}</section>
+    <section class="goods-tabs">
+      <van-tabs sticky animated swipeable>
+        <van-tab title="商品详情">
+          <div class="detail" v-html="goodsInfo.DETAIL"></div>
+        </van-tab>
+        <van-tab title="评价">
+          <div style="text-align: center;">评论区...</div>
+        </van-tab>
+      </van-tabs>
+    </section>
+    <section class="goods-bottom">
+      <van-button class="btn" plain size="large" type="primary" @click="addToCart">加入购物车</van-button>
+      <van-button class="btn" plain size="large" type="danger" @click="purchase">直接购买</van-button>
+    </section>
   </div>
 </template>
 
@@ -12,7 +33,7 @@
     name: 'GoodsInfo',
     data() {
       return {
-        goodsDetail: {}
+        goodsInfo: {}
       };
     },
     created() {
@@ -21,18 +42,54 @@
     },
     methods: {
       async _getGoodsInfo(goodsId) {
+        this.$toast.loading({
+          mask: true,
+          message: '商品加载中...'
+        });
         let method = 'post';
         let path = Url.goodsDetailInfoApi;
+        
         try {
-          await fetchGoodsInfoData(path, method, { goodsId });
+          let res = await fetchGoodsInfoData(path, method, { goodsId });
+          this.goodsInfo = res.result;
         } catch (error) {
-          
+          (error.code === 404) && this.$toast.fail(error.message);
         }
-      }
+      },
+      addToCart() {},
+      purchase() {}
     }
   }
 </script>
 
 <style scoped>
-
+  .goods-name {
+    background: #fff;
+    text-align: center;
+  }
+  .goods-price {
+    text-align: center;
+    background: #fff;
+    padding: 0 .5rem;
+    color: #f00;
+    font-weight: bold;
+  }
+  .detail {
+    font-size: 0;
+  }
+  .goods-tabs {
+    margin-bottom: 80px;
+  }
+  .goods-bottom {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    z-index: 100;
+    width: 100%;
+    display: flex;
+  }
+  .goods-bottom > .btn {
+    flex: 1;
+    margin: 1rem;
+  }
 </style>
