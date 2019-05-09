@@ -28,11 +28,13 @@
         <!-- 商品列表 -->
         <div class="goods-list-wrapper">
           <div class="goods-list"> 
-            <van-list v-model="loading" :finished="finished" finished-text="没有更多了" @load="onLoad">
-              <div class="list-item" v-for="(item, index) of goodsList" :key="index">
-                {{ item }}
-              </div>
-            </van-list>
+            <van-pull-refresh v-model="isRefresh" @refresh="onRefresh">
+              <van-list v-model="loading" :finished="finished" finished-text="没有更多了" @load="onLoad">
+                <div class="list-item" v-for="(item, index) of goodsList" :key="index">
+                  {{ item }}
+                </div>
+              </van-list>
+            </van-pull-refresh>
           </div>
         </div>
       </section>
@@ -54,6 +56,7 @@
         active: 0,
         loading: false, // 是否处于加载状态，加载过程中不触发 load 事件
         finished: false, // 是否已加载完成，加载完成后不再触发 load 事件
+        isRefresh: false, // 下拉刷新
         goodsList: [] // 商品列表
       };
     },
@@ -98,6 +101,9 @@
         this.active = 0;
         this._getCategorySubList(categoryId);
       },
+      /**
+       * 上拉加载
+       */
       onLoad() {
         setTimeout(()=>{
           for(let i=0;i<10;i++){
@@ -105,9 +111,20 @@
           }
           this.loading = false;
           if (this.goodsList.length >= 40) {
-          this.finished = true;
+            this.finished = true;
           }
-        }, 1000)
+        }, 2000)
+      },
+      /**
+       * 下拉刷新
+       */
+      onRefresh() {
+        setTimeout(() => {
+          this.isRefresh = false;
+          this.goodsList = [];
+          // this.finished = false;
+          this.$toast('刷新成功');
+      }, 2000);
       }
     }
   }
@@ -130,7 +147,6 @@
   }
   .right-list {
     flex: 1;
-    /* position: relative; */
     display: flex;
     flex-direction: column;
   }
