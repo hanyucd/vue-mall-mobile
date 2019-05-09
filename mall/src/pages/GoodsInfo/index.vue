@@ -42,10 +42,6 @@
     },
     methods: {
       async _getGoodsInfo(goodsId) {
-        this.$toast.loading({
-          mask: true,
-          message: '商品加载中...'
-        });
         let method = 'post';
         let path = Url.goodsDetailInfoApi;
         

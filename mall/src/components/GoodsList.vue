@@ -19,7 +19,7 @@
           params: {
             goodsId: this.goodsId
           }
-        })
+        });
       }
     }
   }

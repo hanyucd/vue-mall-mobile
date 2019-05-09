@@ -41,7 +41,7 @@ export const fetchCategorySubList = (path, method = 'post', data) => {
   return ajax(path, method, data);
 }
 /**
- * 根据商品小类获取商品列表 | POST
+ * 根据商品子类获取商品列表 | POST
  */
 export const fetchGoodsList = (path, method = 'post', data) => {
   return ajax(path, method, data);

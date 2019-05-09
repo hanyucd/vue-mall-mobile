@@ -132,9 +132,16 @@ router.post('/getCategorySubList', async (ctx) => {
  * 根据商品类别 获取商品信息的接口
  */
 router.post('/getGoodsList', async (ctx) => {
-  let categorySubId = ctx.request.body.categorySubId
+  let categorySubId = ctx.request.body.categorySubId;
+  let page = ctx.request.body.page; // 页数
+  let num = 10; // 每页 10 条数数
+  let skip = (page - 1) * num; // 跳过条数
+
   try {
-    let goods = await GoodsModel.findOne({ SUB_ID:categorySubId })
+    let goodsList = await GoodsModel.find({ SUB_ID:categorySubId }).skip(skip).limit(num);
+    (goodsList.length > 0)
+      ? ctx.body = { code: 200, result: goodsList }
+      : ctx.body = { code: 404, message: '未获取到商品数据' };
   } catch (error) {
     ctx.body = { code: 500, message: error };
   }
