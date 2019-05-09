@@ -6,4 +6,7 @@ export const Url = {
   registerApi: LOCALURL + '/user/register', // 用户注册接口
   loginApi: LOCALURL + '/user/login', // 用户登录接口
   goodsDetailInfoApi: LOCALURL + '/goods/goodsDetailInfo', // 商品信息接口
+  categoryListApi: LOCALURL + '/goods/getCategoryList', // 大类信息接口
+  categorySubListApi: LOCALURL + '/goods/getCategorySubList', // 子类接口
+  goodsListApi: LOCALURL + '/goods/getGoodsList' // 分页获取小类商品信息
 };

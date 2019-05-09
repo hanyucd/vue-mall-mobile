@@ -22,8 +22,27 @@ export const loginUser = (path, method = 'post', data) => {
 };
 
 /**
- * 获取首页数据 | Post
+ * 获取商品详情数据 | Post
  */
 export const fetchGoodsInfoData = (path, method = 'post', data) => {
   return ajax(path, method, data);
 };
+
+/**
+ * 获取大类数据 | GET
+ */
+export const fetchCategoryList = (path, method = 'get') => {
+  return ajax(path, method);
+}
+/**
+ * 获取所有商品分类子类 | POST
+ */
+export const fetchCategorySubList = (path, method = 'post', data) => {
+  return ajax(path, method, data);
+}
+/**
+ * 根据商品小类获取商品列表 | POST
+ */
+export const fetchGoodsList = (path, method = 'post', data) => {
+  return ajax(path, method, data);
+}

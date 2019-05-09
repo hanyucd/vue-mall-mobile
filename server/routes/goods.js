@@ -96,4 +96,48 @@ router.post('/goodsDetailInfo', async (ctx) => {
   }
 });
 
+/**
+ * 获取商品分类 大类信息的接口
+ */
+router.get('/getCategoryList', async (ctx) => {
+  try {
+    let categoryList = await CategoryModel.find({});
+    if (categoryList.length > 0) {
+      ctx.body = { code: 200, result: categoryList };
+    } else {
+      ctx.body = { code: 404, message: '未获取到商品大分类' };
+    }
+  } catch (error) {
+    ctx.body = { code: 500, message: error };
+  }
+});
+
+/**
+ * 获取商品子类 分类信息的接口
+ */
+router.post('/getCategorySubList', async (ctx) => {
+  let categoryId = ctx.request.body.categoryId;
+  
+  try {
+    let categorySubList = await CategorySubModel.find({ MALL_CATEGORY_ID: categoryId });
+    (categorySubList.length > 0)
+      ? ctx.body = { code: 200, result: categorySubList }
+      : ctx.body = { code: 404, message: '未获取到商品子分类' };
+  } catch (error) {
+    ctx.body = { code: 500, message: error };
+  }
+});
+
+/**
+ * 根据商品类别 获取商品信息的接口
+ */
+router.post('/getGoodsList', async (ctx) => {
+  let categorySubId = ctx.request.body.categorySubId
+  try {
+    let goods = await GoodsModel.findOne({ SUB_ID:categorySubId })
+  } catch (error) {
+    ctx.body = { code: 500, message: error };
+  }
+});
+
 module.exports = router;
