@@ -5,12 +5,9 @@
       <!-- 左侧大类导航区域 -->
       <section class="left-nav">
         <ul>
-          <li
-            class="category-item"
-            v-for="(item, index) of categoryList"
-            :key="item.ID"
-            :class="{ categoryActive: currentIndex == index }"
-            @click="clickCategory(index, item.ID)"
+          <li class="category-item" v-for="(item, index) of categoryList" :key="item.ID" 
+              :class="{ categoryActive: currentIndex == index }"
+              @click="clickCategory(index, item.ID)"
           >
             {{ item.MALL_CATEGORY_NAME }}
           </li>
@@ -18,6 +15,7 @@
       </section>
       <!-- 右侧商品信息区域 -->
       <section class="right-list">
+        <!-- 顶部子类导航 -->
         <div>
           <van-tabs v-model="active" animated swipeable>
             <van-tab
@@ -27,7 +25,16 @@
             </van-tab>
           </van-tabs>
         </div>
-        <div>商品列表</div>
+        <!-- 商品列表 -->
+        <div class="goods-list-wrapper">
+          <div class="goods-list"> 
+            <van-list v-model="loading" :finished="finished" finished-text="没有更多了" @load="onLoad">
+              <div class="list-item" v-for="(item, index) of goodsList" :key="index">
+                {{ item }}
+              </div>
+            </van-list>
+          </div>
+        </div>
       </section>
     </div>
   </div>
@@ -45,6 +52,9 @@
         categorySubList: [], // 子类列表
         currentIndex: 0, // 当前点击的分类ID
         active: 0,
+        loading: false, // 是否处于加载状态，加载过程中不触发 load 事件
+        finished: false, // 是否已加载完成，加载完成后不再触发 load 事件
+        goodsList: [] // 商品列表
       };
     },
     created() {
@@ -88,6 +98,17 @@
         this.active = 0;
         this._getCategorySubList(categoryId);
       },
+      onLoad() {
+        setTimeout(()=>{
+          for(let i=0;i<10;i++){
+              this.goodsList.push(this.goodsList.length+1)
+          }
+          this.loading = false;
+          if (this.goodsList.length >= 40) {
+          this.finished = true;
+          }
+        }, 1000)
+      }
     }
   }
 </script>
@@ -109,6 +130,9 @@
   }
   .right-list {
     flex: 1;
+    /* position: relative; */
+    display: flex;
+    flex-direction: column;
   }
   .category-item {
     line-height: 2rem;
@@ -119,5 +143,23 @@
   }
   .categoryActive {
     background-color: #fff;
+  }
+  .goods-list-wrapper {
+    flex: 1;
+    position: relative;
+  }
+  .goods-list { 
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    overflow: scroll;
+  }
+  .list-item{
+      text-align: center;
+      line-height: 80px;
+      border-bottom: 1px solid #f0f0f0;
+      background-color: #fff;
   }
 </style>
