@@ -216,6 +216,7 @@
   }
   .hot-goods{
     background-color: #fff;
+    padding-bottom: 13.5vw;
   }
   .hot-lists {
     display: flex;

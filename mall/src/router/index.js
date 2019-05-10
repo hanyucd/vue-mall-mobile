@@ -14,15 +14,11 @@ export default new VueRouter({
   mode: 'history',
   routes: [
     { path: '/', redirect: { name: 'Home' } },
+    { path: '/index', name: 'Home', component: Home },
     { path: '/register', name: 'Register', component: Register },
     { path: '/login', name: 'Login', component: Login },
     { path: '/goodsInfo/:goodsId', name: 'GoodsInfo', component: GoodsInfo },
     { path: '/categoryList', name: 'CategoryList', component: CategoryList },
     { path: '/cart', name: 'Cart', component: Cart },
-    {
-      path: '/index', 
-      name: 'Home',
-      component: Home
-    },
   ]
 });
