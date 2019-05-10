@@ -137,7 +137,7 @@
         this.finished = false;
         this.loading = false;
         this.goodsList = [];
-        this._getCategorySubList(categoryId);
+        this._getCategorySubList(categoryId); // 切换子类信息
       },
       /**
        * 点击子类
@@ -147,7 +147,7 @@
         this.goodsList = []
         this.finished = false;
         this.page = 1;
-        this.onLoad();
+        this.onLoad(); // 调取该子类下的商品数据
       },
       /**
        * 上拉加载
@@ -155,7 +155,7 @@
       onLoad() {
         setTimeout(() => {
           this._getGoodsList(); // 获取商品列表
-        }, 1000)
+        }, 3000)
       },
       /**
        * 下拉刷新

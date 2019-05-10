@@ -28,6 +28,7 @@
 <script>
   import { fetchGoodsInfoData } from '@/api';
   import { Url } from '@/api/url';
+  const cartInfoKey = "__CARTINFOKEY__";
 
   export default {
     name: 'GoodsInfo',
@@ -52,7 +53,28 @@
           (error.code === 404) && this.$toast.fail(error.message);
         }
       },
-      addToCart() {},
+      /**
+       * 添加商品到购物车
+       */
+      addToCart() {
+        let cartInfo = localStorage.getItem(cartInfoKey) ? JSON.parse(localStorage.getItem(cartInfoKey)) : [];
+        let isHaveGoods = cartInfo.find(cart => cart.goodsId == this.goodsId);
+        if (!isHaveGoods) {
+          let newGoodsInfo = {
+            goodsId: this.goodsInfo.ID,
+            name: this.goodsInfo.NAME,
+            price: this.goodsInfo.PRESENT_PRICE,
+            image: this.goodsInfo.IMAGE1,
+            count: 1
+          };
+          cartInfo.push(newGoodsInfo);
+          localStorage.setItem(cartInfoKey, JSON.stringify(cartInfo));
+          this.$toast.success("添加成功");
+        } else {
+           this.$toast.success("已有此商品");
+        }
+        this.$router.push({ name: 'Cart' });
+      },
       purchase() {}
     }
   }

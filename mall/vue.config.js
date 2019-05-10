@@ -10,6 +10,20 @@ module.exports = {
 //   assetsDir: 'assets', // 静态资源目录 (js, css, img, fonts)
 //   // eslint-loader 是否在保存的时候检查
   lintOnSave: false,
+  devServer: {
+    host: '0.0.0.0',
+    port: 8080,
+    proxy: {
+      '/goods': {
+        target: 'http://localhost:3000',
+        changeOrigin: true,
+      },
+      '/user': {
+        target: 'http://localhost:3000',
+        changeOrigin: true,
+      },
+    }
+  }
 //   // lintOnSave: true,
 //   // webpack配置
 //   // see https://github.com/vuejs/vue-cli/blob/dev/docs/webpack.md   webpack链接API，用于生成和修改webapck配置
