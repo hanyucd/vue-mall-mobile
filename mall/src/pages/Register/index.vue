@@ -64,8 +64,13 @@
         try {
           this.loading = true; // 开启按钮注册状态
           let res = await registerUser(path, method, params);
+          console.log(res)
+          window.localStorage.setItem('token', res.token);
+          window.localStorage.setItem('userName', res.userName);
           this.$toast.success(res.message);
+          this.$router.push({ name: 'Home' }); // 注册成功跳转到首页
         } catch (error) {
+          console.log(error)
           this.$toast.fail('注册失败');
         } finally {
           this.loading = false;

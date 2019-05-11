@@ -193,7 +193,6 @@
   .main {
     flex: 1;
     display: flex;
-    /* padding-bottom: 50px; */
     padding-bottom: 13.5vw;
   }
   .left-nav {

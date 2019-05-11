@@ -67,6 +67,7 @@ export default {
     height:  13.5vw;
     display: flex;
     background: #fff;
+    z-index: 999;
   }
   #tabBar section {
     flex: 1;

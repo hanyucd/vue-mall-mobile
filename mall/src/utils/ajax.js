@@ -1,4 +1,4 @@
-import axios from 'axios';
+import axios from './http';
 import { Toast } from 'vant';
 
 /**

@@ -1,5 +1,6 @@
 const Router = require('koa-router');
 const User = require('../models/user');
+const jwt = require('../utils/jwt');
 
 const router = new Router();
 
@@ -11,16 +12,18 @@ router.post('/register', async(ctx) => {
   let user = new User(body); // 实例
 
   try {
-    await user.save().then(user => {
-      ctx.body = {
-        code: 200,
-        message: '注册成功'
-      };
-    });
+    let userDoc = await user.save();
+    ctx.body = {
+      code: 200,
+      userName: userDoc.userName,
+      token: jwt._createToken(),
+      message: '注册成功'
+    };
   } catch (error) {
     ctx.body = {
       code: 500,
-      message: error
+      result: error,
+      message: '该账号已被注册过'
     };
   }
 });
