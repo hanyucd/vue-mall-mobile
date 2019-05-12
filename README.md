@@ -1,22 +1,115 @@
 # vue-mall-mobile
+> 一个基于 vue.js + koa.js + mongodb + vant 的移动端电商网站
 
-# 移动端Web页面适配方案
-https://segmentfault.com/a/1190000008767416
+## 技术栈 
 
-# Axios 源码分析之拦截器和请求取消
-https://juejin.im/entry/59a3794751882524382f65ac
+前端：脚手架工具 vue-cli@3.0
 
-# vue.js添加拦截器，实现token认证（使用axios）
-https://juejin.im/post/5bab739af265da0aa3593177
+后端：脚手架工具 koa-generator
 
-# Token
+**vue + vue-router + axios + koa + mongoose + mongodb + vant**
 
-# JSON Web Token 入门教程
-http://www.ruanyifeng.com/blog/2018/07/json_web_token-tutorial.html
-https://ninghao.net/blog/2834
-http://blog.leapoahead.com/2015/09/06/understanding-jwt/
-https://blog.csdn.net/qq_24078843/article/details/76416187
+### 移动端 Web 页面适配方案
 
-# Mongoose,更新对象数组中的值 
-https://github.com/hanyucd/vue-mall/blob/master/server/routes/users.js | 169行做更改
-https://codeday.me/bug/20180204/128355.html
+主要使用 **flex + rem** 方案布局，rem 是相对于根元素，rem 定义是根元素的 font-size, 以 rem 为单位，  
+其数值与 px 的关系，需相对于根元素 <html> 的 font-size 计算。比如，设置根元素 font-size = 16px, 则表示 1rem = 16px。
+<br /><br />
+根据这个特点，可以根据设备宽度 **动态设置** 根元素的 font-size，使得以 rem 为单位的元素在不同终端上以相对一致的视觉效果呈现。  
+<br />
+选取一个设备宽度作为基准，设置其根元素大小，其他设备根据此比例计算其根元素大小。比如使得 iPhone6 根元素 font-size = 16px。
+
+```js
+ (function (doc, win) {
+  var docEl = win.document.documentElement;
+  var resizeEvt = 'orientationchange' in window ? 'orientationchange' : 'resize';
+  /**
+    * ================================================
+    *  设置根元素 font-size
+    * 当设备宽度为 375(iPhone6)时，根元素 font-size = 16px; 
+    * ================================================
+    */
+  var refreshRem = function () {
+    var clientWidth = win.innerWidth || doc.documentElement.clientWidth || doc.body.clientWidth;
+
+    if (!clientWidth) return;
+    var fontSize;
+    var width = clientWidth;
+    fontSize = 16 * width / 375;
+    docEl.style.fontSize = fontSize + 'px';
+    docEl.style.maxWidth = 768 + 'px';
+    docEl.style.margin = '0 auto';
+  };
+
+  if (!doc.addEventListener) return;
+  win.addEventListener(resizeEvt, refreshRem, false);
+  doc.addEventListener('DOMContentLoaded', refreshRem, false);
+  refreshRem();
+
+})(document, window);
+
+```
+
+### Axios 请求拦截器 和 响应拦截器
+主要截取，请求 或 响应在被 then 或者 catch 处理之前，做些什么。我们可以把每一次请求想象成一条管道里的流过的水，  
+当一个请求发出的时候，会先流过 interceptors 的 request 部分，  
+接着 request 会发出，当接受到响应时，会先流过 interceptors 的 response 部分，最后 response。
+
+> **interceptors.request -> request -> interceptors.response -> response**
+
+```js
+// 添加请求拦截器
+axios.interceptors.request.use(function (config){
+  //在发送请求之前做某事
+  return config;
+}，function(error) {
+  //请求错误时做些事
+  return Promise.reject(error);
+});
+ 
+// 添加响应拦截器
+axios.interceptors.response.use(function (response) {
+  //对响应数据做些事
+  return response;
+}，function (error) {
+  //请求错误时做些事
+  return Promise.reject（error）;
+});
+```
+### Token and JWT
+使用基于 Token 的身份验证方法，在服务端不需要存储用户的登录记录。大概的流程是这样的：
+
+- 客户端使用用户名 跟 密码请求登录
+- 服务端收到请求，去验证用户名和密码（后台根据请求去数据库查找是否有该用户）
+- 验证成功后，服务端会签发一个token（该token值一般都会存入 Redis 数据库中，并设置过期时间），再把这个 token 发送给客户端
+- 客户端收到 token 之后，一般存储在 localStorage 或 Cookie 中
+- 客户端每次向服务端请求资源的时候需要带着服务端签发的 token （一般前台需要将该 token 设置在请求头上，以确保之后的每一次请求都是带着该 “令牌“ 的）
+- 服务端收到请求，然后去验证客户端请求里面带着的 token（token是否为该用户的令牌以及token是否有效等），如果验证成功，就向客户端返回请求的数据
+
+JSON Web Token（JWT）是一个非常轻巧的规范。这个规范允许我们使用JWT在用户和服务器之间传递安全可靠的信息。  
+<br />
+一个 JWT 实际上就是一个字符串，它由三部分组成，头部（Header）、Payload（载荷）与 signature（签名）。
+
+### NodeJS JWT（json web token） 认证
+
+node 生态圈封装了一个对 jwt 操作的模块 （jsonwebtoken）：
+
+```js
+1. 安装
+$ npm install jsonwebtoken --save
+
+2. 导入
+const jwt = require('jsonwebtoken');
+const secret = 'xxx'; //撒盐：加密的时候混淆
+
+3.创建 Token
+ const token = jwt.sign({ name: '123' }, secret, { expiresIn:  60 }); // 60 秒到期时间
+
+4. 解密 token
+jwt.verify(token, secret, function (err, decoded) {
+  if (err){
+    // To Do
+  } else {
+    // TO Do
+  }
+})
+```
