@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div id="login">
     <van-nav-bar title="用户登录" left-text="返回" left-arrow @click-left="goBack" />
     <van-cell-group class="input-wrap">
       <van-field v-model.trim="userName" label="用户名" icon="clear" placeholder="请输入用户名..." :error-message="userNameErrorMsg" @click-icon="userName = ''" required />
@@ -81,6 +81,15 @@
 </script>
 
 <style scoped>
+  #login {
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    background: #f0f0f0;
+    z-index: 200;
+  }
   .input-wrap {
     margin: 2rem 0;
   }

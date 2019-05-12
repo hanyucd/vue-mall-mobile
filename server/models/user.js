@@ -9,6 +9,7 @@ const userSchema = new Schema({
   userId: ObjectId, // 主键
   userName: { type: String, unique: true }, // unique 表示唯一
   passWord: String,
+  cart: Array,
   createAt: { type: Date, default: Date.now() },
   lastLoginAt: { type: Date, default: Date.now() }
 });

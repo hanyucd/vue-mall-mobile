@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div id="goodsInfo">
     <section class="navbar-nav">
       <van-nav-bar title="商品信息" left-text="返回" left-arrow @click-left="$router.go(-1)"></van-nav-bar>
     </section>
@@ -19,14 +19,14 @@
       </van-tabs>
     </section>
     <section class="goods-bottom">
-      <van-button class="btn" plain size="large" type="primary" @click="addToCart">加入购物车</van-button>
+      <van-button class="btn" plain size="large" type="primary" @click="appendToCart">加入购物车</van-button>
       <van-button class="btn" plain size="large" type="danger" @click="purchase">直接购买</van-button>
     </section>
   </div>
 </template>
 
 <script>
-  import { fetchGoodsInfoData } from '@/api';
+  import { fetchGoodsInfoData, addToCart } from '@/api';
   import { Url } from '@/api/url';
   const cartInfoKey = "__CARTINFOKEY__";
 
@@ -38,12 +38,12 @@
       };
     },
     created() {
-      let goodsId = this.$route.params.goodsId;
+      let goodsId = this.$route.query.goodsId;
       this._getGoodsInfo(goodsId);
     },
     methods: {
       async _getGoodsInfo(goodsId) {
-        let method = 'post';
+        let method = 'get';
         let path = Url.goodsDetailInfoApi;
         
         try {
@@ -56,24 +56,16 @@
       /**
        * 添加商品到购物车
        */
-      addToCart() {
-        let cartInfo = localStorage.getItem(cartInfoKey) ? JSON.parse(localStorage.getItem(cartInfoKey)) : [];
-        let isHaveGoods = cartInfo.find(cart => cart.goodsId == this.goodsId);
-        if (!isHaveGoods) {
-          let newGoodsInfo = {
-            goodsId: this.goodsInfo.ID,
-            name: this.goodsInfo.NAME,
-            price: this.goodsInfo.PRESENT_PRICE,
-            image: this.goodsInfo.IMAGE1,
-            count: 1
-          };
-          cartInfo.push(newGoodsInfo);
-          localStorage.setItem(cartInfoKey, JSON.stringify(cartInfo));
-          this.$toast.success("添加成功");
-        } else {
-           this.$toast.success("已有此商品");
+      async appendToCart() {
+        let method = 'post';
+        let path = Url.addGoodsToCart;
+        let goodsId = this.goodsInfo.ID;
+        try {
+          let res = await addToCart(path, method, { goodsId });
+          console.log(res)
+        } catch (error) {
+          console.log(error);
         }
-        this.$router.push({ name: 'Cart' });
       },
       purchase() {}
     }
@@ -81,6 +73,16 @@
 </script>
 
 <style scoped>
+  #goodsInfo {
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    background: #f0f0f0;
+    z-index: 200;
+    overflow: scroll;
+  }
   .goods-name {
     background: #fff;
     text-align: center;

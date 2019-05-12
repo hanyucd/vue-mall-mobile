@@ -1,8 +1,8 @@
 <template>
   <div id="app">
-    <keep-alive>
-      <router-view />
-    </keep-alive>
+    <!-- <keep-alive>
+    </keep-alive> -->
+    <router-view />
     <!-- 底部导航 -->
     <nav id="tabBar">
       <section v-for="(item, index) of tabBarList" :key="index" :class="{ active: tableIndex === index }" @click="clickTab(index, item.name)">
@@ -20,9 +20,9 @@ export default {
     return {
       tabBarList: [
         { title: '首页', name: 'Home', icon: 'wap-home' },
-        { title: '商品列表', name: 'CategoryList', icon: 'wap-nav' },
+        { title: '分类', name: 'Category', icon: 'wap-nav' },
         { title: '购物车', name: 'Cart', icon: 'shopping-cart' },
-        { title: '我的', name: 'User', icon: 'contact' }
+        { title: '我的', name: 'Me', icon: 'contact' }
       ],
       tableIndex: 0
     }
@@ -34,13 +34,13 @@ export default {
         case 'Home':
           this.tableIndex = 0;
           break;
-        case 'CategoryList':
+        case 'Category':
           this.tableIndex = 1;
           break;
         case 'Cart':
           this.tableIndex = 2;
           break;
-        case 'User':
+        case 'Me':
           this.tableIndex = 3;
           break;
       }
@@ -67,7 +67,7 @@ export default {
     height:  13.5vw;
     display: flex;
     background: #fff;
-    z-index: 999;
+    z-index: 100;
   }
   #tabBar section {
     flex: 1;

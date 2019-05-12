@@ -1,5 +1,5 @@
 const Router = require('koa-router');
-const User = require('../models/user');
+const UserModel = require('../models/user');
 const jwt = require('../utils/jwt');
 
 const router = new Router();
@@ -9,14 +9,14 @@ const router = new Router();
  */
 router.post('/register', async(ctx) => {
   let body = ctx.request.body;
-  let user = new User(body); // 实例
+  let user = new UserModel(body); // 实例
 
   try {
     let userDoc = await user.save();
     ctx.body = {
       code: 200,
       userName: userDoc.userName,
-      token: jwt._createToken(),
+      token: jwt._createToken(userDoc._id), // 获取 Token
       message: '注册成功'
     };
   } catch (error) {
@@ -35,9 +35,9 @@ router.post('/login', async(ctx) => {
   let userName = ctx.request.body.userName;
   let passWord = ctx.request.body.passWord;
   // 实例化 User Model
-  let user = new User();
+  let user = new UserModel();
 
-  await User.findOne({ userName }).exec()
+  await UserModel.findOne({ userName }).exec()
     .then(async (userDoc) => {
       if (userDoc) {
         try {
@@ -46,6 +46,7 @@ router.post('/login', async(ctx) => {
             ctx.body = {
               code: 200, 
               userName: userDoc.userName,
+              token: jwt._createToken(userDoc._id), // 获取 Token
               message: '登录成功'
             };
           } else {
@@ -59,11 +60,50 @@ router.post('/login', async(ctx) => {
       }
     })
     .catch(error => {
-      ctx.body = {
-        code: 500,
-        message: error
-      }
+      ctx.body = { code: 500, message: error };
     });
+});
+
+/**
+ * 添加商品到购物车
+ */
+router.post('/addGoodsToCart', async (ctx) => {
+  const goodsId = ctx.request.body.goodsId;
+  if (ctx.headers.authorization) {
+    const token = ctx.headers.authorization.split(' ')[1]; // 获取请求头含有的 token
+    const result = jwt._verify(token); // 验证 token 结果
+    if (result.code && result.code === 200) {
+      // token 验证成功执行
+      try {
+        let user = await UserModel.findOne({ _id: result.userId }); // 返回 Query 对象
+        if (user) {
+          // 检查购物车中是否存在将要添加的商品 id
+          const goods = user.cart.find(item => item.goodsId === goodsId);
+          goods ? goods.count++ : user.cart.push({ goodsId, count: 1 });
+          // 更新购物车
+          await UserModel.updateOne({ _id: result.userId }, { $set: { cart: user.cart } });
+          ctx.body = {
+            code: 200,
+            message: '商品添加成功'
+          };
+        } else {
+          ctx.body = { code: 404, message: '无此用户' };
+        }
+      } catch (error) {
+        console.log(error)
+      }
+    } else if (result.code && result.code === 401) {
+      // token 验证失败执行 eg: token 失效
+      ctx.response.status = 401; // 设置响应状态码
+      ctx.body = { code: result.code, message: result.message };
+    }
+  } else {
+    // 需要认证
+    ctx.body = {
+      code: 401,
+      message: '需要认证'
+    };
+  }
 });
 
 module.exports = router;

@@ -8,5 +8,6 @@ export const Url = {
   goodsDetailInfoApi: LOCALURL + '/goods/goodsDetailInfo', // 商品信息接口
   categoryListApi: LOCALURL + '/goods/getCategoryList', // 大类信息接口
   categorySubListApi: LOCALURL + '/goods/getCategorySubList', // 子类接口
-  goodsListApi: LOCALURL + '/goods/getGoodsList' // 分页获取小类商品信息
+  goodsListApi: LOCALURL + '/goods/getGoodsList', // 分页获取小类商品信息
+  addGoodsToCart: LOCALURL + '/user/addGoodsToCart', // 添加商品到购物车
 };

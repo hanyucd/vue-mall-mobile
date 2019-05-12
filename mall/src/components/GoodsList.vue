@@ -16,7 +16,7 @@
       goGoodsInfo() {
         this.$router.push({
           name: 'GoodsInfo',
-          params: {
+          query: {
             goodsId: this.goodsId
           }
         });

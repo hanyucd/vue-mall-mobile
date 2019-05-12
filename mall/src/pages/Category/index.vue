@@ -84,7 +84,7 @@
           this.categoryList = res.result;
           this._getCategorySubList(this.categoryList[0].ID); // 默认取第一个子类列表
         } catch (error) {
-          console.log(error)
+          console.log(error);
         }
       },
       /**
@@ -175,7 +175,7 @@
       goGoodsInfo(goodsId) {
          this.$router.push({
           name: 'GoodsInfo',
-          params: {
+          query: {
             goodsId
           }
         });

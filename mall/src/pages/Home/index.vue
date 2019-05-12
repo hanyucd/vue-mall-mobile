@@ -126,6 +126,7 @@
         let method = 'get';
         let path = Url.homeDataApi;
         this.$toast.loading({
+          duration: 0,
           mask: true,
           message: '数据加载中...'
         });

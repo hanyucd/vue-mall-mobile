@@ -24,7 +24,7 @@ export const loginUser = (path, method = 'post', data) => {
 /**
  * 获取商品详情数据 | Post
  */
-export const fetchGoodsInfoData = (path, method = 'post', data) => {
+export const fetchGoodsInfoData = (path, method = 'get', data) => {
   return ajax(path, method, data);
 };
 
@@ -34,15 +34,25 @@ export const fetchGoodsInfoData = (path, method = 'post', data) => {
 export const fetchCategoryList = (path, method = 'get') => {
   return ajax(path, method);
 }
+
 /**
  * 获取所有商品分类子类 | POST
  */
+
 export const fetchCategorySubList = (path, method = 'post', data) => {
   return ajax(path, method, data);
 }
+
 /**
  * 根据商品子类获取商品列表 | POST
  */
 export const fetchGoodsList = (path, method = 'post', data) => {
+  return ajax(path, method, data);
+}
+
+/**
+ * 添加至购物车 | POST
+ */
+export const addToCart = (path, method = 'post', data) => {
   return ajax(path, method, data);
 }

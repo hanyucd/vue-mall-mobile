@@ -83,8 +83,8 @@ router.get('/insertAllCategorySub', async (ctx) => {
 /**
  * 获取商品详细信息的接口
  */
-router.post('/goodsDetailInfo', async (ctx) => {
-  const goodsId = ctx.request.body.goodsId;
+router.get('/goodsDetailInfo', async (ctx) => {
+  const goodsId = ctx.request.query.goodsId;
 
   try {
     let goods = await GoodsModel.findOne({ ID: goodsId });

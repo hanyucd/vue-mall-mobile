@@ -51,8 +51,7 @@ app.on('error', (err, ctx) => {
 
 // 立即执行函数
 (async () => {
-  // 执行连接数据库函数
-  await connect();
+  await connect(); // 执行连接数据库函数
 })();
 
 module.exports = app;
