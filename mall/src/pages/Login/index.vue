@@ -14,6 +14,8 @@
 <script>
   import { loginUser } from '@/api';
   import { Url } from '@/api/url';
+  import { Toast } from 'vant';
+  
   export default {
     name: 'Login',
     data() {
@@ -63,8 +65,19 @@
         try {
           this.loading = true; // 开启按钮登录状态
           let res = await loginUser(path, method, params);
-          window.localStorage.setItem('userName', res.userName);
-          this.$toast.success(res.message);
+           // 将 token & 用户名存储到 localStorage 中
+          localStorage.setItem('token', res.token);
+          localStorage.setItem('userName', res.userName);
+          // 注册成功提示
+          Toast.success({
+            duration: 1000,
+            message: res.message
+          });
+          // 1.5 秒后跳转到首页
+          let timer = setTimeout(() => {
+            this.$router.push({ name: 'Home' }); // 注册成功跳转到首页
+            clearTimeout(timer); // 清除定时器
+          }, 1500);
         } catch (error) {
           if (error.code === 202) {
             console.log(error);

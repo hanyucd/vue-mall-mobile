@@ -78,7 +78,7 @@
           let timer = setTimeout(() => {
             this.$router.push({ name: 'Home' }); // 注册成功跳转到首页
             clearTimeout(timer); // 清除定时器
-          }, 1500)
+          }, 1500);
         } catch (error) {
           console.log(error)
           this.$toast.fail('注册失败');

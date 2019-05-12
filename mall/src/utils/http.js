@@ -25,8 +25,8 @@ axios.interceptors.response.use(response => {
 }, error => {
   console.log('错误：', error.response)
   if (error.response.status && error.response.status === 401) {
-    localStorage.removeItem('token');
-    localStorage.removeItem('userName');
+    // localStorage.removeItem('token');
+    // localStorage.removeItem('userName');
     // router.replace('/login');
   }
   return Promise.reject(error);

@@ -28,7 +28,6 @@
 <script>
   import { fetchGoodsInfoData, addToCart } from '@/api';
   import { Url } from '@/api/url';
-  const cartInfoKey = "__CARTINFOKEY__";
 
   export default {
     name: 'GoodsInfo',
@@ -58,7 +57,7 @@
        */
       async appendToCart() {
         let method = 'post';
-        let path = Url.addGoodsToCart;
+        let path = Url.addGoodsToCartApi;
         let goodsId = this.goodsInfo.ID;
         try {
           let res = await addToCart(path, method, { goodsId });

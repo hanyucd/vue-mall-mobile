@@ -56,3 +56,10 @@ export const fetchGoodsList = (path, method = 'post', data) => {
 export const addToCart = (path, method = 'post', data) => {
   return ajax(path, method, data);
 }
+
+/**
+ * 购物车商品数据 | GET
+ */
+export const fetchCartInfo = (path, method = 'get') => {
+  return ajax(path, method);
+}
