@@ -7,9 +7,9 @@
 
 前端：脚手架工具 vue-cli@3.0
 
-后端：脚手架工具 koa-generator
+后端：脚手架工具 koa-generator **狼叔-桑世龙**写的；（狼叔说：少抱怨，多思考，未来更美好）
 
-**vue + vue-router + axios + koa + mongoose + mongodb + vant**
+**vue + vue-router + axios + koa + mongodb + mongoose + vant**
 
 ### 移动端 Web 页面适配方案
 
