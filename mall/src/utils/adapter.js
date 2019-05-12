@@ -17,7 +17,6 @@
   var refreshRem = function () {
     var clientWidth = win.innerWidth || doc.documentElement.clientWidth || doc.body.clientWidth;
 
-    win.console.log(clientWidth);
     if (!clientWidth) return;
     var fontSize;
     var width = clientWidth;

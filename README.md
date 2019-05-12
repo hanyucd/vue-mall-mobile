@@ -16,3 +16,7 @@ http://www.ruanyifeng.com/blog/2018/07/json_web_token-tutorial.html
 https://ninghao.net/blog/2834
 http://blog.leapoahead.com/2015/09/06/understanding-jwt/
 https://blog.csdn.net/qq_24078843/article/details/76416187
+
+# Mongoose,更新对象数组中的值 
+https://github.com/hanyucd/vue-mall/blob/master/server/routes/users.js | 169行做更改
+https://codeday.me/bug/20180204/128355.html

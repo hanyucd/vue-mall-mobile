@@ -11,4 +11,6 @@ export const Url = {
   goodsListApi: LOCALURL + '/goods/getGoodsList', // 分页获取小类商品信息接口
   addGoodsToCartApi: LOCALURL + '/user/addGoodsToCart', // 添加商品到购物车接口
   cartInfoApi: LOCALURL + '/user/getCartInfo', // 购物车数据接口
+  editGoodsNumApi: LOCALURL + '/user/editGoodsNum', // 修改商品数量接口
+  clearCartApi: LOCALURL + '/user/clearCart', // 清空购物车接口
 };

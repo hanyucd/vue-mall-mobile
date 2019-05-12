@@ -63,3 +63,17 @@ export const addToCart = (path, method = 'post', data) => {
 export const fetchCartInfo = (path, method = 'get') => {
   return ajax(path, method);
 }
+
+/**
+ * 添加至购物车 | POST
+ */
+export const editGoodsNum = (path, method = 'post', data) => {
+  return ajax(path, method, data);
+}
+
+/**
+ * 清空购物车 | POST
+ */
+export const clearCart = (path, method = 'post', data) => {
+  return ajax(path, method, data);
+}

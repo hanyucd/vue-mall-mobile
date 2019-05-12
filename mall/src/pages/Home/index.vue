@@ -2,23 +2,20 @@
   <div>
     <!-- 顶部搜素 -->
     <section class="search-bar">
-      <van-row gutter="20">
-        <van-col :span="3" style="text-align: center">
-          <img class="location-icon" width="80%" :src="locIcon" alt="" />
-        </van-col>
-        <van-col :span="14">
-          <input type="text" class="search-input" placeholder="搜索商品..." />
-        </van-col>
-        <van-col :span="7" style="text-align: center">
-          <van-button round size="mini">搜索</van-button>
-        </van-col>
-      </van-row>
+      <van-search 
+        placeholder="请输入搜索关键词" 
+        v-model="searchValue"
+        background="#eee"
+        show-action
+      >
+        <div slot="action" @click="search" class="search-txt">搜索</div>
+      </van-search>
     </section>
     <!-- 轮播图 -->
     <section class="swiper-area">
-      <van-swipe :autoplay="3000">
+      <van-swipe :autoplay="3000" :height="200">
         <van-swipe-item v-for="item in bannerResource" :key="item.goodsId">
-          <img v-lazy="item.image" width="100%"/>
+          <img v-lazy="item.image" width="100%" height="100%"/>
         </van-swipe-item>
       </van-swipe>
     </section>
@@ -90,7 +87,7 @@
     },
     data() {
       return {
-        locIcon: require('@/assets/images/location.png'),
+        searchValue: '',
         bannerResource: [], // 轮播图片
         category: [], // 商品种类列表
         adBanner: '', // 广告
@@ -144,22 +141,21 @@
         } catch(error) {
           console.log(error);
         }
+      },
+      /**
+       * 搜索
+       */
+      search() {
+        this.$toast.fail('开发中');
       }
     }
   }
 </script>
 
 <style scoped>
-  .search-bar {
-    height: 3rem;
-    line-height: 3rem;
-    background: #b532e9;
-    overflow: hidden;
-  }
-  .location-icon {
-    padding-top: .8rem;
-    padding-left: .3rem;
-  }
+  /* .search-bar {
+    background: #eee;
+  } */
   .search-input {
     width: 100%;
     height: 1.3rem;
@@ -171,8 +167,6 @@
     border: 1px solid #fff;
   }
   .swiper-area {
-    /* width: 100%;
-    max-height: 15rem; */
     clear: both;
     overflow: hidden;
   }

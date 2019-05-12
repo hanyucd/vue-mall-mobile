@@ -138,4 +138,55 @@ router.get('/getCartInfo', async (ctx) => {
   }
 });
 
+/**
+ * 修改购物车商品数量
+ */
+router.post('/editGoodsNum', async (ctx) => {
+  const goodsId = ctx.request.body.goodsId;
+  const count = ctx.request.body.count;
+
+  if(ctx.headers.authorization) {
+    const token = ctx.headers.authorization.split(' ')[1]; // 获取请求头含有的 token
+    const result = jwt._verify(token);
+    if (result.code && result.code === 200) {
+      try {
+        await UserModel.update({ _id: result.userId, 'cart.goodsId': goodsId }, { 'cart.$.count': count });
+        ctx.body = { code: 200, message: '修改成功' };
+      } catch (error) {
+        ctx.body = { code: 403, message: '修改失败' };
+      }
+    } else if (result.code && result.code === 401) {
+      // token 验证失败执行 eg: token 失效
+      ctx.response.status = 401; // 设置响应状态码
+      ctx.body = { code: result.code, message: result.message };
+    }
+  } else {
+    ctx.body = { code: 401, message: '需要认证' }; // 需要认证
+  }
+});
+
+/**
+ * 清空购物车
+ */
+router.post('/clearCart', async (ctx) => {
+  if(ctx.headers.authorization) {
+    const token = ctx.headers.authorization.split(' ')[1]; // 获取请求头含有的 token
+    const result = jwt._verify(token);
+    if (result.code && result.code === 200) {
+      try {
+        await UserModel.update({ _id: result.userId }, { $set: { 'cart': [] } });
+        ctx.body = { code: 200, message: '清空成功' };
+      } catch (error) {
+        ctx.body = { code: 403, message: '清空失败' };
+      }
+    } else if (result.code && result.code === 401) {
+      // token 验证失败执行 eg: token 失效
+      ctx.response.status = 401; // 设置响应状态码
+      ctx.body = { code: result.code, message: result.message };
+    }
+  } else {
+    ctx.body = { code: 401, message: '需要认证' }; // 需要认证
+  }
+});
+
 module.exports = router;

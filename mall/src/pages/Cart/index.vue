@@ -5,7 +5,7 @@
     </section>
     <!-- 清空购物车 -->
     <section class="cart-title">
-       <van-button size="small" type="danger" @click="clearCart" plain>清空购物车</van-button>
+       <van-button size="small" type="danger" @click="removeCart" plain>清空购物车</van-button>
     </section>
      <!--购物车商品-->
     <ul class="cart-list" v-if="cartList.length !== 0">
@@ -14,7 +14,7 @@
         <section class="goods-text">
           <div class="goods-name">{{ goods.NAME }}</div>
           <div class="goods-control">
-            <van-stepper v-model="goods.COUNT"></van-stepper>
+            <van-stepper disable-input v-model="goods.COUNT" @plus="editNum(goods.ID, goods.COUNT)" @minus="editNum(goods.ID, goods.COUNT, 'minus')"></van-stepper>
           </div>
         </section>
         <section class="goods-price">
@@ -33,15 +33,15 @@
 </template>
 
 <script>
-  import { fetchCartInfo } from '@/api';
+  import { fetchCartInfo, editGoodsNum, clearCart } from '@/api';
   import { Url } from '@/api/url';
+  import { Toast } from 'vant';
   
   export default {
     name: 'Cart',
     data() {
       return {
         cartList: [],
-        isEmpty: false,
         errorImg: 'this.src="' + require('@/assets/images/errorimg.png') + '"'
       }
     },
@@ -69,12 +69,44 @@
         try {
           let res = await fetchCartInfo(path, method);
           this.cartList = res.result;
-          console.log(res);
         } catch (error) {
           console.log(error);
         }
       },
-      clearCart() {
+      /**
+       * 清空购物车
+       */
+      async removeCart() {
+        let method = 'post';
+        let path = Url.clearCartApi;
+        if (!this.cartList.length) {
+          Toast({ message: '已清空', duration: 1000 });
+          return ;
+        } 
+        try {
+          let res = await clearCart(path, method);
+          this._getCartInfo();
+          Toast.success({ message: res.message, mask: true, duration: 1500 });
+          console.log(res)
+        } catch (error) {
+          Toast.fail({ message: error.message, mask: true, duration: 1500 });
+          console.log(error);
+        }
+      },
+      /**
+       * 数量修改
+       */
+      async editNum(goodsId, count, flag = 'add') {
+        let method = 'post';
+        let path = Url.editGoodsNumApi;
+        (flag === 'minus') ? count-- : count++;
+
+        try {
+          let res = await editGoodsNum(path, method, { goodsId, count });
+          console.log(res)
+        } catch (error) {
+          console.log(error);
+        }
       },
       pay() {
         this.$toast.fail('暂不支持支付');
