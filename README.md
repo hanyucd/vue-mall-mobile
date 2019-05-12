@@ -1,6 +1,8 @@
 # vue-mall-mobile
 > 一个基于 vue.js + koa.js + mongodb + vant 的移动端电商网站
 
+注：**该项目后面会持续迭代、优化**。
+
 ## 技术栈 
 
 前端：脚手架工具 vue-cli@3.0
