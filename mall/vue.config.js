@@ -3,6 +3,7 @@
 // const debug = process.env.NODE_ENV !== 'production';
 
 module.exports = {
+  publicPath: './',
   lintOnSave: false,
   devServer: {
     host: '0.0.0.0',
