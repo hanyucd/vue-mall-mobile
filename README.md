@@ -130,4 +130,11 @@ HTTP 头信息 Authorization 字段里，若后端判断 token 失效 或 错误
 - [x] 用户认证
 - [x] 购物车选择商品结算，数量增加、修改
 - [x] 清空购物车
-- [ ] ...
+- [ ] 持续完善...
+
+### 项目截图
+![all.png](./image/all.gif)
+![home.png](./image/home.png)
+![category.png](./image/category.png)
+![cart.png](./image/cart.png)
+![goods_info.png](./image/goods_info.png)
