@@ -1,7 +1,7 @@
 # vue-mall-mobile
 > 一个基于 vue.js + koa.js + mongodb + vant 的移动端电商网站
 
-注：**该项目后面会持续迭代、优化**。
+注：**该项目后面会持续完善、优化**。
 
 ## 技术栈 
 
@@ -93,7 +93,7 @@ JSON Web Token（JWT）是一个非常轻巧的规范。这个规范允许我们
 
 ### NodeJS JWT（json web token） 认证
 
-node 生态圈封装了一个对 jwt 操作的模块 （jsonwebtoken）：
+node 生态圈封装了一个对 jwt 操作的库（jsonwebtoken）：
 
 ```js
 1. 安装
@@ -115,3 +115,9 @@ jwt.verify(token, secret, function (err, decoded) {
   }
 })
 ```
+
+### 此项目用户认证流程
+
+使用 JSON Web Token（JWT）规范做前后端 token 传递，使之用于用户认证；node 使用 jsonwebtoken 库创建 & 校验 token，  
+前端使用 localStorage 存储后端传递过来的 token 信息；当请求后端 API 时，使用 axios 请求拦截器将存储的 token 添加到   
+HTTP 头信息 Authorization 字段里，若后端判断 token 失效 或 错误则返回 401 状态码，最后 axios 响应拦截器做响应处理并删除前端 localStorage 中 token。
