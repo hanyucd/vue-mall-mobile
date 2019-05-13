@@ -67,9 +67,17 @@
         let method = 'post';
         let path = Url.addGoodsToCartApi;
         let goodsId = this.goodsInfo.ID;
+
         try {
           let res = await addToCart(path, method, { goodsId });
           console.log(res)
+          if (!res.code) {
+            this.$dialog.confirm({ message: res.message, confirmButtonText: '前往购物车' })
+              .then(() => { this.$router.push({ name: 'Cart' }) }) // 点击前往购物车
+              .catch(() => null ); // 点击前往购物车
+          } else {
+            this.$toast.success({ message: res.message, duration: 1500 });
+          }
         } catch (error) {
           console.log(error);
         }

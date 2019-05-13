@@ -34,8 +34,9 @@ export default function ajax(path, method, data = {}) {
         }
       })
       .catch(error => {
+        // console.log(error)
         // 网络错误
-        Toast.fail('网络错误!');
+        // Toast.fail('网络错误!');
         reject(error);
       });
   });

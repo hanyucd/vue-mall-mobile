@@ -80,13 +80,14 @@ router.post('/addGoodsToCart', async (ctx) => {
         if (userDoc) {
           // 检查购物车中是否存在将要添加的商品 id
           const goods = userDoc.cart.find(item => item.goodsId === goodsId);
-          goods ? goods.count++ : userDoc.cart.push({ goodsId, count: 1 });
-          // 更新购物车
-          await UserModel.updateOne({ _id: result.userId }, { $set: { cart: userDoc.cart } });
-          ctx.body = {
-            code: 200,
-            message: '商品添加成功'
-          };
+          if (goods) {
+            ctx.body = { message: '购物车已存在该商品' }; // 存在则只返回提示
+          } else {
+            userDoc.cart.push({ goodsId, count: 1 });
+            // 更新购物车 | 存库
+            await UserModel.updateOne({ _id: result.userId }, { $set: { cart: userDoc.cart } });
+            ctx.body = { code: 200, message: '添加成功' };
+          }
         } else {
           ctx.body = { code: 404, message: '无此用户' };
         }
@@ -99,7 +100,7 @@ router.post('/addGoodsToCart', async (ctx) => {
       ctx.body = { code: result.code, message: result.message };
     }
   } else {
-    // 需要认证
+    ctx.response.status = 401; // 设置响应状态码
     ctx.body = { code: 401, message: '需要认证' };
   }
 });
@@ -109,6 +110,7 @@ router.post('/addGoodsToCart', async (ctx) => {
  */
 router.get('/getCartInfo', async (ctx) => {
   if (ctx.headers.authorization) {
+    console.log('认证：', ctx.headers.authorization)
     const token = ctx.headers.authorization.split(' ')[1]; // 获取请求头含有的 token
     const result = jwt._verify(token); // 验证 token 结果
     if (result.code && result.code === 200) {
@@ -133,7 +135,7 @@ router.get('/getCartInfo', async (ctx) => {
       ctx.body = { code: result.code, message: result.message };
     }
   } else {
-    // 需要认证
+    ctx.response.status = 401; // 设置响应状态码
     ctx.body = { code: 401, message: '需要认证' };
   }
 });
@@ -161,6 +163,7 @@ router.post('/editGoodsNum', async (ctx) => {
       ctx.body = { code: result.code, message: result.message };
     }
   } else {
+    ctx.response.status = 401; // 设置响应状态码
     ctx.body = { code: 401, message: '需要认证' }; // 需要认证
   }
 });
@@ -185,6 +188,7 @@ router.post('/clearCart', async (ctx) => {
       ctx.body = { code: result.code, message: result.message };
     }
   } else {
+    ctx.response.status = 401; // 设置响应状态码
     ctx.body = { code: 401, message: '需要认证' }; // 需要认证
   }
 });

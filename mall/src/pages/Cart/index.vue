@@ -83,15 +83,20 @@
           Toast({ message: '已清空', duration: 1000 });
           return ;
         } 
-        try {
-          let res = await clearCart(path, method);
-          this._getCartInfo();
-          Toast.success({ message: res.message, mask: true, duration: 1500 });
-          console.log(res)
-        } catch (error) {
-          Toast.fail({ message: error.message, mask: true, duration: 1500 });
-          console.log(error);
-        }
+        this.$dialog.confirm({ message: '你确定清空购物车嘛？', confirmButtonText: '确定', confirmButtonColor: 'red' })
+          .then(async () => {
+            try {
+              let res = await clearCart(path, method);
+              this._getCartInfo();
+              Toast.success({ message: res.message, mask: true, duration: 1500 });
+            } catch (error) {
+              Toast.fail({ message: error.message, mask: true, duration: 1500 });
+              console.log(error);
+            }
+          }) 
+          .catch((error) => {
+            console.log(error);
+          }); 
       },
       /**
        * 数量修改

@@ -22,9 +22,6 @@ const _verify = (token) => {
   });
 };
 
-// let token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJoYW55dSIsImlhdCI6MTU1NzYzMTA0MywiZXhwIjoxNTU3NjMxMDUzfQ.M920BHjOQOeWELwuY0s0sUVsLZkBSgeELeaogcTDfm0';
-// _verify(token);
-
 module.exports = {
   secret,
   _createToken,
