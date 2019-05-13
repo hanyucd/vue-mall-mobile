@@ -31,7 +31,7 @@
           <div class="goods-list"> 
             <van-pull-refresh v-model="isRefresh" @refresh="onRefresh">
               <van-list v-model="loading" :offset="100" :finished="finished" finished-text="没有更多了" @load="onLoad">
-                <div class="list-item" v-for="item of goodsList" :key="item.ID" @click="goGoodsInfo(item.ID)">
+                <div class="list-item" v-for="(item, index) in goodsList" :key="index" @click="goGoodsInfo(item.ID)">
                   <section class="list-item-img"><img :src="item.IMAGE1" width="100%" height="100%" :onerror="errorImg" /></section>
                   <section class="list-item-text">
                     <p>{{ item.NAME }}</p>
