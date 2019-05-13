@@ -118,6 +118,6 @@ jwt.verify(token, secret, function (err, decoded) {
 
 ### 此项目用户认证流程
 
-使用 JSON Web Token（JWT）规范做前后端 token 传递，使之用于用户认证；node 使用 jsonwebtoken 库创建 & 校验 token，  
-前端使用 localStorage 存储后端传递过来的 token 信息；当请求后端 API 时，使用 axios 请求拦截器将存储的 token 添加到   
+使用 JSON Web Token（JWT）规范做前后端 token 传递，使之用于用户认证；node 使用 jsonwebtoken 库创建 & 校验 token，
+前端使用 localStorage 存储后端传递过来的 token 信息；当请求后端 API 时，使用 axios 请求拦截器将存储的 token 添加到 
 HTTP 头信息 Authorization 字段里，若后端判断 token 失效 或 错误则返回 401 状态码，最后 axios 响应拦截器做响应处理并删除前端 localStorage 中 token。
