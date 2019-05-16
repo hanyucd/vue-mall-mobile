@@ -1,3 +1,5 @@
+# 打算重构该项目，所以该分支作为项目 V1.0 版本预留分支
+
 # vue-mall-mobile
 > 一个基于 vue.js + koa.js + mongodb + vant 的移动端电商网站
 
