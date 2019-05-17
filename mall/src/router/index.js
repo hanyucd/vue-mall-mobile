@@ -37,6 +37,7 @@ const title = {
 
 // 注册全局导航前置钩子用来拦截导航
 router.beforeEach((to, from, next) => {
+  // 设置页面标题
   document.title = title[to.name];
   next();
 });
