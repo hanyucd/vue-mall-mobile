@@ -7,3 +7,5 @@ class Ajax {
     return get(Url.homeDataApi);
   }
 }
+
+export default new Ajax();

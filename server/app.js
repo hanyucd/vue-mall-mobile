@@ -9,7 +9,7 @@ const cors = require('koa2-cors'); // 解决跨域的中间件 koa2-cors
 // 导入数据库连接文件
 const { connect } = require('./utils/connect'); 
 // 导入业务逻辑文件
-const initData = require('./service/initData');
+const initDataService = require('./service/initData');
 // 导入路由文件
 const user = require('./routes/user');
 const goods = require('./routes/goods');
@@ -43,14 +43,14 @@ app.use(async (ctx, next) => {
 app.use(async (ctx, next) => {
   const url = ctx.request.url;
   if (url === '/') {
-    let res = await initData.index();
+    let res = await initDataService.index();
     ctx.body = res;
   }
   next();
 });
 // 装载所有子路由
+router.use('/api/goods', goods.routes());
 router.use('/user', user.routes());
-router.use('/goods', goods.routes());
 // 加载路由中间件
 app.use(router.routes())
    .use(router.allowedMethods());

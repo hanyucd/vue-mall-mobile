@@ -1,7 +1,7 @@
 const baseURL = 'http://localhost:3000';
 
 export const Url = {
-  homeDataApi: baseURL + '/home', // 商城首页所有数据接口
+  homeDataApi: baseURL + '/api/goods/home', // 商城首页所有数据接口
   registerApi: baseURL + '/user/register', // 用户注册接口
   loginApi: baseURL + '/user/login', // 用户登录接口
   goodsDetailInfoApi: baseURL + '/goods/goodsDetailInfo', // 商品信息接口

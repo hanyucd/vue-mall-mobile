@@ -3,7 +3,7 @@ const fs = require('fs');
 const GoodsModel = require('../models/goods');
 const RecommendModel = require('../models/recommend');
 
-class InitData {
+class InitDataService {
   async index() {
     const goodsResult = await GoodsModel.find({}); // 查询 goods 集合所以文档
     const recommendResult = await RecommendModel.find({}); // 查询 recommend 集合所以文档
@@ -90,4 +90,4 @@ class InitData {
   }
 }
 
-module.exports = new InitData();
+module.exports = new InitDataService();
