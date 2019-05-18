@@ -8,6 +8,8 @@ const logger = require('koa-logger');
 const cors = require('koa2-cors'); // 解决跨域的中间件 koa2-cors
 // 导入数据库连接文件
 const { connect } = require('./utils/connect'); 
+// 导入业务逻辑
+const initData = require('./service/initData');
 // 导入路由文件
 const user = require('./routes/user');
 const goods = require('./routes/goods');
@@ -37,16 +39,25 @@ app.use(async (ctx, next) => {
   const ms = new Date() - start;
   console.log(`${ctx.method} ${ctx.url} - ${ms}ms`);
 });
-
-// routes
+// 主要执行初始化数据逻辑任务
+app.use(async (ctx, next) => {
+  const url = ctx.request.url;
+  if (url == '/') {
+    let res = await initData.index();
+    ctx.body = res;
+  }
+  next();
+});
+// 装载所有子路由
 router.use('/user', user.routes());
 router.use('/goods', goods.routes());
+// 加载路由中间件
 app.use(router.routes())
    .use(router.allowedMethods());
 
 // error-handling
 app.on('error', (err, ctx) => {
-  console.error('server error', err, ctx)
+  console.error('server error', err, ctx);
 });
 
 // 立即执行函数
