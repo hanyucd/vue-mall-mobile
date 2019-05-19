@@ -9,7 +9,7 @@ import { Dialog } from 'vant';
 
 axios.defaults.timeout = 3000; // 默认超时设置
 // axios.defaults.baseURL = process.env.NODE_ENV === 'production' ? '/v1' : '/api'; // 相对路径设置
-
+  
 /**
  *  请求拦截器
  */

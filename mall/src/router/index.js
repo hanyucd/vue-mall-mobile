@@ -10,18 +10,21 @@ const Cart = () => import('@/pages/Cart');
 const User = () => import('@/pages/User');
 
 Vue.use(VueRouter);
-
+/**
+ * keepAlive 需要缓存的页面
+ */
 const router =  new VueRouter({
   mode: 'history',
   routes: [
     { path: '/', redirect: { name: 'Home' } },
-    { path: '/index', name: 'Home', component: Home }, // 首页
+    { path: '/home', name: 'Home', component: Home, meta: { keepAlive: true } }, // 首页
     // { path: '/category', name: 'Category', component: Category }, // 商品列表
     // { path: '/cart', name: 'Cart', component: Cart }, // 购物车
     // { path: '/me', name: 'Me', component: User }, // 个人中心
     // { path: '/goodsInfo', name: 'GoodsInfo', component: GoodsInfo }, // 商品信息
     // { path: '/register', name: 'Register', component: Register }, // 注册
     // { path: '/login', name: 'Login', component: Login }, // 登录
+    { path: '*', redirect: { name: 'Home' } }, // 登录
   ]
 });
 

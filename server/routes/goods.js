@@ -8,7 +8,7 @@ const router = new Router();
 router.get('/home', async (ctx) => {
   try {
     let data = await goodsService.getHome();
-    ctx.body = { code: 200, data: data[0] };
+    ctx.body = { code: 200, result: data[0] };
   } catch (error) {
     ctx.body = { code: -1, data: [] };
     console.log(error);
