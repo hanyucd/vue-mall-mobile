@@ -2,11 +2,16 @@ const Router = require('koa-router');
 const goodsService = require('../service/goods');
 const router = new Router();
 
+/**
+ * 获取首页商品接口
+ */
 router.get('/home', async (ctx) => {
   try {
-    const result = await goodsService.getHome();
+    let data = await goodsService.getHome();
+    ctx.body = { code: 200, data: data[0] };
   } catch (error) {
-
+    ctx.body = { code: -1, data: [] };
+    console.log(error);
   }
 });
 

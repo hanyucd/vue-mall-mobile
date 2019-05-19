@@ -11,8 +11,8 @@ const { connect } = require('./utils/connect');
 // 导入业务逻辑文件
 const initDataService = require('./service/initData');
 // 导入路由文件
-const user = require('./routes/user');
 const goods = require('./routes/goods');
+const user = require('./routes/user');
 
 const app = new Koa();
 const router = new Router();
@@ -42,15 +42,16 @@ app.use(async (ctx, next) => {
 // 主要执行初始化数据任务逻辑 | 访问 localhost:3000 执行数据导入任务
 app.use(async (ctx, next) => {
   const url = ctx.request.url;
-  if (url === '/') {
+  if (url == '/') {
     let res = await initDataService.index();
     ctx.body = res;
   }
-  next();
+  await next();
 });
+
 // 装载所有子路由
 router.use('/api/goods', goods.routes());
-router.use('/user', user.routes());
+// router.use('/user', user.routes());
 // 加载路由中间件
 app.use(router.routes())
    .use(router.allowedMethods());
