@@ -50,7 +50,7 @@
     left: 0;
     right: 0;
     bottom: 0;
-    height:  13.5vw;
+    height: 13.5vw;
     display: flex;
     background: #fff;
     z-index: 100;

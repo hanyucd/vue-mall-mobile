@@ -9,16 +9,28 @@
         <van-icon name="clear" class="clear" @click="inputValue = ''" v-show="inputValue" />
       </section>
     </header>
-
+    <!-- 内容区 -->
     <section class="content" v-if="homeData">
+      <!-- 轮播图 -->
       <banner :slides="homeData.slides"></banner>
+      <!-- 分类 -->
       <category v-if="homeData.advertesPicture" :category="homeData.category" :advertesPicture="homeData.advertesPicture.PICTURE_ADDRESS"></category>
+      <!-- 推荐商品 -->
       <recommend :recommend="homeData.recommend"></recommend>
-      <floor v-if="homeData.floor1" :floorName="homeData.floorName.floor1" :floor="homeData.floor1" :num="1"></floor>
-      <floor v-if="homeData.floor2" :floorName="homeData.floorName.floor2" :floor="homeData.floor2" :num="2"></floor>
-      <floor v-if="homeData.floor3" :floorName="homeData.floorName.floor3" :floor="homeData.floor3" :num="3"></floor>
+      <!-- 楼层商品 -->
+      <div v-if="homeData.floorName">
+        <floor v-for="(item, index) in Object.keys(homeData.floorName)" 
+          :key="index" 
+          :floorName="homeData.floorName[item]" 
+          :floor="homeData[item]" 
+          :num="index + 1"
+        >
+        </floor>
+      </div>
+      <!-- 热卖商品 -->
+      <hot-goods :hotGoods="homeData.hotGoods"></hot-goods>
     </section>
-    <!-- <footer-nav></footer-nav> -->
+    <footer-nav></footer-nav>
   </div>
 </template>
 
@@ -27,6 +39,7 @@
   import Category from './Category';
   import Recommend from './Recommend';
   import Floor from './Floor';
+  import HotGoods from './HotGoods';
   import FooterNav from '@/components/FooterNav';
   import ajax from '@/api';
 
@@ -37,6 +50,7 @@
       Category,
       Recommend,
       Floor,
+      HotGoods,
       FooterNav
     },
     data() {
@@ -110,5 +124,13 @@
         color: #999;
       }
     }
+  }
+  .content {
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 44px;
+    bottom: 13.5vw;
+    overflow-y: scroll;
   }
 </style>

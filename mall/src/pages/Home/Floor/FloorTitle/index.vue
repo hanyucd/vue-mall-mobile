@@ -1,6 +1,6 @@
 <template>
   <div id="title" v-show="floorName">
-    <span class="num" v-show="num">{{ num }}</span>
+    <span class="num" v-show="num">{{ num }}F</span>
     <span class="name">{{ floorName }}</span>
   </div>
 </template>
@@ -31,10 +31,7 @@
       background: $color;
       color: #fff;
       font-size: 12px;
-    }
-    .name {
-      display: inline-block;
-      margin-left: 5px;
+      margin-right: 5px;
     }
   }
 </style>
