@@ -9,7 +9,9 @@
 <script>
   export default {
     name: "Search",
-    data() {}
+    data() {
+      return {};
+    }
   }
 </script>
 

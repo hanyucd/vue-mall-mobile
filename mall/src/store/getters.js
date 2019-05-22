@@ -1,0 +1,1 @@
+export const goodsDetails = state => state.goodsDetails; // 商品详情

@@ -19,12 +19,9 @@
 
 <script>
   export default {
-    name: 'Hot',
+    name: 'HotGoods',
     props: {
-      hotGoods: {
-        type: Array,
-        default: () => []
-      }
+      hotGoods: { type: Array, default: () => [] }
     }
   }
 </script>

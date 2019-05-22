@@ -27,7 +27,7 @@
 
 <script>
   import { fetchGoodsInfoData, addToCart } from '@/api';
-  import { Url } from '@/api/url';
+  // import { Url } from '@/api/url';
 
   export default {
     name: 'GoodsInfo',
@@ -40,14 +40,6 @@
       let goodsId = this.$route.query.goodsId;
       this._getGoodsInfo(goodsId);
     },
-    // watch: {
-    //   '$route' (to, from) {
-    //     let goodsId = to.$query.goodsId;
-    //     // let goodsId = this.$route.query.goodsId;
-    //     this._getGoodsInfo(goodsId);
-    //     console.log(to)
-    //   }
-    // },
     methods: {
       async _getGoodsInfo(goodsId) {
         let method = 'get';

@@ -15,7 +15,8 @@
     "vant": "^1.6.16",
     "vue": "^2.6.10",
     "vue-awesome-swiper": "^3.1.3",
-    "vue-router": "^3.0.6"
+    "vue-router": "^3.0.6",
+    "vuex": "^3.1.1"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "^3.7.0",
