@@ -9,8 +9,8 @@
         <van-icon name="clear" class="clear" @click="inputValue = ''" v-show="inputValue" />
       </section>
       <!-- 取消 -->
-      <transition name="cancel-anim">
-        <div class="cancel" v-show="query" @click="closeSearch">取消</div>
+      <transition name="cancel-bounce">
+        <section class="cancel" v-show="isSearch" @click="closeSearch">取消</section>
       </transition>
     </header>
     <!-- 内容区 -->
@@ -49,6 +49,8 @@
         </div>
       </b-scroll>
     </section>
+    <!-- 搜索结果 -->
+    <search v-show="isSearch"></search>
     <!-- 底部导航 -->
     <footer-nav></footer-nav>
   </div>
@@ -60,28 +62,21 @@
   import Recommend from './Recommend';
   import Floor from './Floor';
   import HotGoods from './HotGoods';
+  import Search from './Search';
   import BScroll from '@/components/BScroll';
   import FooterNav from '@/components/FooterNav';
   import ajax from '@/api';
 
   export default {
     name: 'Home',
-    components: {
-      Banner,
-      Category,
-      Recommend,
-      Floor,
-      HotGoods,
-      BScroll,
-      FooterNav
-    },
+    components: { Banner, Category, Recommend, Floor, HotGoods, Search, BScroll, FooterNav },
     data() {
       return {
         inputValue: '', // 搜素框
         homeData: {}, // 首页数据
         probeType: 3, // 不仅在屏幕滑动的过程中，而且在 momentum 滚动动画运行过程中实时派发 scroll 事件
         bounce: { top: true }, // 当滚动超过边缘的时候会有一小段回弹动画
-        query: false, // 显示搜索
+        isSearch: false, // 是否显示搜索结果
       };
     },
     created() {
@@ -103,30 +98,30 @@
         }
       },
       focus() {
-        this.query = true;
+        this.isSearch = true;
+      },
+      closeSearch() {
+        this.isSearch = false;
       },
       scroll() {},
       scrollEnd() {},
-      closeSearch() {
-        this.query = false;
-      }
     }
   }
 </script>
 
 <style lang="scss" scoped>
   // 定义取消动画
-  @keyframes cancel-anim {
+  @keyframes cancel-bounce {
     0% { transform: translate3d(100%, 0, 0); }
     100% { transform: translate3d(0, 0, 0); }
   }
   // 取消动画进入
-  .cancel-anim-enter-active {
-    animation: cancel-anim .3s;
+  .cancel-bounce-enter-active {
+    animation: cancel-bounce .3s;
   }
   // 取消动画离开
-  .cancel-anim-leave-active {
-    animation: cancel-anim .1s reverse;
+  .cancel-bounce-leave-active {
+    animation: cancel-bounce .3s reverse;
   }
 
   .header {

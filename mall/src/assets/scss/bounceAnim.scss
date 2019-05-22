@@ -1,0 +1,22 @@
+
+// 定义进入动画 
+@keyframes bounceFromRightToCenter {
+	from { transform: translate3d(100%, 0, 0); }
+	to { transform: translate3d(0, 0, 0); }
+}
+// 定义退出动画 
+@keyframes bounceFromCenterToRight {
+	from { transform: translate3d(0, 0, 0); }
+	to { transform: translate3d(100%, 0, 0); }
+}
+
+// 进入
+.bounce-enter-active {
+	animation: bounceFromRightToCenter .4s forwards;
+	box-shadow: -3px 0  5px rgba(0, 0, 0, .1);
+}
+// 离开
+.bounce-leave-active {
+	animation: bounceFromCenterToRight .4s forwards;
+	box-shadow: -3px 0  5px rgba(0, 0, 0, .1);
+}

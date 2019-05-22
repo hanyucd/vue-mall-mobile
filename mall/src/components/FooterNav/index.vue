@@ -54,16 +54,16 @@
     display: flex;
     background: #fff;
     z-index: 100;
-      section {
-        flex: 1;
-        display: flex;
-        flex-direction: column;
-        justify-content: space-around;
-        align-items: center;
-        color: #7d7e80;
-      }
-      .active {
-        color: $color;
-      }
+    section {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-around;
+      align-items: center;
+      color: #7d7e80;
+    }
+    .active {
+      color: $color;
+    }
   }
 </style>
