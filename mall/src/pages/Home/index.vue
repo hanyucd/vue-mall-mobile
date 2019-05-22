@@ -11,25 +11,41 @@
     </header>
     <!-- 内容区 -->
     <section class="content" v-if="homeData">
-      <!-- 轮播图 -->
-      <banner :slides="homeData.slides"></banner>
-      <!-- 分类 -->
-      <category v-if="homeData.advertesPicture" :category="homeData.category" :advertesPicture="homeData.advertesPicture.PICTURE_ADDRESS"></category>
-      <!-- 推荐商品 -->
-      <recommend :recommend="homeData.recommend"></recommend>
-      <!-- 楼层商品 -->
-      <div v-if="homeData.floorName">
-        <floor v-for="(item, index) in Object.keys(homeData.floorName)" 
-          :key="index" 
-          :floorName="homeData.floorName[item]" 
-          :floor="homeData[item]" 
-          :num="index + 1"
-        >
-        </floor>
-      </div>
-      <!-- 热卖商品 -->
-      <hot-goods :hotGoods="homeData.hotGoods"></hot-goods>
+      <b-scroll 
+        class="content-scroll"
+        ref="scrollRef"
+        v-if="homeData" 
+        :data="homeData.hotGoods" 
+        :probeType="probeType" 
+        :pullup="true" 
+        :bounce="bounce"
+        :listenScroll="true"
+        @scroll="scroll"
+        @scrollEnd="scrollEnd"
+      >
+        <div class="container">
+          <!-- 轮播图 -->
+          <banner :slides="homeData.slides"></banner>
+          <!-- 分类 -->
+          <category v-if="homeData.advertesPicture" :category="homeData.category" :advertesPicture="homeData.advertesPicture.PICTURE_ADDRESS"></category>
+          <!-- 推荐商品 -->
+          <recommend :recommend="homeData.recommend"></recommend>
+          <!-- 楼层商品 -->
+          <div v-if="homeData.floorName">
+            <floor v-for="(item, index) in Object.keys(homeData.floorName)" 
+              :key="index" 
+              :floorName="homeData.floorName[item]" 
+              :floor="homeData[item]" 
+              :num="index + 1"
+            >
+            </floor>
+          </div>
+          <!-- 热卖商品 -->
+          <hot-goods :hotGoods="homeData.hotGoods"></hot-goods>
+        </div>
+      </b-scroll>
     </section>
+    <!-- 底部导航 -->
     <footer-nav></footer-nav>
   </div>
 </template>
@@ -40,6 +56,7 @@
   import Recommend from './Recommend';
   import Floor from './Floor';
   import HotGoods from './HotGoods';
+  import BScroll from '@/components/BScroll';
   import FooterNav from '@/components/FooterNav';
   import ajax from '@/api';
 
@@ -51,31 +68,37 @@
       Recommend,
       Floor,
       HotGoods,
+      BScroll,
       FooterNav
     },
     data() {
       return {
         inputValue: '', // 搜素框
         homeData: {}, // 首页数据
-        floorName: {} // 楼层名称
+        probeType: 3,
+        bounce: { top: true },
       };
     },
     created() {
       this._getHome();
     },
     methods: {
+      /**
+       * 获取首页数据
+       */
       async _getHome() {
         try {
           let res = await ajax.getHomeData();
           if (res.code === 200) {
-            this.homeData = res.result
-            this.floorName = res.result.floorName;
+            this.homeData = res.result;
             console.log(res)
           }
         } catch (error) {
           console.log(error);
         }
-      }
+      },
+      scroll() {},
+      scrollEnd() {}
     }
   }
 </script>
@@ -131,6 +154,9 @@
     right: 0;
     top: 44px;
     bottom: 13.5vw;
-    overflow-y: scroll;
+    .content-scroll {
+      height: 100%;
+      overflow: hidden;
+    }
   }
 </style>
