@@ -5,9 +5,13 @@
       <section class="city">杭州 ▼</section>
       <section class="search-box">
         <van-icon name="search" class="search-icon"/>
-        <input class="box" type="text" placeholder="请输入搜索关键词" v-model="inputValue" />
+        <input class="box" type="text" @focus="focus" placeholder="请输入搜索关键词" v-model="inputValue" />
         <van-icon name="clear" class="clear" @click="inputValue = ''" v-show="inputValue" />
       </section>
+      <!-- 取消 -->
+      <transition name="cancel-anim">
+        <div class="cancel" v-show="query" @click="closeSearch">取消</div>
+      </transition>
     </header>
     <!-- 内容区 -->
     <section class="content" v-if="homeData">
@@ -75,8 +79,9 @@
       return {
         inputValue: '', // 搜素框
         homeData: {}, // 首页数据
-        probeType: 3,
-        bounce: { top: true },
+        probeType: 3, // 不仅在屏幕滑动的过程中，而且在 momentum 滚动动画运行过程中实时派发 scroll 事件
+        bounce: { top: true }, // 当滚动超过边缘的时候会有一小段回弹动画
+        query: false, // 显示搜索
       };
     },
     created() {
@@ -97,13 +102,33 @@
           console.log(error);
         }
       },
+      focus() {
+        this.query = true;
+      },
       scroll() {},
-      scrollEnd() {}
+      scrollEnd() {},
+      closeSearch() {
+        this.query = false;
+      }
     }
   }
 </script>
 
 <style lang="scss" scoped>
+  // 定义取消动画
+  @keyframes cancel-anim {
+    0% { transform: translate3d(100%, 0, 0); }
+    100% { transform: translate3d(0, 0, 0); }
+  }
+  // 取消动画进入
+  .cancel-anim-enter-active {
+    animation: cancel-anim .3s;
+  }
+  // 取消动画离开
+  .cancel-anim-leave-active {
+    animation: cancel-anim .1s reverse;
+  }
+
   .header {
     height: 44px;
     line-height: 44px;
@@ -147,7 +172,15 @@
         color: #999;
       }
     }
+    .cancel {
+      // position: absolute;
+      // top: 0;
+      // right: 12px;
+      margin: 0 8px;
+      font-size: 16px;
+    }
   }
+
   .content {
     position: fixed;
     left: 0;

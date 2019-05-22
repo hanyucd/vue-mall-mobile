@@ -25,7 +25,9 @@
     transition-duration: 0.4s !important;
 }
 
-/*路由前进，进入*/
+/*
+    路由前进，进入
+*/
 .bounce-enter-active {
 	/* animation: bounce-in .3s; */
 	animation: pageFromRightToCenter 400ms forwards;
@@ -41,7 +43,9 @@
 }
 
 
-/*路由前进，进入*/
+/*
+    路由前进，进入
+*/
 
 @keyframes pageFromRightToCenter {
 	from {
