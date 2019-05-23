@@ -18,7 +18,7 @@ const router =  new VueRouter({
   routes: [
     { path: '/', redirect: { name: 'Home' } },
     { path: '/home', name: 'Home', component: Home, meta: { keepAlive: true } }, // 首页
-    { path: '/goodsDetails', name: 'GoodsDetails', component: GoodsDetails }, // 商品信息
+    { path: '/goodsDetails', name: 'GoodsDetails', component: GoodsDetails, props: route => ({ goodsId: route.query.goodsId }), meta: { keepAlive: true } }, // 商品信息
     // { path: '/category', name: 'Category', component: Category }, // 商品列表
     // { path: '/cart', name: 'Cart', component: Cart }, // 购物车
     // { path: '/me', name: 'Me', component: User }, // 个人中心
@@ -33,7 +33,7 @@ const title = {
   Category: '商品分类',
   Cart: '购物车',
   Me: '个人中心',
-  GoodsInfo: '商品详情',
+  GoodsDetails: '商品详情',
   Register: '注册',
   Login: '登录'
 };

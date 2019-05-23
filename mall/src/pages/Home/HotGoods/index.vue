@@ -4,7 +4,7 @@
       <span class="name">热卖商品</span>
     </section>
     <ul>
-      <li class="hot-goods-item" v-for="item of hotGoods" :key="item.goodsId">
+      <li class="hot-goods-item" v-for="item of hotGoods" :key="item.goodsId" @click="goGoodsDetails(item)">
         <img v-lazy="item.image" class="hot-goods-img" />
         <p class="name">{{ item.name }}</p>
         <p class="price">
@@ -18,11 +18,14 @@
 </template>
 
 <script>
+  import { GoodsMixin } from '@/mixins/goodsMixin';
+
   export default {
+    mixins: [ GoodsMixin ],
     name: 'HotGoods',
     props: {
       hotGoods: { type: Array, default: () => [] }
-    }
+    },
   }
 </script>
 
