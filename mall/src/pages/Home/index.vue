@@ -36,10 +36,10 @@
           <recommend :recommend="homeData.recommend"></recommend>
           <!-- 楼层商品 -->
           <div v-if="homeData.floorName">
-            <floor v-for="(item, index) in Object.keys(homeData.floorName)" 
-              :key="index" 
-              :floorName="homeData.floorName[item]" 
-              :floor="homeData[item]" 
+            <floor v-for="(item, index) in Object.keys(homeData.floorName)"
+              :key="index"
+              :floorName="homeData.floorName[item]"
+              :floor="homeData[item]"
               :num="index + 1"
             >
             </floor>
@@ -81,6 +81,7 @@
     },
     created() {
       this._getHome();
+      // console.log('首页生命')
     },
     methods: {
       /**
@@ -91,7 +92,7 @@
           let res = await ajax.getHomeData();
           if (res.code === 200) {
             this.homeData = res.result;
-            console.log(res)
+            // console.log(res)
           }
         } catch (error) {
           console.log(error);

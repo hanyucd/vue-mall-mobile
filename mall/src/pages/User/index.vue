@@ -12,12 +12,19 @@
       </div>
       <div class="userName" v-else>{{ userName }}</div>
     </header>
+    <!-- 底部导航 -->
+    <footer-nav></footer-nav>
   </div>
 </template>
 
 <script>
+  import FooterNav from '@/components/FooterNav';
+  
   export default {
     name: 'User',
+    components: {
+      FooterNav
+    },
     data() {
       return {
         userName: ''

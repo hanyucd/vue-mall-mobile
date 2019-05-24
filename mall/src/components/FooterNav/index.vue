@@ -35,7 +35,8 @@
     },
     methods: {
       clickTab(index, name) {
-        if (this.navIndex === index) return;
+        // if (this.navIndex === index) return;
+        // this.navIndex = index;
         this.$router.push({ name });
       }
     }
