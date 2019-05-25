@@ -11,12 +11,9 @@
 
 <script>
   export default {
-    name: 'Swiper',
+    name: 'Banner',
     props: {
-      slides: {
-        type: Array,
-        default: () => []
-      }
+      slides: { type: Array, default: () => [] }
     }
   }
 </script>

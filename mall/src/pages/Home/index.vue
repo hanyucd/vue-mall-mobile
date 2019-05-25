@@ -75,7 +75,7 @@
         inputValue: '', // 搜素框
         homeData: {}, // 首页数据
         probeType: 3, // 不仅在屏幕滑动的过程中，而且在 momentum 滚动动画运行过程中实时派发 scroll 事件
-        bounce: { top: true }, // 当滚动超过边缘的时候会有一小段回弹动画
+        bounce: { top: true }, // 当滚动超过边缘的时候顶部会有一小段回弹动画
         isSearch: false, // 是否显示搜索结果
       };
     },

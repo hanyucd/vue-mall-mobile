@@ -3,7 +3,7 @@ const baseURL = 'http://192.168.2.113:3000';
 
 export const Url = {
   homeDataApi: baseURL + '/api/goods/home', // 商城首页所有数据接口
-  goodsDetailsApi: baseURL + '/api/goods/goodsDetails', // 商品信息接口
+  goodsDetailsApi: baseURL + '/api/goods/goodsDetails', // 商品详情接口
   registerApi: baseURL + '/user/register', // 用户注册接口
   loginApi: baseURL + '/user/login', // 用户登录接口
   categoryListApi: baseURL + '/goods/getCategoryList', // 大类信息接口

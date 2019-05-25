@@ -11,14 +11,6 @@
     flex-basis: 20% !important;
 }
 
-.van-tabs__content {
-    position: fixed;
-    top: 84px;
-    bottom: 50px;
-    right: 0;
-    left: 80px
-}
-
 .swip {
     width: 94px !important;
     transform: translateX(47px) !important;
