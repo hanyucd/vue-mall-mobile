@@ -5,6 +5,8 @@
 </template>
 
 <script>
+  import ajax from '@/api';
+
   export default {
     name: "GoodsDetails",
     props: [ 'goodsId' ],
@@ -18,7 +20,13 @@
       /**
        * 商品详情
        */
-      _goodsDetails(goodsId) {
+      async _goodsDetails(goodsId) {
+        try {
+          let res = await ajax.getGoodsDetails(goodsId);
+          console.log(res);
+        } catch (error) {
+          console.log(errro);
+        }
         console.log('id:', goodsId)
       }
     }

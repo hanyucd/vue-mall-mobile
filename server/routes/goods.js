@@ -3,7 +3,7 @@ const goodsService = require('../service/goods');
 const router = new Router();
 
 /**
- * 获取首页商品接口
+ * 获取首页商品信息
  */
 router.get('/home', async (ctx) => {
   try {
@@ -16,16 +16,13 @@ router.get('/home', async (ctx) => {
 });
 
 /**
- * 获取商品详细信息的接口
+ * 获取商品详细信息
  */
-router.get('/goodsDetailInfo', async (ctx) => {
-  const goodsId = ctx.request.query.goodsId;
-
+router.get('/goodsDetails', async (ctx) => {
+  const { goodsId } = ctx.request.query;
   try {
-    let goods = await GoodsModel.findOne({ ID: goodsId });
-    (goods)
-      ? ctx.body = { code: 200, message: 'success', result: goods }
-      : ctx.body = { code: 404, message: '无商品信息' };
+    let goods = await goodsService.getGoodsDetails(goodsId);
+    ctx.body = { code: 200, result: goods };
   } catch(error) {
     ctx.body = { code: 500, message: error }
   }

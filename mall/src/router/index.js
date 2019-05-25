@@ -10,7 +10,7 @@ const Register = () => import('@/pages/Register');
 const Login = () => import('@/pages/Login');
 
 // 定义路由跳转动画
-Router.prototype.animate = 0;
+Router.prototype.animateFlag = 0;
 Vue.use(Router);
 /**
  * keepAlive 需要缓存的页面
