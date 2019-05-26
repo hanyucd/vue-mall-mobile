@@ -22,7 +22,11 @@ router.get('/goodsDetails', async (ctx) => {
   const { goodsId } = ctx.request.query;
   try {
     let goods = await goodsService.getGoodsDetails(goodsId);
-    ctx.body = { code: 200, result: goods };
+    if (goods) {
+      ctx.body = { code: 200, result: goods };
+    } else {
+      ctx.body = { code: 404, message: '暂无该商品信息' };
+    }
   } catch(error) {
     ctx.body = { code: 500, message: error }
   }

@@ -14,7 +14,7 @@
           <section class="left">
             <van-icon name="shopping-cart" />
           </section>
-          <section class="right">查看详情</section>
+          <section class="right" @click="goGoodsDetails(item)">查看详情</section>
         </div>
       </swiper-slide>
     </swiper>
@@ -24,8 +24,10 @@
 <script>
   import { swiper, swiperSlide } from 'vue-awesome-swiper';
   import 'swiper/dist/css/swiper.css';
+  import { GoodsMixin } from '@/mixins/goodsMixin';
   export default {
     name: 'Recommend',
+    mixins: [ GoodsMixin ],
     components: {
       swiper,
       swiperSlide,

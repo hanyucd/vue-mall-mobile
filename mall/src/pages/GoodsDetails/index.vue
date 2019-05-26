@@ -5,20 +5,20 @@
         <!-- 商品图片轮播图 -->
         <van-swipe class="goods-swipe" :autoplay="3000" :duration="1500" :touchable="false" @change="onChangeSwipe">
           <van-swipe-item v-for="n in 4" :key="n">
-            <img v-lazy="goodsDetails.image" @click="previewImg" />
+            <img v-lazy="goodsInfo.image" @click="previewImg" />
           </van-swipe-item>
           <!-- 自定义指示器 -->
           <article class="custom-indicator" slot="indicator">{{ currentImg + 1 }}/4</article>
         </van-swipe>
         <!-- 商品信息 -->
         <section class="goods-info">
-          <p class="goods-name">{{ goodsDetails.name }}</p>
-          <span class="goods-price">￥{{ goodsDetails.present_price }}</span>
+          <p class="goods-name">{{ goodsInfo.name }}</p>
+          <span class="goods-price">￥{{ goodsInfo.present_price }}</span>
         </section>
         <!-- 商品运费 -->
         <section class="goods-express">
-          <span class="goods-ex">运费：{{ goodsDetails.express || 0  }}</span>
-          <span class="goods-amount">剩余：{{ goodsDetails.amount }}</span>
+          <span class="goods-ex">运费：{{ goodsInfo.express || 0  }}</span>
+          <span class="goods-amount">剩余：{{ goodsInfo.amount }}</span>
           <span class="goods-collection">
             收藏：
             <van-icon 
@@ -45,7 +45,7 @@
           <van-tabs v-model="currentTab">
             <van-tab v-for="item of tabs" :key="item.id" :title="item.title">
               <!-- 图片 -->
-              <div v-show="currentTab == 0" v-html="goodsDetails.detail"></div>
+              <div v-show="currentTab == 0" v-html="goodsInfo.detail"></div>
               <!-- 评论 -->
               <div v-show="currentTab == 1" class="comment-wrapper">
                 <div v-if="!commentList.length" class="no-comment">该商品暂无评论噢~~</div>
@@ -62,12 +62,12 @@
       <div v-show="showBuyDrawer" class="drawer-buy">
         <!-- 商品信息 -->
         <section class="drawer-goods-info">
-          <img v-lazy="goodsDetails.image_path" />
+          <img v-lazy="goodsInfo.image_path" />
           <div class="goods-info">
-            <p class="goods-name">{{ goodsDetails.name }}</p>
+            <p class="goods-name">{{ goodsInfo.name }}</p>
             <p class="goods-pic">
               <span>￥</span>
-              <span>{{ (goodsDetails.present_price * buyTotal) | toFixed }}</span>
+              <span>{{ (goodsInfo.present_price * buyTotal) | toFixed }}</span>
             </p>
           </div>
         </section>
@@ -75,7 +75,7 @@
         <section class="drawer-goods-count">
           <div class="buy-total">
             <p>购买数量：<span>{{ buyTotal }}</span></p>
-            <span>剩余 {{ goodsDetails.amount }} 件</span>
+            <span>剩余 {{ goodsInfo.amount }} 件</span>
           </div>
           <div class="change-total">
             <van-stepper v-model="buyTotal" disable-input />
@@ -109,7 +109,7 @@
     </article>
 
     <!-- 后退 -->
-    <back></back>
+    <back @backEvt="back"></back>
   </div>
 </template>
 
@@ -117,21 +117,23 @@
   import Back from './Back';
   import BScroll from '@/components/BScroll';
   import { ImagePreview } from 'vant'; // 图片预览
+  import { GoodsMixin } from '@/mixins/goodsMixin';
   import ajax from '@/api';
 
   export default {
     name: "GoodsDetails",
+    mixins: [ GoodsMixin ],
     components: { Back, BScroll },
     props: [ 'goodsId' ],
     data() {
       return {
-        goodsDetails: {}, // 商品详情
+        goodsInfo: {}, // 商品信息
         currentImg: 0, // 当前显示图片索引
         isCollection: false, // 是否收藏 | ture: 收藏  false: 未收藏
         tabs: [{ id: 0, title: '商品详情' }, { id: 1, title: '商品评论' }], // 标签页
         currentTab: 0, // 当前标签页索引
         commentList: [], // 评论
-        showBuyDrawer: true, // 是否显示购买区
+        showBuyDrawer: false, // 是否显示购买抽屉
         buyTotal: 1, // 购买数量
       }
     },
@@ -152,13 +154,14 @@
 
         try {
           let res = await ajax.getGoodsDetails(goodsId);
-          this.goodsDetails = res.result;
+          this.goodsInfo = res.result;
           console.log(res);
-          if (this.goodsDetails) {
-            document.title = this.goodsDetails.name;
+          if (this.goodsInfo) {
+            document.title = this.goodsInfo.name;
           }
         } catch (error) {
-          console.log(errro);
+          (error) && this.$toast(error.message);
+          console.log(error);
         }
       },
       /**
@@ -170,7 +173,7 @@
        */
       previewImg() {
         ImagePreview({
-          images: new Array(4).fill(this.goodsDetails.image),
+          images: new Array(4).fill(this.goodsInfo.image),
           showIndicators: true,
         })
       },

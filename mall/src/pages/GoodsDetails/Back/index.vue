@@ -9,6 +9,7 @@
     name: 'Back',
     methods: {
       back() {
+        this.$emit('backEvt');
       }
     }
   }

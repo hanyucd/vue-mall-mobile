@@ -21,8 +21,8 @@
   import { GoodsMixin } from '@/mixins/goodsMixin';
 
   export default {
-    mixins: [ GoodsMixin ],
     name: 'HotGoods',
+    mixins: [ GoodsMixin ],
     props: {
       hotGoods: { type: Array, default: () => [] }
     },
