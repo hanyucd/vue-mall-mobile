@@ -3,9 +3,9 @@ import Router from 'vue-router';
 
 const Home = () => import('@/pages/Home'); // 首页
 const GoodsDetails = () => import('@/pages/GoodsDetails'); // 商品详情
-const Category = () => import('@/pages/Category');
-const Cart = () => import('@/pages/Cart');
-const User = () => import('@/pages/User');
+const Category = () => import('@/pages/Category'); // 商品列表
+const Cart = () => import('@/pages/Cart'); // 购物车
+const User = () => import('@/pages/User'); // 个人中心
 
 // 定义路由跳转动画
 Router.prototype.animateFlag = 0;

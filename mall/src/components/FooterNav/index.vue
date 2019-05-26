@@ -24,7 +24,6 @@
     },
     created() {
       const { name } = this.$route;
-      console.log(name)
       switch (name) {
         case 'Home': this.navIndex = 0; break;
         case 'Category': this.navIndex = 1; break;
