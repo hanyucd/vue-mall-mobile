@@ -145,6 +145,12 @@
     created() {
       this._goodsDetails(this.goodsId);
     },
+    deactivated() {
+      // keep-alive 组件停用时商品详情数据
+      setTimeout(() => {
+        this.goodsInfo = {};
+      }, 500);
+    },
     methods: {
       /**
        * 商品详情
@@ -160,7 +166,7 @@
             document.title = this.goodsInfo.name;
           }
         } catch (error) {
-          (error) && this.$toast(error.message);
+          (error.code === 404) && this.$toast(error.message);
           console.log(error);
         }
       },
