@@ -3,7 +3,7 @@
     <b-scroll class="content-scroll" ref="scrollRef">
       <div class="container">
         <!-- 商品图片轮播图 -->
-        <van-swipe class="goods-swipe" :autoplay="3000" :duration="1500" :touchable="false" @change="onChange">
+        <van-swipe class="goods-swipe" :autoplay="3000" :duration="1500" :touchable="false" @change="onChangeSwipe">
           <van-swipe-item v-for="n in 4" :key="n">
             <img v-lazy="goodsDetails.image" @click="previewImg" />
           </van-swipe-item>
@@ -56,6 +56,16 @@
         </section>
       </div>
     </b-scroll>
+
+    <!-- 立即购买区 -->
+    <transition name="bounce-drawer">
+      <div v-show="showBuyDrawer" class="buy-drawer"></div>
+    </transition>
+    <!-- 蒙层 -->
+    <transition name="fade">
+      <article class="overlay" v-show="showBuyDrawer" @click="showBuyDrawer = false"></article>
+    </transition>
+
     <!-- 底部购买 -->
     <article class="goods-buy">
       <!-- 首页 -->
@@ -71,8 +81,9 @@
       <!-- 加入购物车 -->
       <section class="com-text add-cart" @click="addCart">加入购物车</section>
       <!-- 立即购买 -->
-      <section class="com-text buy-now" @click="buyNowDrawer">立即购买</section>
+      <section class="com-text buy-now" @click="popupBuyDrawer">立即购买</section>
     </article>
+
     <!-- 后退 -->
     <back></back>
   </div>
@@ -96,6 +107,7 @@
         tabs: [{ id: 0, title: '商品详情' }, { id: 1, title: '商品评论' }], // 标签页
         currentTab: 0, // 当前标签页索引
         commentList: [], // 评论
+        showBuyDrawer: true, // 是否显示购买区
       }
     },
     watch: {
@@ -127,7 +139,7 @@
       /**
        * 监听一页轮播结束事件
        */
-      onChange(index) { this.currentImg = index },
+      onChangeSwipe(index) { this.currentImg = index },
       /**
        * 预览图片
        */
@@ -148,9 +160,9 @@
        */
       addCart() {},
       /**
-       * 显示立即购买抽屉
+       * 弹出立即购买抽屉
        */
-      buyNowDrawer() {}
+      popupBuyDrawer() { this.showBuyDrawer = true; }
     }
   }
 </script>
@@ -158,6 +170,19 @@
 <style lang="scss" scoped>
   $color:#b532e9;
   $borderColor: #F6F7F8;
+
+  // 立即购买弹跳
+  @keyframes bounceAnim {
+    0% { transform: translate3d(0, 100%, 0); }
+    80% { transform: translate3d(0, -8%, 0); }
+    100% { transform: translate3d(0, 0, 0); }
+  }
+  .bounce-drawer-enter-active { animation: bounceAnim .3s }
+  .bounce-drawer-leave-active { animation: bounceAnim .3s reverse }
+
+  // 蒙层动画
+  .fade-enter, .fade-leave-to { opacity: 0 }
+  .fade-enter-active, .fade-leave-active { transition: opacity .5s; }
 
   .goods {
     .content-scroll {
@@ -221,6 +246,24 @@
           }
         }
       }
+    }
+    .buy-drawer {
+      position: fixed;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      z-index: 200;
+      height: 40vh;
+      background: #fff;
+    }
+    .overlay {
+      position: fixed;
+      left: 0;
+      right: 0;
+      top: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.7);
+      z-index: 100;
     }
     .goods-buy {
       position: fixed;
