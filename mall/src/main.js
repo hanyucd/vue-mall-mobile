@@ -17,6 +17,10 @@ Vue.use(Lazyload);
 Vue.use(Vant);
 
 Vue.config.productionTip = false;
+// 定义全局过滤器
+Vue.filter('toFixed', function(value) {
+  return Number(value).toFixed(2);
+});
 
 new Vue({
   router,

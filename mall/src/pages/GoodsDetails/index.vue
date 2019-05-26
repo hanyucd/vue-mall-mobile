@@ -57,13 +57,37 @@
       </div>
     </b-scroll>
 
-    <!-- 立即购买区 -->
+    <!-- 立即购买弹出层 -->
     <transition name="bounce-drawer">
-      <div v-show="showBuyDrawer" class="buy-drawer"></div>
+      <div v-show="showBuyDrawer" class="drawer-buy">
+        <!-- 商品信息 -->
+        <section class="drawer-goods-info">
+          <img v-lazy="goodsDetails.image_path" />
+          <div class="goods-info">
+            <p class="goods-name">{{ goodsDetails.name }}</p>
+            <p class="goods-pic">
+              <span>￥</span>
+              <span>{{ (goodsDetails.present_price * buyTotal) | toFixed }}</span>
+            </p>
+          </div>
+        </section>
+        <!-- 购买数量 -->
+        <section class="drawer-goods-count">
+          <div class="buy-total">
+            <p>购买数量：<span>{{ buyTotal }}</span></p>
+            <span>剩余 {{ goodsDetails.amount }} 件</span>
+          </div>
+          <div class="change-total">
+            <van-stepper v-model="buyTotal" disable-input />
+          </div>
+        </section>
+        <!-- 立即购买 -->
+        <section class="drawer-buy-now">立即购买</section>
+      </div>
     </transition>
     <!-- 蒙层 -->
     <transition name="fade">
-      <article class="overlay" v-show="showBuyDrawer" @click="showBuyDrawer = false"></article>
+      <article class="mask" v-show="showBuyDrawer" @click="showBuyDrawer = false"></article>
     </transition>
 
     <!-- 底部购买 -->
@@ -108,6 +132,7 @@
         currentTab: 0, // 当前标签页索引
         commentList: [], // 评论
         showBuyDrawer: true, // 是否显示购买区
+        buyTotal: 1, // 购买数量
       }
     },
     watch: {
@@ -247,16 +272,63 @@
         }
       }
     }
-    .buy-drawer {
+    .drawer-buy {
       position: fixed;
       left: 0;
       right: 0;
       bottom: 0;
       z-index: 200;
       height: 40vh;
+      border-radius: 5px 5px 0 0;
+      display: flex;
+      flex-direction: column;
       background: #fff;
+      section { flex: 1 }
+      .drawer-goods-info {
+        flex-basis: 40%; 
+        display: flex;
+        margin: 0 16px;
+        border-bottom: 1px solid $borderColor;
+        img { 
+          width: 80px; 
+          height: 80%; 
+          transform: translate3d(0, -10px, 0);
+          border: 1px solid #eee;
+        }
+        .goods-info {
+          padding-left: 30px;
+          flex: 1;
+          font-size: 14px;
+          .goods-name { margin-top: 10px; line-height: 1.4; }
+          .goods-pic { margin-top: 10px; color: $color; }
+        }
+      }
+      .drawer-goods-count { 
+        flex-basis: 40%;
+        padding: 10px 0;
+        margin: 0 16px;
+        display: flex;
+        justify-content: space-between;
+        .buy-total {
+          p { 
+            font-size: 12px; 
+            margin-bottom: 15px; 
+            span { color: $color; }
+          }
+          span { font-size: 14px; color: #999; }
+        }
+      }
+      .drawer-buy-now { 
+        flex-basis: 20%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        color: #fff;
+        background: #f44;
+        letter-spacing: 2px;
+      }
     }
-    .overlay {
+    .mask {
       position: fixed;
       left: 0;
       right: 0;
