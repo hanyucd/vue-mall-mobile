@@ -1,0 +1,33 @@
+#category {
+  background: #EEEEEE;
+  padding: 15px 0;
+  ul {
+    display: flex;
+    flex-wrap: wrap;
+    width: 95%;
+    margin: 0 auto;
+    padding: 15px 0px 7px 0px;
+    box-sizing: border-box;
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 3px 4px 20px rgba(45, 45, 45, .15);
+    li {
+      width: calc((1 / 5) * 100%);
+      text-align: center;
+      img {
+        width: 70%;
+        margin-bottom: 10px;
+      }
+      p {
+        font-size: 14px;
+      }
+    }
+  }
+  .ad {
+    width: 100%;
+    margin-top: 10px;
+    img {
+      width: 100%;
+    }
+  }
+}

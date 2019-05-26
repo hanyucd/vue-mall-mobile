@@ -6,8 +6,6 @@ const GoodsDetails = () => import('@/pages/GoodsDetails'); // 商品详情
 const Category = () => import('@/pages/Category');
 const Cart = () => import('@/pages/Cart');
 const User = () => import('@/pages/User');
-const Register = () => import('@/pages/Register');
-const Login = () => import('@/pages/Login');
 
 // 定义路由跳转动画
 Router.prototype.animateFlag = 0;
@@ -23,9 +21,7 @@ const router =  new Router({
     { path: '/category', name: 'Category', component: Category }, // 商品列表
     { path: '/cart', name: 'Cart', component: Cart }, // 购物车
     { path: '/me', name: 'Me', component: User }, // 个人中心
-    { path: '/goodsDetails', name: 'GoodsDetails', component: GoodsDetails, props: route => ({ goodsId: route.query.goodsId }), meta: { keepAlive: true } }, // 商品信息
-    // { path: '/register', name: 'Register', component: Register }, // 注册
-    // { path: '/login', name: 'Login', component: Login }, // 登录
+    { path: '/goodsDetails', name: 'GoodsDetails', component: GoodsDetails, props: route => ({ goodsId: route.query.goodsId }) }, // 商品信息
     { path: '*', redirect: { name: 'Home' } }
   ]
 });

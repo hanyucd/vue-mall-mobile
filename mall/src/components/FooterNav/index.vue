@@ -22,21 +22,19 @@
         navIndex: 0
       };
     },
-    watch: {
-      $route() {
-        const name = this.$route.name;
-        switch (name) {
-          case 'Home': this.navIndex = 0; break;
-          case 'Category': this.navIndex = 1; break;
-          case 'Cart': this.navIndex = 2; break;
-          case 'Me': this.navIndex = 3; break;
-        }
+    created() {
+      const { name } = this.$route;
+      console.log(name)
+      switch (name) {
+        case 'Home': this.navIndex = 0; break;
+        case 'Category': this.navIndex = 1; break;
+        case 'Cart': this.navIndex = 2; break;
+        case 'Me': this.navIndex = 3; break;
       }
     },
     methods: {
       clickTab(index, name) {
-        // if (this.navIndex === index) return;
-        // this.navIndex = index;
+        if (this.navIndex === index) return;
         this.$router.push({ name });
       }
     }
@@ -63,8 +61,6 @@
       align-items: center;
       color: #7d7e80;
     }
-    .active {
-      color: $color;
-    }
+    .active { color: $color; }
   }
 </style>

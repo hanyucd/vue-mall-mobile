@@ -38,33 +38,5 @@
 </script>
 
 <style lang="scss" scoped>
-  #floor {
-    .floor-wrapper {
-      display: flex;
-      flex-direction: column;
-      .floor-top {
-        display: flex;
-        border-bottom: 1px solid #ddd;
-        .floor-top-left, .floor-top-right { flex: 1; box-sizing: border-box; }
-        .floor-top-left {
-          border-right: 1px solid #ddd;
-          img { width: 100%; }
-        }
-        .floor-top-right {
-          .border-btm { border-bottom: 1px solid #ddd }
-          img { width: 100%; }
-        }
-      }
-      .floor-bottom {
-        display: flex;
-        :first-child { border-right: 1px solid #ddd; }
-        div {
-          box-sizing: border-box;
-          flex: 1;
-          border-bottom: 1px solid #ddd;
-          img { width: 100%; }
-        }
-      }
-    }
-  }
+  @import './style.scss';
 </style>
