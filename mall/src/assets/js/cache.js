@@ -5,10 +5,12 @@ const CATEGORY_LIST = 'category_list'; // 分类 key
 let categoryCache = {
   setCache(list = []) {
     storage.setItem(CATEGORY_LIST, list);
+    console.log('set：', list)
     return list;
   },
   getCache() {
-    return storage.getItem(CATEGORY_LIST) ? storage.getItem(CATEGORY_LIST) : [];
+    console.log('get:', storage.getItem(CATEGORY_LIST))
+    return (storage.getItem(CATEGORY_LIST)) ? storage.getItem(CATEGORY_LIST) : [];
   }
 };
 

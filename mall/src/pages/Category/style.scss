@@ -6,5 +6,23 @@
     right: 0;
     top: 11.5vw;
     bottom: 13.5vw;
+    display: flex;
+    .left {
+      flex: 0 0 5rem;
+      background: #F1F8FF;
+      ul { 
+        height: 100%; 
+        overflow: scroll; 
+        li {
+          color: #666;
+          height: 3rem;
+          line-height: 3rem;
+          text-align: center;
+          box-sizing: border-box;
+          font-size: 14px;
+          &.active { background: #fff; border-left: 2px solid #FF4444; }
+        }
+      }
+    }
   }
 }
