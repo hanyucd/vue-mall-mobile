@@ -13,9 +13,11 @@
 <script>
   import TopBar from '@/components/TopBar';
   import FooterNav from '@/components/FooterNav';
+  import { GoodsMixin } from '@/mixins/goodsMixin';
 
   export default {
     name: 'Category',
+    mixins: [ GoodsMixin ],
     components: { TopBar, FooterNav },
   }
 </script>

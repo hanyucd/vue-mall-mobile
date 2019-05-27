@@ -2,11 +2,11 @@ import { mapMutations, mapGetters, mapActions } from 'vuex';
 
 export const GoodsMixin = {
   computed: {
-    ...mapGetters([ 'goodsDetails' ])
+    ...mapGetters(['goodsDetails', 'categoryList'])
   },
   methods: {
     ...mapMutations({ setGoodsDetails: 'GOODS_DETAILS' }),
-    ...mapActions([]),
+    ...mapActions(['setCategoryList']),
     // 跳转商品详情页
     goGoodsDetails(item) {
       this.setGoodsDetails(item); // 调取 vuex 中 mutations 设置 state

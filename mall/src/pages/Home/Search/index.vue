@@ -20,7 +20,7 @@
 
   #search-result {
     position: fixed;
-    top: 44px;
+    top: 11.5vw;
     left: 0;
     right: 0;
     bottom: 0;

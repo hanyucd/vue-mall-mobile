@@ -17,10 +17,7 @@
   export default {
     name: 'Category',
     props: {
-      category: {
-        type: Array,
-        default: () => []
-      },
+      category: { type: Array, default: () => [] },
       advertesPicture: { type: String, default: '' }
     }
   }
