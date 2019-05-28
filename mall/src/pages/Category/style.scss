@@ -11,7 +11,7 @@
       flex: 0 0 5rem;
       background: #F1F8FF;
       ul { 
-        height: 100%; 
+        position: relative;
         li {
           color: #666;
           height: 3rem;
@@ -19,7 +19,16 @@
           text-align: center;
           box-sizing: border-box;
           font-size: 14px;
-          &.active { background: #fff; border-left: 2px solid #FF4444; }
+          &.active { background: #fff; }
+        }
+        .sidebar-tag {
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: .2rem;
+          height: 3rem;
+          background: red;
+          transition: top .3s ease-out;
         }
       }
     }
