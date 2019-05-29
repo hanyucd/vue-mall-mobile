@@ -10,7 +10,7 @@
     .left {
       flex: 0 0 5rem;
       background: #F1F8FF;
-      ul { 
+      ul {
         position: relative;
         li {
           color: #666;
@@ -31,6 +31,9 @@
           transition: top .3s ease-out;
         }
       }
+    }
+    .right {
+      flex: 1;
     }
   }
 }
