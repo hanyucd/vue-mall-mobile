@@ -30,9 +30,7 @@
   export default {
     name: 'Floor',
     mixins: [ GoodsMixin ],
-    components: {
-      FloorTitle
-    },
+    components: { FloorTitle },
     props: [ 'floorName', 'floor', 'num' ]
   }
 </script>

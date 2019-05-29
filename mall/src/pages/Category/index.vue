@@ -15,7 +15,7 @@
       </section>
       <!-- 右侧内容 -->
       <section class="right">
-        <van-tabs v-model="currentTabIndex" @click="onCategorySubClick">
+        <van-tabs v-model="curTabIndex" @click="onCategorySubClick">
           <!-- <b-scroll> -->
             <div class="container">
               <van-tab v-for="(item, index) in categorySubList" :key="index" :title="item.mallSubName">
@@ -46,7 +46,8 @@
       return {
         sidebarIndex: 0, // 侧边栏导航下标
         categorySubList: [], // 子分类列表
-        currentTabIndex: 0, // 当前子分类激活下标
+        curTabIndex: 0, // 当前子分类激活下标
+        curTabIndexCopy: 0, // 当前子分类激活下标副本 | 对重复点击相同子分类做节流
         goodsList: [], // 商品列表
       };
     },
@@ -95,6 +96,7 @@
        * 切换侧边导航
        */
       switchSideNav(item, index) {
+        // 节流
         if (this.sidebarIndex === index) return;
 
         // 切换左侧导航下标
@@ -105,7 +107,9 @@
         // 切换子分类列表
         this.categorySubList = item.bxMallSubDto;
         // 切换子分类下标为第一个
-        this.currentTabIndex = 0;
+        this.curTabIndex = 0;
+        // 初始化子分类下标副本
+        this.curTabIndexCopy = 0;
         // 默认获取大分类下的第一个子分类商品数据
         this._getGoodsList(item.bxMallSubDto[0].mallSubId);
       },
@@ -113,6 +117,10 @@
        * 点击子分类
        */
       onCategorySubClick(index) {
+        // 节流
+        if (this.curTabIndexCopy === index) return;
+        this.curTabIndexCopy = index;
+
         this._getGoodsList(this.categorySubList[index].mallSubId);
       }
     }

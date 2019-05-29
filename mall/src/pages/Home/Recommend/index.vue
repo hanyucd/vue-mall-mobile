@@ -28,15 +28,9 @@
   export default {
     name: 'Recommend',
     mixins: [ GoodsMixin ],
-    components: {
-      swiper,
-      swiperSlide,
-    },
+    components: { swiper, swiperSlide },
     props: {
-      recommend: {
-        type: Array,
-        default: () => []
-      }
+      recommend: { type: Array, default: () => [] }
     },
     data() {
       return {
