@@ -4,11 +4,8 @@ const baseURL = 'http://192.168.2.113:3000';
 export const Url = {
   homeDataApi: baseURL + '/api/goods/home', // 商城首页所有数据接口
   goodsDetailsApi: baseURL + '/api/goods/goodsDetails', // 商品详情接口
-  registerApi: baseURL + '/user/register', // 用户注册接口
-  loginApi: baseURL + '/user/login', // 用户登录接口
-  categoryListApi: baseURL + '/goods/getCategoryList', // 大类信息接口
-  categorySubListApi: baseURL + '/goods/getCategorySubList', // 子类接口
-  goodsListApi: baseURL + '/goods/getGoodsList', // 分页获取小类商品信息接口
+  goodsListApi: baseURL + '/api/goods/goodsList', // 分类商品列表接口
+  
   addGoodsToCartApi: baseURL + '/user/addGoodsToCart', // 添加商品到购物车接口
   cartInfoApi: baseURL + '/user/getCartInfo', // 购物车数据接口
   editGoodsNumApi: baseURL + '/user/editGoodsNum', // 修改商品数量接口

@@ -11,6 +11,11 @@ class Ajax {
   getGoodsDetails(goodsId) {
     return get(Url.goodsDetailsApi, { goodsId });
   }
+
+  // 获取分类商品数据 | GET
+  getGoodsList(categorySubId) {
+    return get(Url.goodsListApi, { categorySubId });
+  }
 }
 
 export default new Ajax();
