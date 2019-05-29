@@ -7,10 +7,10 @@ const router = new Router();
  */
 router.get('/home', async (ctx) => {
   try {
-    let data = await goodsService.getHome();
-    ctx.body = { code: 200, result: data[0] };
+    let homeData = await goodsService.getHome();
+    ctx.body = { code: 200, result: homeData[0] };
   } catch (error) {
-    ctx.body = { code: -1, data: [] };
+    ctx.body = { code: -1, result: [] };
     console.log(error);
   }
 });
@@ -20,6 +20,7 @@ router.get('/home', async (ctx) => {
  */
 router.get('/goodsDetails', async (ctx) => {
   const { goodsId } = ctx.request.query;
+
   try {
     let goods = await goodsService.getGoodsDetails(goodsId);
     if (goods) {
@@ -37,10 +38,10 @@ router.get('/goodsDetails', async (ctx) => {
  */
 router.get('/goodsList', async (ctx) => {
   let { categorySubId } = ctx.request.query;
-  console.log('分类Id：', categorySubId)
 
   try {
-    ctx.body = { code: 200, result: categorySubId };
+    let goodsList = await goodsService.getGoodsList(categorySubId);
+    ctx.body = { code: 200, result: goodsList };
   } catch (error) {
     ctx.body = { code: 500, message: error };
   }

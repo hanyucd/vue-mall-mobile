@@ -19,7 +19,7 @@
           <!-- <b-scroll> -->
             <div class="container">
               <van-tab v-for="(item, index) in categorySubList" :key="index" :title="item.mallSubName">
-                h
+                <goods-list :goodsList="goodsList"></goods-list>
               </van-tab>
             </div>
           <!-- </b-scroll> -->
@@ -34,6 +34,7 @@
 <script>
   import TopBar from '@/components/TopBar';
   import BScroll from '@/components/BScroll';
+  import GoodsList from '@/components/GoodsList';
   import FooterNav from '@/components/FooterNav';
   import { GoodsMixin } from '@/mixins/goodsMixin';
   import ajax from '@/api';
@@ -41,7 +42,7 @@
   export default {
     name: 'Category',
     mixins: [ GoodsMixin ],
-    components: { TopBar, BScroll, FooterNav },
+    components: { TopBar, BScroll, GoodsList, FooterNav },
     data() {
       return {
         sidebarIndex: 0, // 侧边栏导航下标
@@ -83,10 +84,11 @@
        * 根据子分类 Id 获取对应分类商品数据
        */
       async _getGoodsList(categorySubId) {
-        console.log(categorySubId);
-
         try {
           let res = await ajax.getGoodsList(categorySubId);
+          if (res.code === 200) {
+            this.goodsList = res.result;
+          }
           console.log(res)
         } catch (error) {
           console.log(error);
@@ -106,10 +108,12 @@
         this.$refs.sideTagRef.style.top = `${ top }%`;
         // 切换子分类列表
         this.categorySubList = item.bxMallSubDto;
-        // 切换子分类下标为第一个
+        // 切换为第一个子分类下标
         this.curTabIndex = 0;
-        // 初始化子分类下标副本
+        // 恢复初始化子分类下标副本
         this.curTabIndexCopy = 0;
+        // 清空商品列表
+        this.goodsList = [];
         // 默认获取大分类下的第一个子分类商品数据
         this._getGoodsList(item.bxMallSubDto[0].mallSubId);
       },
@@ -120,7 +124,8 @@
         // 节流
         if (this.curTabIndexCopy === index) return;
         this.curTabIndexCopy = index;
-
+        // 清空商品列表
+        this.goodsList = [];
         this._getGoodsList(this.categorySubList[index].mallSubId);
       }
     }

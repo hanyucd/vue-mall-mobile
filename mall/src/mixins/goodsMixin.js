@@ -10,7 +10,7 @@ export const GoodsMixin = {
     // 跳转商品详情页
     goGoodsDetails(item) {
       this.setGoodsDetails(item); // 调取 vuex 中 mutations 设置 state
-      this.$router.push({ name: 'GoodsDetails', query: { goodsId: item.goodsId } });
+      this.$router.push({ name: 'GoodsDetails', query: { goodsId: item.goodsId || item.id } });
     },
     // 退回到上一页
     back() {
