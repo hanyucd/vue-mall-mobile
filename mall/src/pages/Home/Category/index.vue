@@ -2,8 +2,8 @@
  <!-- 分类列表 -->
   <div id="category">
     <ul v-show="category && category.length">
-      <li v-for="item of category" :key="item.mallCategoryId">
-        <img v-lazy="item.image"  alt=""/>
+      <li v-for="(item, index) in category" :key="item.mallCategoryId">
+        <img v-lazy="item.image" alt="" @click="clickCategory(item, index)" />
         <p>{{ item.mallCategoryName }}</p>
       </li>
     </ul>
@@ -19,6 +19,16 @@
     props: {
       category: { type: Array, default: () => [] },
       advertesPicture: { type: String, default: '' }
+    },
+    methods: {
+      clickCategory(item, index) {
+        // 默认取大分类的第一个子分类 id
+        let categorySubId = item.bxMallSubDto[0].mallSubId;
+        this.$router.push({
+          name: 'Category',
+          params: { categorySubId, index, item }
+        });
+      }
     }
   }
 </script>

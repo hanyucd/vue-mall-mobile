@@ -3,7 +3,7 @@
     <p class="title">商品推荐</p>
     <swiper :options="swiperOption">
       <swiper-slide class="recommend-item" v-for="item of recommend" :key="item.goodsId">
-        <img v-lazy="item.image" class="recommend-img" />
+        <img v-lazy="item.image" class="recommend-img" @click="goGoodsDetails(item)" />
         <p class="name">{{ item.goodsName }}</p>
         <p class="price">
           <span class="code">￥</span>

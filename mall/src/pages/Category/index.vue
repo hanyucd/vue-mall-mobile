@@ -56,6 +56,23 @@
       };
     },
     created() {
+      // 点击首页分类传递过来
+      let { categorySubId, index, item } = this.$route.params;
+
+      if (categorySubId && index && item) {
+        // 切换左侧导航下标
+        this.sidebarIndex = index;
+        this.$nextTick(() => {
+          // 计算侧边导航标签距离顶部距离
+          let top = 100 / (this.categoryList.length) * index;
+          this.$refs.sideTagRef.style.top = `${ top }%`;
+        });
+        // 切换子分类列表
+        this.categorySubList = item.bxMallSubDto;
+        this._getGoodsList(categorySubId);
+        
+        return;
+      }
       this._getCategoryList();
     },
     methods: {
@@ -72,6 +89,8 @@
               this.setCategoryList(res.result.category);
               // 默认取第一个大分类的子分类列表
               this.categorySubList = res.result.category[0].bxMallSubDto;
+              // 默认取第一个子分类商品数据
+              this._getGoodsList(this.categorySubList[0].mallSubId);
             }
           } catch (error) {
             console.log(error);
