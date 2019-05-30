@@ -5,12 +5,12 @@
       <section class="city">杭州 ▼</section>
       <section class="search-box">
         <van-icon name="search" class="search-icon"/>
-        <input class="box" type="text" @focus="focus" placeholder="请输入搜索关键词" v-model="inputValue" />
-        <van-icon name="clear" class="clear" @click="inputValue = ''" v-show="inputValue" />
+        <input class="box" type="text" @focus="focus" placeholder="请输入搜索关键词" v-model="searchKeyword" />
+        <van-icon name="clear" class="clear" @click="searchKeyword = ''" v-show="searchKeyword" />
       </section>
       <!-- 取消 -->
       <transition name="cancel-bounce">
-        <section class="cancel" v-show="isSearch" @click="closeSearch">取消</section>
+        <section class="cancel" v-show="isSearch" @click="cancelSearch">取消</section>
       </transition>
     </header>
     <!-- 内容区 -->
@@ -72,16 +72,17 @@
     components: { Banner, Category, Recommend, Floor, HotGoods, Search, BScroll, FooterNav },
     data() {
       return {
-        inputValue: '', // 搜素框
         homeData: {}, // 首页数据
         probeType: 3, // 不仅在屏幕滑动的过程中，而且在 momentum 滚动动画运行过程中实时派发 scroll 事件
         bounce: { top: true }, // 当滚动超过边缘的时候顶部会有一小段回弹动画
+        searchKeyword: '', // 搜素关键字
         isSearch: false, // 是否显示搜索结果
       };
     },
     created() {
       this._getHome();
       // console.log('首页生命')
+      this._search();
     },
     methods: {
       /**
@@ -98,10 +99,27 @@
           console.log(error);
         }
       },
+      /**
+       * 搜索
+       */
+      async _search() {
+        let data = 'vue';
+        try {
+          let res = await ajax.search(data, 9);
+        } catch (error) {
+          console.log(error);
+        }
+      },
+      /**
+       * 输入框聚焦
+       */
       focus() {
         this.isSearch = true;
       },
-      closeSearch() {
+      /**
+       * 取消搜索
+       */
+      cancelSearch() {
         this.isSearch = false;
       },
       scroll() {},

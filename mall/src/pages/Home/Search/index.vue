@@ -16,15 +16,5 @@
 </script>
 
 <style lang="scss" scoped>
-  @import '@/assets/scss/bounceAnim.scss';
-
-  #search-result {
-    position: fixed;
-    top: 11.5vw;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    z-index: 200;
-    background: #fff;
-  }
+  @import './style.scss';
 </style>

@@ -16,6 +16,11 @@ class Ajax {
   getGoodsList(categorySubId) {
     return get(Url.goodsListApi, { categorySubId });
   }
+
+  // 搜索
+  search(keyword, page = 1) {
+    return post(Url.searchApi, { keyword, page });
+  }
 }
 
 export default new Ajax();

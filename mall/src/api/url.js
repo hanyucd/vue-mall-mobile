@@ -5,6 +5,8 @@ export const Url = {
   homeDataApi: baseURL + '/api/goods/home', // 商城首页所有数据接口
   goodsDetailsApi: baseURL + '/api/goods/goodsDetails', // 商品详情接口
   goodsListApi: baseURL + '/api/goods/goodsList', // 分类商品列表接口
+
+  searchApi: baseURL + '/api/search', // 搜索接口
   
   addGoodsToCartApi: baseURL + '/user/addGoodsToCart', // 添加商品到购物车接口
   cartInfoApi: baseURL + '/user/getCartInfo', // 购物车数据接口
