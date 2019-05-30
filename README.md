@@ -1,7 +1,7 @@
 # vue-mall-mobile
 > 一个基于 vue.js + koa.js + mongodb + vant 的移动端电商网站
 
-注：**该项目正在 重构、完善、优化中。。。**
+注：**该项目正在重构、完善、优化中。。。**
 
 ## 技术栈 
 
@@ -9,7 +9,9 @@
 
 后端：脚手架工具 koa-generator **狼叔-桑世龙**写的；（狼叔说：少抱怨，多思考，未来更美好）
 
-**vue + vue-router + axios + koa + mongodb + mongoose + vant**
+主体：**vue + vue-router + vuex + axios + koa + mongodb + mongoose + vant**
+
+其他：**better-scroll + vue-awesome-swiper**
 
 ### 移动端 Web 页面适配方案
 
