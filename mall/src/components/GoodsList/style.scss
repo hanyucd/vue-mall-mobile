@@ -1,3 +1,5 @@
+$color:#b532e9;
+
 ul {
   .goods-item {
     display: flex;
@@ -15,6 +17,27 @@ ul {
     }
     .right-txt {
       flex: 1;
+      padding-left: 1rem;
+      width: 0;
+      .goods-name {
+        margin-bottom: 1rem;
+        font-size: 14px;
+        line-height: 1.5;
+        overflow: hidden;
+        white-space: nowrap;  
+        text-overflow: ellipsis; 
+      }
+      .goods-num {
+        .pic {
+          color: $color;
+          font-weight: 700;
+          margin-right: .5rem;
+        }
+        .orl-pic {
+          text-decoration: line-through;
+          font-size: 13px;
+        }
+      }
     }
   }
 }
