@@ -3,7 +3,7 @@
     <li v-for="item of goodsList" :key="item._id || item.id" class="goods-item" @click="goGoodsDetails(item)">
       <!-- 左侧图片 -->
       <section class="left-img">
-        <img v-lazy="item.image" />
+        <img v-lazy="item.image" :onerror="defImg" />
       </section>
       <!-- 右侧文本 -->
       <section class="right-txt">
@@ -25,6 +25,11 @@
     mixins: [ GoodsMixin ],
     props: {
       goodsList: { type: Array, default: () => [] }
+    },
+    data() {
+      return {
+        defImg: 'this.src="' + require('@/assets/images/vue.jpg') + '"',
+      }
     },
     methods: {
       keyWordLight(textStr) {

@@ -16,14 +16,17 @@
       <!-- 右侧内容 -->
       <section class="right">
         <van-tabs v-model="curTabIndex" @click="onCategorySubClick">
-          <!-- <b-scroll> -->
-            <div class="container">
-              <van-tab v-for="(item, index) in categorySubList" :key="index" :title="item.mallSubName">
-                <goods-list :goodsList="goodsList"></goods-list>
-              </van-tab>
-            </div>
-          <!-- </b-scroll> -->
+          <van-tab v-for="(item, index) in categorySubList" :key="index" :title="item.mallSubName">
+          </van-tab>
         </van-tabs>
+        <div class="scroll-wrapper">
+          <b-scroll class="content-scroll" :data="goodsList" v-if="goodsList.length">
+            <div class="container">
+              <goods-list :goodsList="goodsList"></goods-list>
+            </div>
+          </b-scroll>
+          <article class="no-data" v-show="!goodsList.length">暂无数据~~</article>
+        </div>
       </section>
     </div>
     <!-- 底部导航 -->

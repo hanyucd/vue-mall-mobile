@@ -1,6 +1,6 @@
 <template>
  <!-- 滚动组件 -->
-  <div ref="wrapper">
+  <div class="scroll-wrapper" ref="wrapper">
     <slot></slot>
   </div>
 </template>

@@ -7,6 +7,7 @@ ul {
     padding: 10px 15px;
     box-sizing: border-box;
     border-bottom: 1px solid #eee;
+    &:last-child { border-bottom: none; }
     .left-img {
       flex-basis: 30%;
       img {
