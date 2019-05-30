@@ -28,7 +28,7 @@
     },
     data() {
       return {
-        defImg: 'this.src="' + require('@/assets/images/vue.jpg') + '"',
+        defImg: 'this.src="' + require('@/assets/imgs/vue.jpg') + '"',
       }
     },
     methods: {
