@@ -65,11 +65,14 @@
   import Search from './Search';
   import BScroll from '@/components/BScroll';
   import FooterNav from '@/components/FooterNav';
+  import { GoodsMixin } from '@/mixins/goodsMixin';
+  import { loadMixin } from '@/mixins/loadMixin';
   import { throttle } from '@/utils/tools'; // 导入节流函数
   import ajax from '@/api';
 
   export default {
     name: 'Home',
+    mixins: [ GoodsMixin, loadMixin ],
     components: { Banner, Category, Recommend, Floor, HotGoods, Search, BScroll, FooterNav },
     data() {
       return {
@@ -87,7 +90,7 @@
       this.unWatch = this.$watch('searchKeyword', throttle(() => {
         if (this.searchKeyword) {
           this.page = 1;
-          this._search(this.searchKeyword);
+          this._search(this.searchKeyword, false);
         }
       }, 1000, 1000));
       console.log('首页生命')
@@ -116,10 +119,25 @@
        * @param {Boolean} isLoadMore 是否加载更多
        */
       async _search(keyWord, isLoadMore) {
+        // 判断上一次请求是否完成 | 必须等待上一次请求完成才继续向下执行，方法在 loadMixin 中
+        if (this.isLocked()) return;
+        this.locked(); // 上锁，方法在 loadMixin 中
+
         try {
           let res = await ajax.search(keyWord, this.page);
           console.log(res);
+          if (res.code === 200) {
+            this.setDataTotal(res.result.total); // 设置数据总数
+            // 判断是加载更多还是一次新的请求，方法在 loadMixin 中
+            isLoadMore
+              ? this.addMoreData(res.result.goodsList)
+              : this.dataList = res.result.goodsList;
+            // 解锁，方法在 loadMixin 中
+            this.unLocked();
+          }
         } catch (error) {
+          // 解锁，方法在 loadMixin 中
+          this.unLocked();
           console.log(error);
         }
       },

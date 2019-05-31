@@ -34,11 +34,11 @@ class GoodsService {
   }
 
   // 搜索
-  async search({ keyword, pageSize, skip }) {
+  async search({ keyword, page, pageSize, skip }) {
     try {
-      const count = await GoodsModel.find({ name: { $regex: keyword } }).countDocuments();
+      const total = await GoodsModel.find({ name: { $regex: keyword } }).countDocuments();
       const goodsList = await GoodsModel.find({ name: { $regex: keyword } }).skip(skip).limit(pageSize);
-      return { count, goodsList };
+      return { total, page, goodsList };
     } catch (error) {
       console.log(error);
     }
