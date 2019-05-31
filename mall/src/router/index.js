@@ -17,7 +17,7 @@ const router =  new Router({
   mode: 'history',
   routes: [
     { path: '/', redirect: { name: 'Home' } },
-    { path: '/home', name: 'Home', component: Home, meta: { keepAlive: true } }, // 首页
+    { path: '/home', name: 'Home', component: Home }, // 首页
     { path: '/category', name: 'Category', component: Category }, // 商品分类
     { path: '/cart', name: 'Cart', component: Cart }, // 购物车
     { path: '/me', name: 'Me', component: User }, // 个人中心

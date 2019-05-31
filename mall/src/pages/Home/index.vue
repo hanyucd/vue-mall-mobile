@@ -65,6 +65,7 @@
   import Search from './Search';
   import BScroll from '@/components/BScroll';
   import FooterNav from '@/components/FooterNav';
+  import { throttle } from '@/utils/tools';
   import ajax from '@/api';
 
   export default {
@@ -81,8 +82,15 @@
     },
     created() {
       this._getHome();
-      // console.log('首页生命')
-      this._search();
+      this.unWatch = this.$watch('searchKeyword', throttle(() => {
+        this._search();
+      }, 1000, 1000));
+      console.log('首页生命')
+    },
+    destroyed() {
+      // 注销 watch
+      this.unWatch();
+      console.log(this.unWatch)
     },
     methods: {
       /**
@@ -106,6 +114,7 @@
         let data = 'vue';
         try {
           let res = await ajax.search(data, 9);
+          console.log(res);
         } catch (error) {
           console.log(error);
         }

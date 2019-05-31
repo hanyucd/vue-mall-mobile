@@ -79,6 +79,47 @@ axios.interceptors.response.use(function (response) {
   return Promise.reject（error）;
 });
 ```
+### 搜索联想实现
+函数节流（throttle）：规定在一个单位时间内，只能触发一次函数。如果这个单位时间内触发多次函数，只有一次生效。
+```js
+/**
+ * 函数节流方法
+ * @param {Function} fn 延时调用函数
+ * @param {Number} delay 延迟多长时间
+ * @param {Number} atleast 至少多长时间触发一次
+ * @return {Function} 延迟执行的方法
+ */
+function throttle(fn, delay, atleast = 0) {
+  let timer = null; // 记录定时器
+  let previous = 0; // 记录上一次执行时间
+
+  return (...args) => {
+    let now = +new Date(); // 当前时间戳
+    previous = !previous ? now : previous; // 记录开始时间
+
+    if (atleast && (now - previous) > atleast) {
+      fn.apply(this, args);
+      // 重置上一次开始时间为本次结束时间
+      previous = now;
+      timer && clearTimeout(timer);
+    } else {
+      timer && clearTimeout(timer); // 清除上次定时器
+      timer = setTimeout(() => {
+        fn.apply(this, args);
+        previous = 0;
+      }, delay);
+    }
+  }
+}
+```
+#### 相关：
+函数防抖（debounce）：在事件被触发 n 秒后再执行回调，如果在这 n 秒内又被触发，则重新计时。
+
+前言：  
+事件的触发权很多时候都属于用户，有些情况下会产生问题：
+- 向后台发送数据，用户频繁触发，对服务器造成压力
+- 一些浏览器事件：window.onresize、window.mousemove 等，触发的频率非常高，会造成浏览器性能问题如果你碰到这些问题，那就需要用到**函数节流 和 防抖**了
+
 ### Token and JWT
 使用基于 Token 的身份验证方法，在服务端不需要存储用户的登录记录。大概的流程是这样的：
 
