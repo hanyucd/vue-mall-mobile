@@ -12,7 +12,7 @@ class GoodsService {
     }
   }
 
-  // 查询商品详情
+  // 根据商品 id 查询相应商品信息
   async getGoodsDetails(goodsId) {
     try {
       // findOne()：查询找到的第一个文档
@@ -23,11 +23,22 @@ class GoodsService {
     }
   }
 
-  // 查询商品列表
+  // 根据子类 id 查询相关商品列表
   async getGoodsList(categorySubId) {
     try {
       let goodsList = await GoodsModel.find({ sub_id: categorySubId });
       return goodsList;
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  // 搜索
+  async search({ keyword, pageSize, skip }) {
+    try {
+      const count = await GoodsModel.find({ name: { $regex: keyword } }).countDocuments();
+      const goodsList = await GoodsModel.find({ name: { $regex: keyword } }).skip(skip).limit(pageSize);
+      return { count, goodsList };
     } catch (error) {
       console.log(error);
     }

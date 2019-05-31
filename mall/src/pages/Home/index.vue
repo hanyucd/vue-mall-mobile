@@ -65,7 +65,7 @@
   import Search from './Search';
   import BScroll from '@/components/BScroll';
   import FooterNav from '@/components/FooterNav';
-  import { throttle } from '@/utils/tools';
+  import { throttle } from '@/utils/tools'; // 导入节流函数
   import ajax from '@/api';
 
   export default {
@@ -78,12 +78,17 @@
         bounce: { top: true }, // 当滚动超过边缘的时候顶部会有一小段回弹动画
         searchKeyword: '', // 搜素关键字
         isSearch: false, // 是否显示搜索结果
+        page: 1, // 数据页数
       };
     },
     created() {
       this._getHome();
+      // 监听输入框变化做函数节流实现 搜索联想
       this.unWatch = this.$watch('searchKeyword', throttle(() => {
-        this._search();
+        if (this.searchKeyword) {
+          this.page = 1;
+          this._search(this.searchKeyword);
+        }
       }, 1000, 1000));
       console.log('首页生命')
     },
@@ -101,19 +106,18 @@
           let res = await ajax.getHomeData();
           if (res.code === 200) {
             this.homeData = res.result;
-            // console.log(res)
           }
         } catch (error) {
           console.log(error);
         }
       },
       /**
-       * 搜索
+       * @param {String} keyWord 搜索关键字
+       * @param {Boolean} isLoadMore 是否加载更多
        */
-      async _search() {
-        let data = 'vue';
+      async _search(keyWord, isLoadMore) {
         try {
-          let res = await ajax.search(data, 9);
+          let res = await ajax.search(keyWord, this.page);
           console.log(res);
         } catch (error) {
           console.log(error);

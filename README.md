@@ -95,7 +95,7 @@ function throttle(fn, delay, atleast = 0) {
 
   return (...args) => {
     let now = +new Date(); // 当前时间戳
-    previous = !previous ? now : previous; // 记录开始时间
+    if (!previous) previous = now; // 赋值开始时间
 
     if (atleast && (now - previous) > atleast) {
       fn.apply(this, args);

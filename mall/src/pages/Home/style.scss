@@ -20,7 +20,7 @@
   // position: relative;
   // z-index: 10;
   .city {
-    flex-basis: 20%;
+    flex-basis: 18%;
     font-size: 12px;
     text-align: center;
   }
@@ -43,15 +43,15 @@
       background: #fff;
       color: #333;
       font-size: 14px;
+      letter-spacing: 1px;
       outline: 0;
-      padding: 7px;
-      padding-left: 32px;
+      padding: 6px 20px 6px 32px;
       margin-right: 5px;
       border-radius: 5px;
     }
     .clear {
       position: absolute;
-      right: 12px;
+      right: 8px;
       color: #999;
     }
   }
@@ -59,7 +59,7 @@
     // position: absolute;
     // top: 0;
     // right: 12px;
-    margin: 0 8px;
+    margin-right: 5px;
     font-size: 16px;
   }
 }
