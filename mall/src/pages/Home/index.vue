@@ -83,7 +83,7 @@
     },
     created() {
       this._getHome();
-      // 监听输入框变化做函数节流实现 搜索联想
+      // 监听输入框变化做函数节流 实现 搜索联想
       this.unWatch = this.$watch('searchKeyword', throttle(() => {
         if (this.searchKeyword) {
           this.page = 1;
