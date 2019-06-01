@@ -3,6 +3,7 @@
     <div class="search-result">
       <b-scroll class="content-scroll">
         <goods-list :goodsList="searchResult" :searchKeyword="searchKeyword"></goods-list>
+        <article class="empty-search-result" v-show="isEmptySearchResult">暂无此搜索结果~~</article>
       </b-scroll>
     </div>
   </transition>
@@ -17,6 +18,7 @@
     props: {
       searchResult: { type: Array, default: () => [] },
       searchKeyword: { type: String, default: '' }, // 搜索关键字
+      isEmptySearchResult: { type: Boolean, default: false }, // 是否无搜索结果
     },
     components: { GoodsList, BScroll },
     data() {

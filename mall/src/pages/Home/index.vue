@@ -5,12 +5,12 @@
       <section class="city">杭州 ▼</section>
       <section class="search-box">
         <van-icon name="search" class="search-icon"/>
-        <input class="box" type="text" @focus="focus" placeholder="请输入搜索关键词" v-model="searchKeyword" />
+        <input class="box" type="text" @focus="showSearch" placeholder="请输入搜索关键词" v-model="searchKeyword" />
         <van-icon name="clear" class="clear" @click="searchKeyword = ''" v-show="searchKeyword" />
       </section>
       <!-- 取消 -->
       <transition name="cancel-bounce">
-        <section class="cancel" v-show="isSearch" @click="cancelSearch">取消</section>
+        <section class="cancel" v-show="isShowSearch" @click="cancelSearch">取消</section>
       </transition>
     </header>
     <!-- 内容区 -->
@@ -50,7 +50,7 @@
       </b-scroll>
     </section>
     <!-- 搜索结果 -->
-    <search v-show="isSearch" :searchResult="dataList" :searchKeyword="searchKeyword"></search>
+    <search v-show="isShowSearch" :searchResult="dataList" :searchKeyword="searchKeyword" :isEmptySearchResult="isEmptySearchResult"></search>
     <!-- 底部导航 -->
     <footer-nav></footer-nav>
   </div>
@@ -79,26 +79,28 @@
         homeData: {}, // 首页数据
         probeType: 3, // 不仅在屏幕滑动的过程中，而且在 momentum 滚动动画运行过程中实时派发 scroll 事件
         bounce: { top: true }, // 当滚动超过边缘的时候顶部会有一小段回弹动画
-        searchKeyword: '', // 搜素关键字
-        isSearch: false, // 是否显示搜索结果
         page: 1, // 数据页数
+        searchKeyword: '', // 搜素关键字
+        isShowSearch: false, // 是否显示搜索区
+        isEmptySearchResult: false, // 是否无搜索结果
       };
     },
     created() {
       this._getHome();
       // 监听输入框变化做函数节流 实现 搜索联想
       this.unWatch = this.$watch('searchKeyword', throttle(() => {
+        this.dataList = []; // 发送搜索请求前先清空上一次搜索结果数组
         if (this.searchKeyword) {
           this.page = 1;
           this._search(this.searchKeyword, false);
         }
       }, 1000, 1000));
-      console.log('首页生命')
+      // console.log('首页生命')
     },
     destroyed() {
       // 注销 watch
       this.unWatch();
-      console.log(this.unWatch)
+      // console.log(this.unWatch)
     },
     methods: {
       /**
@@ -122,6 +124,7 @@
         // 判断上一次请求是否完成 | 必须等待上一次请求完成才继续向下执行，方法在 loadMixin 中
         if (this.isLocked()) return;
         this.locked(); // 上锁，方法在 loadMixin 中
+        this.isEmptySearchResult = false; // 搜索请求之前设为 false
 
         try {
           let res = await ajax.search(keyWord, this.page);
@@ -134,6 +137,8 @@
               : this.dataList = res.result.goodsList;
             // 解锁，方法在 loadMixin 中
             this.unLocked();
+            // 判断是否无搜索结果 | 无结果则赋于 true
+            (!this.dataList.length) && (this.isEmptySearchResult = true);
           }
         } catch (error) {
           // 解锁，方法在 loadMixin 中
@@ -142,16 +147,19 @@
         }
       },
       /**
-       * 输入框聚焦
+       * 输入框聚焦展示搜索区
        */
-      focus() {
-        this.isSearch = true;
-      },
+      showSearch() { this.isShowSearch = true; },
       /**
        * 取消搜索
        */
       cancelSearch() {
-        this.isSearch = false;
+        // 关闭搜索区
+        this.isShowSearch = false;
+        // 300 ms后搜索关键字设为空字符串
+        setTimeout(() => {
+          this.searchKeyword = '';
+        }, 300);
       },
       scroll() {},
       scrollEnd() {},

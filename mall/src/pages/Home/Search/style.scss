@@ -31,6 +31,11 @@
 	background: #fff;
 	.content-scroll {
 		height: 100%;
-    overflow: hidden;
+		overflow: hidden;
+		.empty-search-result {
+			text-align: center;
+			margin-top: 100px;
+			color: #999 ;
+		}
 	}
 }
