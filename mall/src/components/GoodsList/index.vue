@@ -7,7 +7,7 @@
       </section>
       <!-- 右侧文本 -->
       <section class="right-txt">
-        <p class="goods-name" v-html="keyWordLight(item.name)"></p>
+        <p class="goods-name" v-html="keyWordLight(item.name, searchKeyword)"></p>
         <p class="goods-num">
           <span class="pic">￥{{ item.present_price }}</span>
           <span class="orl-pic">{{ item.orl_price }}</span>
@@ -24,7 +24,8 @@
     name: 'GoodsList',
     mixins: [ GoodsMixin ],
     props: {
-      goodsList: { type: Array, default: () => [] }
+      goodsList: { type: Array, default: () => [] },
+      searchKeyword: { type: String, default: '' }, // 搜索关键字
     },
     data() {
       return {
@@ -32,8 +33,16 @@
       }
     },
     methods: {
-      keyWordLight(textStr) {
-        return textStr;
+      keyWordLight(goodsName, searchKeyword) {
+        // 若是搜索的话则执行
+        if (searchKeyword) {
+          // 创建一个正则表达式
+          let regExp = new RegExp(searchKeyword, 'g');
+          let replaceText = `<span style="color: red">${ searchKeyword }</span>`;
+          return goodsName.replace(regExp, replaceText); // 返回替换后的字符串
+        }
+
+        return goodsName;
       }
     }
   }

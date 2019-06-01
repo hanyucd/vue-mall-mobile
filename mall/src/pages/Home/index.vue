@@ -50,7 +50,7 @@
       </b-scroll>
     </section>
     <!-- 搜索结果 -->
-    <search v-show="isSearch"></search>
+    <search v-show="isSearch" :searchResult="dataList" :searchKeyword="searchKeyword"></search>
     <!-- 底部导航 -->
     <footer-nav></footer-nav>
   </div>
@@ -127,7 +127,7 @@
           let res = await ajax.search(keyWord, this.page);
           console.log(res);
           if (res.code === 200) {
-            this.setDataTotal(res.result.total); // 设置数据总数
+            this.setDataTotal(res.result.total); // 设置数据总数，方法在 loadMixin 中
             // 判断是加载更多还是一次新的请求，方法在 loadMixin 中
             isLoadMore
               ? this.addMoreData(res.result.goodsList)

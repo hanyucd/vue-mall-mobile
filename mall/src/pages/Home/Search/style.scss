@@ -21,12 +21,16 @@
 	box-shadow: -3px 0  5px rgba(0, 0, 0, .1);
 }
 
-#search-result {
+.search-result {
   position: fixed;
   top: 11.5vw;
   left: 0;
   right: 0;
   bottom: 0;
   z-index: 200;
-  background: #fff;
+	background: #fff;
+	.content-scroll {
+		height: 100%;
+    overflow: hidden;
+	}
 }
