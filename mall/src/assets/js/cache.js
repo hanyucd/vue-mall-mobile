@@ -1,5 +1,6 @@
 const storage = window.localStorage;
 const CATEGORY_LIST = 'category_list'; // 分类 key
+const SEARCH_HISTORY = 'search_history'; // 搜素历史 key
 
 // 分类缓存
 let categoryCache = {
@@ -12,6 +13,18 @@ let categoryCache = {
   }
 };
 
+// 搜索历史缓存
+let searchHistoryCache = {
+  setCache(searchHistoryList = ['hanyu']) {
+    storage.setItem(SEARCH_HISTORY, searchHistory);
+    return searchHistoryList;
+  },
+  getCache() {
+    return storage.getItem(SEARCH_HISTORY);
+  }
+};
+
 export {
   categoryCache, // 分类缓存
+  searchHistoryCache, // 搜索历史缓存
 };
