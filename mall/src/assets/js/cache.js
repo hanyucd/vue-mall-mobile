@@ -15,8 +15,8 @@ let categoryCache = {
 
 // 搜索历史缓存
 let searchHistoryCache = {
-  setCache(searchHistoryList = ['hanyu']) {
-    storage.setItem(SEARCH_HISTORY, searchHistory);
+  setCache(searchHistoryList = []) {
+    storage.setItem(SEARCH_HISTORY, JSON.stringify(searchHistoryList));
     return searchHistoryList;
   },
   getCache() {

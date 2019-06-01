@@ -12,9 +12,11 @@
 <script>
   import GoodsList from '@/components/GoodsList';
   import BScroll from '@/components/BScroll';
+  import { GoodsMixin } from '@/mixins/goodsMixin';
 
   export default {
     name: "Search",
+    mixins: [ GoodsMixin ],
     props: {
       searchResult: { type: Array, default: () => [] },
       searchKeyword: { type: String, default: '' }, // 搜索关键字
@@ -23,6 +25,9 @@
     components: { GoodsList, BScroll },
     data() {
       return {};
+    },
+    created() {
+      this.setSearchHistory(['Node', 'vue', 'react']);
     }
   }
 </script>
