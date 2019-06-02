@@ -128,7 +128,7 @@
 
         try {
           let res = await ajax.search(keyWord, this.page);
-          console.log(res);
+          // console.log(res);
           if (res.code === 200) {
             this.setDataTotal(res.result.total); // 设置数据总数，方法在 loadMixin 中
             // 判断是加载更多还是一次新的请求，方法在 loadMixin 中

@@ -7,8 +7,8 @@ const setCategoryList = ({ commit }, categoryList) => {
 }
 
 // 设置搜索历史列表
-const setSearchHistory = ({ commit }, searchHistoryList) => {
-  commit(types.SEARCH_HISTORY_LIST, searchHistoryCache.setCache(searchHistoryList));
+const setSearchHistory = ({ commit }, searchKeyword) => {
+  commit(types.SEARCH_HISTORY_LIST, searchHistoryCache.setCache(searchKeyword));
 }
 
 export default {

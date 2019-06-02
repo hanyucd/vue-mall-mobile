@@ -26,8 +26,13 @@
     data() {
       return {};
     },
-    created() {
-      this.setSearchHistory(['Node', 'vue', 'react']);
+    watch: {
+      // 监听搜索结果 
+      searchResult(newResult) {
+        if (!newResult.length) return;
+        // 存在相关结果则缓存
+        (this.searchKeyword.length) && this.setSearchHistory(this.searchKeyword);
+      }
     }
   }
 </script>
