@@ -25,7 +25,7 @@
         :bounce="bounce"
         :listenScroll="true"
         @scroll="scroll"
-        @scrollEnd="scrollEnd"
+        @scrollEnd="homeScrollEnd"
       >
         <div class="container">
           <!-- 轮播图 -->
@@ -54,7 +54,9 @@
       :searchResult="dataList" 
       :searchKeyword="searchKeyword" 
       :isEmptySearchResult="isEmptySearchResult"
+      :isloadMore="isloadMore"
       v-on:click-search="clickSearch"
+      v-on:scrollEnd="searchScrollEnd"
       >
     </search>
     <!-- 底部导航 -->
@@ -89,6 +91,7 @@
         searchKeyword: '', // 搜素关键字
         isShowSearch: false, // 是否显示搜索区
         isEmptySearchResult: false, // 是否无搜索结果
+        isloadMore: false, // 是否加载更多
       };
     },
     created() {
@@ -97,6 +100,7 @@
       this.unWatch = this.$watch('searchKeyword', throttle(() => {
         this.dataList = []; // 发送搜索请求前先清空上一次搜索结果数组
         this.isEmptySearchResult = false; // 发送搜索请求之前设为 false
+        this.isloadMore = false;
         if (this.searchKeyword) {
           this.page = 1;
           this._search(this.searchKeyword, false);
@@ -175,7 +179,21 @@
        */
       clickSearch(searchKeyword) { this.searchKeyword = searchKeyword},
       scroll() {},
-      scrollEnd() {},
+      homeScrollEnd() {},
+      /**
+       * 搜索滚动到底部 | 处理子组件派发的事件 | 加载更多
+       */
+      searchScrollEnd() {
+        // 判断是否还有更多数据，方法在 loadMixin 中
+        if (!this.hasMoreData()) {
+          this.isloadMore = false;
+          return;
+        } else {
+          this.isloadMore = true;
+          this.page++;
+          this._search(this.searchKeyword, true);
+        }
+      }
     }
   }
 </script>

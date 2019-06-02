@@ -1,7 +1,7 @@
 const storage = window.localStorage;
 const CATEGORY_LIST = 'category_list'; // 分类 key
 const SEARCH_HISTORY = 'search_history'; // 搜素历史 key
-const SEARCH_HISTORY_MAX = 10; // 搜索历史缓存最大长度
+const SEARCH_HISTORY_MAX = 20; // 搜索历史缓存最大长度
 
 // 分类缓存
 let categoryCache = {

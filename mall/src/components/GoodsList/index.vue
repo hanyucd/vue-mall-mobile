@@ -14,6 +14,8 @@
         </p>
       </section>
     </li>
+    <p class="load-more" v-if="isloadMore">- 加载更多 -</p>
+    <p class="load-more" v-else>- 我们是有底线的 -</p>
   </ul>
 </template>
 
@@ -26,6 +28,7 @@
     props: {
       goodsList: { type: Array, default: () => [] },
       searchKeyword: { type: String, default: '' }, // 搜索关键字
+      isloadMore: { type: Boolean, default: false }, // 是否加载更多
     },
     data() {
       return {
@@ -39,6 +42,7 @@
           // 创建一个正则表达式
           let regExp = new RegExp(searchKeyword, 'g');
           let replaceText = `<span style="color: red">${ searchKeyword }</span>`;
+          
           return goodsName.replace(regExp, replaceText); // 返回替换后的字符串
         }
 

@@ -19,8 +19,9 @@ export const loadMixin = {
      * 判断是否还有更多数据
      */
     hasMoreData() {
-      if (this.dataList.length >= this.dataTotal) return false;
-      return true;
+      if (this.dataList.length !== this.dataTotal) return true;
+
+      return false;
     },
     /**
      * 设置数据总数

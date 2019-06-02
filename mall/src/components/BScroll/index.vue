@@ -1,6 +1,6 @@
 <template>
  <!-- 滚动组件 -->
-  <div class="scroll-wrapper" ref="wrapper">
+  <div class="scroll-wrapper" ref="scrollRef">
     <slot></slot>
   </div>
 </template>
@@ -38,10 +38,10 @@
     },
     methods: {
       _initScroll() {
-        if (!this.$refs.wrapper) return;
+        if (!this.$refs.scrollRef) return;
 
         // 实例化 better-scroll
-        this.scroll = new BScroll(this.$refs.wrapper, {
+        this.scroll = new BScroll(this.$refs.scrollRef, {
           probeType: this.probeType,
           click: this.click,
           pullDownRefresh: this.pullDownRefresh,

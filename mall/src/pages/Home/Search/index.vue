@@ -2,8 +2,8 @@
   <transition name="bounce">
     <div class="search-result-container">
       <!-- 搜索结果 -->
-      <b-scroll class="content-scroll" v-if="searchResult.length">
-        <goods-list :goodsList="searchResult" :searchKeyword="searchKeyword"></goods-list>
+      <b-scroll class="content-scroll" :pullup="true" v-if="searchResult.length" v-on:scrollEnd="scrollEnd">
+        <goods-list :goodsList="searchResult" :searchKeyword="searchKeyword" :isloadMore="isloadMore"></goods-list>
       </b-scroll>
       
       <article class="empty-search-result" v-show="isEmptySearchResult">暂无此搜索结果~~</article>
@@ -43,6 +43,7 @@
       searchResult: { type: Array, default: () => [] },
       searchKeyword: { type: String, default: '' }, // 搜索关键字
       isEmptySearchResult: { type: Boolean, default: false }, // 是否无搜索结果
+      isloadMore: { type: Boolean, default: false } // 是否加载更多
     },
     components: { GoodsList, BScroll },
     data() {
@@ -90,7 +91,11 @@
         this.limit === 5
           ? this.limit = this.searchHistoryList.length
           : this.limit = 5;
-      }
+      },
+      /**
+       * 滚动到底部 派发事件到父组件
+       */
+      scrollEnd() { this.$emit('scrollEnd') }
     }
   }
 </script>
