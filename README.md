@@ -53,7 +53,7 @@
 
 ```
 
-### Axios 请求拦截器 和 响应拦截器
+### Axios 请求拦截器 and 响应拦截器
 主要截取，请求 或 响应在被 then 或者 catch 处理之前，做些什么。我们可以把每一次请求想象成一条管道里的流过的水，  
 当一个请求发出的时候，会先流过 interceptors 的 request 部分，  
 接着 request 会发出，当接受到响应时，会先流过 interceptors 的 response 部分，最后 response。
@@ -79,7 +79,7 @@ axios.interceptors.response.use(function (response) {
   return Promise.reject（error）;
 });
 ```
-### 搜索联想实现
+### 函数节流 and 函数防抖
 函数节流（throttle）：规定在一个单位时间内，只能触发一次函数。如果这个单位时间内触发多次函数，只有一次生效。
 ```js
 /**
@@ -112,7 +112,6 @@ function throttle(fn, delay, atleast = 0) {
   }
 }
 ```
-#### 相关：
 函数防抖（debounce）：在事件被触发 n 秒后再执行回调，如果在这 n 秒内又被触发，则重新计时。
 
 前言：  
