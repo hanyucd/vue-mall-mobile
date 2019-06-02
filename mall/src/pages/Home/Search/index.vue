@@ -15,9 +15,14 @@
           <span class="s-h-clear" @click="DeleteSearchHisory"><van-icon name="delete" /></span>
         </section>
         <section class="s-h-list">
-          <span class="s-h-name" v-for="(item, index) in searchHistoryList" :key="index" @click="clickSearch(item)">
+          <span class="s-h-name" v-for="(item, index) in searchHistoryLimitList" :key="index" @click="clickSearch(item)">
             {{ item }}
           </span>
+          <p class="more" v-show="searchHistoryList.length > 5" @click="clickMore">
+            {{ limit === 5 ? '展开更多历史' : '收起更多历史' }}
+            <van-icon v-if="limit === 5" name="arrow-down" />
+            <van-icon v-else name="arrow-up" />
+          </p>
         </section>
       </div>
       
@@ -41,10 +46,17 @@
     },
     components: { GoodsList, BScroll },
     data() {
-      return {};
+      return {
+        limit: 5,
+      };
     },
-    created() {
-      console.log(this.searchHistoryList)
+    computed: {
+      // 搜索历史限制数组
+      searchHistoryLimitList() {
+        if (!this.searchHistoryList.length) return;
+        
+        return this.searchHistoryList.slice(0, this.limit);
+      }
     },
     watch: {
       // 监听搜索结果 
@@ -68,9 +80,17 @@
         }).catch(() => null);
       },
       /**
-       * 点击搜索关键字 | 向父组件传值
+       * 点击搜索关键字 | 派发事件向父组件传值
        */
-      clickSearch(searchKeyword) { this.$emit('click-search', searchKeyword) }
+      clickSearch(searchKeyword) { this.$emit('click-search', searchKeyword) },
+      /**
+       * 点击更多 | 展开 或 收起
+       */
+      clickMore() {
+        this.limit === 5
+          ? this.limit = this.searchHistoryList.length
+          : this.limit = 5;
+      }
     }
   }
 </script>

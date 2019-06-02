@@ -96,7 +96,7 @@
       // 监听输入框变化做函数节流 实现 搜索联想
       this.unWatch = this.$watch('searchKeyword', throttle(() => {
         this.dataList = []; // 发送搜索请求前先清空上一次搜索结果数组
-        this.isEmptySearchResult = false; // 搜索请求之前设为 false
+        this.isEmptySearchResult = false; // 发送搜索请求之前设为 false
         if (this.searchKeyword) {
           this.page = 1;
           this._search(this.searchKeyword, false);
