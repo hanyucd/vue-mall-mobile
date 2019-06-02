@@ -6,7 +6,7 @@
       <section class="search-box">
         <van-icon name="search" class="search-icon"/>
         <input class="box" type="text" @focus="showSearch" placeholder="请输入搜索关键词" v-model="searchKeyword" />
-        <van-icon name="clear" class="clear" @click="searchKeyword = ''" v-show="searchKeyword" />
+        <van-icon name="clear" class="clear" @click="clearSearchInput" v-show="searchKeyword" />
       </section>
       <!-- 取消 -->
       <transition name="cancel-bounce">
@@ -50,7 +50,13 @@
       </b-scroll>
     </section>
     <!-- 搜索结果 -->
-    <search v-show="isShowSearch" :searchResult="dataList" :searchKeyword="searchKeyword" :isEmptySearchResult="isEmptySearchResult"></search>
+    <search v-show="isShowSearch" 
+      :searchResult="dataList" 
+      :searchKeyword="searchKeyword" 
+      :isEmptySearchResult="isEmptySearchResult"
+      v-on:click-search="clickSearch"
+      >
+    </search>
     <!-- 底部导航 -->
     <footer-nav></footer-nav>
   </div>
@@ -90,6 +96,7 @@
       // 监听输入框变化做函数节流 实现 搜索联想
       this.unWatch = this.$watch('searchKeyword', throttle(() => {
         this.dataList = []; // 发送搜索请求前先清空上一次搜索结果数组
+        this.isEmptySearchResult = false; // 搜索请求之前设为 false
         if (this.searchKeyword) {
           this.page = 1;
           this._search(this.searchKeyword, false);
@@ -100,7 +107,6 @@
     destroyed() {
       // 注销 watch
       this.unWatch();
-      // console.log(this.unWatch)
     },
     methods: {
       /**
@@ -123,12 +129,11 @@
       async _search(keyWord, isLoadMore) {
         // 判断上一次请求是否完成 | 必须等待上一次请求完成才继续向下执行，方法在 loadMixin 中
         if (this.isLocked()) return;
-        this.locked(); // 上锁，方法在 loadMixin 中
-        this.isEmptySearchResult = false; // 搜索请求之前设为 false
+        // 上锁，方法在 loadMixin 中
+        this.locked();
 
         try {
           let res = await ajax.search(keyWord, this.page);
-          // console.log(res);
           if (res.code === 200) {
             this.setDataTotal(res.result.total); // 设置数据总数，方法在 loadMixin 中
             // 判断是加载更多还是一次新的请求，方法在 loadMixin 中
@@ -151,6 +156,10 @@
        */
       showSearch() { this.isShowSearch = true; },
       /**
+       * 清空搜索框关键字
+       */
+      clearSearchInput() { this.searchKeyword = ''; },
+      /**
        * 取消搜索
        */
       cancelSearch() {
@@ -161,6 +170,10 @@
           this.searchKeyword = '';
         }, 300);
       },
+      /**
+       * 监听子组件派发的事件
+       */
+      clickSearch(searchKeyword) { this.searchKeyword = searchKeyword},
       scroll() {},
       scrollEnd() {},
     }

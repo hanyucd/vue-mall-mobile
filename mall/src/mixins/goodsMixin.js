@@ -6,7 +6,7 @@ export const GoodsMixin = {
   },
   methods: {
     ...mapMutations({ setGoodsDetails: 'GOODS_DETAILS' }),
-    ...mapActions(['setCategoryList', 'setSearchHistory']),
+    ...mapActions(['setCategoryList', 'setSearchHistory', 'deleteSearchHistory']),
     // 跳转商品详情页
     goGoodsDetails(item) {
       this.setGoodsDetails(item); // 调取 vuex 中 mutations 设置 state

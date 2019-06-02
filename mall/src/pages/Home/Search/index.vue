@@ -1,10 +1,27 @@
 <template>
   <transition name="bounce">
-    <div class="search-result">
-      <b-scroll class="content-scroll">
+    <div class="search-result-container">
+      <!-- 搜索结果 -->
+      <b-scroll class="content-scroll" v-if="searchResult.length">
         <goods-list :goodsList="searchResult" :searchKeyword="searchKeyword"></goods-list>
-        <article class="empty-search-result" v-show="isEmptySearchResult">暂无此搜索结果~~</article>
       </b-scroll>
+      
+      <article class="empty-search-result" v-show="isEmptySearchResult">暂无此搜索结果~~</article>
+
+      <!-- 搜索历史 -->
+      <div class="search-history-wrap" v-if="!searchKeyword && !isEmptySearchResult && searchHistoryList.length">
+        <section class="s-h-title">
+          <span>搜索历史</span>
+          <span class="s-h-clear" @click="DeleteSearchHisory"><van-icon name="delete" /></span>
+        </section>
+        <section class="s-h-list">
+          <span class="s-h-name" v-for="(item, index) in searchHistoryList" :key="index" @click="clickSearch(item)">
+            {{ item }}
+          </span>
+        </section>
+      </div>
+      
+      <article class="empty-search-history" v-show="!searchResult.length && !searchHistoryList.length && !isEmptySearchResult">暂无搜索历史~~</article>
     </div>
   </transition>
 </template>
@@ -26,13 +43,34 @@
     data() {
       return {};
     },
+    created() {
+      console.log(this.searchHistoryList)
+    },
     watch: {
       // 监听搜索结果 
       searchResult(newResult) {
         if (!newResult.length) return;
         // 存在相关结果则缓存
-        (this.searchKeyword.length) && this.setSearchHistory(this.searchKeyword);
+        (this.searchKeyword) && this.setSearchHistory(this.searchKeyword);
       }
+    },
+    methods: {
+      /**
+       * 清空搜索历史
+       */
+      DeleteSearchHisory() {
+        this.$dialog.confirm({
+          title: '提示',
+          message: '确认删除搜索历史?'
+        }).then(() => {
+          // 调用 Vuex 中的 Actions，方法在 GoodsMixin 中
+          this.deleteSearchHistory();
+        }).catch(() => null);
+      },
+      /**
+       * 点击搜索关键字 | 向父组件传值
+       */
+      clickSearch(searchKeyword) { this.$emit('click-search', searchKeyword) }
     }
   }
 </script>

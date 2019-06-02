@@ -7,7 +7,7 @@ const SEARCH_HISTORY_MAX = 10; // 搜索历史缓存最大长度
 let categoryCache = {
   setCache(categoryList = []) {
     storage.setItem(CATEGORY_LIST, JSON.stringify(categoryList));
-    return list;
+    return categoryList;
   },
   getCache() {
     return storage.getItem(CATEGORY_LIST) ? JSON.parse(storage.getItem(CATEGORY_LIST)) : [];
@@ -18,6 +18,7 @@ let categoryCache = {
 let searchHistoryCache = {
   setCache(searchKeyword = '') {
     let searchHistoryList = this.getCache();
+
     if (searchHistoryList.length) {
       searchHistoryList.forEach((item, index) => {
         // 判断新的搜索关键字是否存在缓存中 | 存在则删除该项
@@ -35,6 +36,10 @@ let searchHistoryCache = {
   },
   getCache() {
     return storage.getItem(SEARCH_HISTORY) ? JSON.parse(storage.getItem(SEARCH_HISTORY)) : [];
+  },
+  deleteCache() {
+    storage.removeItem(SEARCH_HISTORY);
+    return [];
   }
 };
 
