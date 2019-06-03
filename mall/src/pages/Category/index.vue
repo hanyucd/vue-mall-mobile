@@ -55,11 +55,18 @@
         goodsList: [], // 商品列表
       };
     },
-    created() {
+    async created() {
       // 点击首页分类传递过来
       let { categorySubId, index, item } = this.$route.params;
 
       if (categorySubId && index && item) {
+        try {
+          // 获取大分类列表
+          let res = await ajax.getHomeData();
+          (res.code === 200) && this.setCategoryList(res.result.category);
+        } catch (error) {
+          console.log(error);
+        }
         // 切换左侧导航下标
         this.sidebarIndex = index;
         this.$nextTick(() => {
@@ -111,7 +118,6 @@
           if (res.code === 200) {
             this.goodsList = res.result;
           }
-          console.log(res)
         } catch (error) {
           console.log(error);
         }

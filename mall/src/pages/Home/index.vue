@@ -2,7 +2,7 @@
   <div>
     <!-- 顶部搜素 -->
     <header class="header">
-      <section class="city">杭州 ▼</section>
+      <section class="city" @click="clickCity">杭州 ▼</section>
       <section class="search-box">
         <van-icon name="search" class="search-icon"/>
         <input class="box" type="text" @focus="showSearch" placeholder="请输入搜索关键词" v-model="searchKeyword" />
@@ -196,7 +196,11 @@
           this.page++;
           this._search(this.searchKeyword, true);
         }
-      }
+      },
+      /**
+       * 进入城市选择页
+       */
+      clickCity() { this.$router.push({ name: 'City' }) }
     }
   }
 </script>

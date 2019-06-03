@@ -2,10 +2,11 @@ import Vue from 'vue';
 import Router from 'vue-router';
 
 const Home = () => import('@/pages/Home'); // 首页
-const GoodsDetails = () => import('@/pages/GoodsDetails'); // 商品详情
 const Category = () => import('@/pages/Category'); // 商品分类
 const Cart = () => import('@/pages/Cart'); // 购物车
 const User = () => import('@/pages/User'); // 个人中心
+const GoodsDetails = () => import('@/pages/GoodsDetails'); // 商品详情
+const City = () => import('@/pages/City'); // 城市选择
 
 // 定义路由跳转动画
 Router.prototype.animateFlag = 0;
@@ -21,6 +22,7 @@ const router =  new Router({
     { path: '/category', name: 'Category', component: Category }, // 商品分类
     { path: '/cart', name: 'Cart', component: Cart }, // 购物车
     { path: '/me', name: 'Me', component: User }, // 个人中心
+    { path: '/city', name: 'City', component: City }, // 城市选择
     { path: '/goodsDetails', name: 'GoodsDetails', component: GoodsDetails, props: route => ({ goodsId: route.query.goodsId }) }, // 商品信息
     { path: '*', redirect: { name: 'Home' } }
   ]
@@ -31,9 +33,8 @@ const title = {
   Category: '商品分类',
   Cart: '购物车',
   Me: '个人中心',
+  City: '城市选择',
   GoodsDetails: '商品详情',
-  Register: '注册',
-  Login: '登录'
 };
 
 // 注册全局导航前置钩子用来拦截导航
