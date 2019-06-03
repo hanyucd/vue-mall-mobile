@@ -17,7 +17,7 @@
     <section class="content" v-if="homeData">
       <b-scroll 
         class="content-scroll"
-        ref="scrollRef"
+        ref="homeScrollRef"
         v-if="homeData"
         :data="homeData.hotGoods"
         :probeType="probeType"
@@ -25,7 +25,7 @@
         :bounce="bounce"
         :listenScroll="true"
         @scroll="scroll"
-        @scrollEnd="homeScrollEnd"
+        v-on:scrollEnd="homeScrollEnd"
       >
         <div class="container">
           <!-- 轮播图 -->
@@ -179,7 +179,10 @@
        */
       clickSearch(searchKeyword) { this.searchKeyword = searchKeyword},
       scroll() {},
-      homeScrollEnd() {},
+      /**
+       * 首页滚动到底部 | 处理子组件派发的事件 | 重新计算 better-scroll
+       */
+      homeScrollEnd() { this.$refs.homeScrollRef.refresh() },
       /**
        * 搜索滚动到底部 | 处理子组件派发的事件 | 加载更多
        */
