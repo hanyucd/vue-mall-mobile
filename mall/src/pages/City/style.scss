@@ -1,0 +1,18 @@
+.city-container {
+  .city-search {
+    display: flex;
+    align-items: center;
+    height: 2.3rem;
+    margin: 2vw 4vw;
+    padding: 0 1.5vw;
+    background: #F7F8FA;
+    border-radius: 8px;
+    .search-icon { flex-basis: 3%; }
+    input {
+      flex: 1;
+      margin: 0 1.5vw;
+      font-size: 14px;
+      background: #F7F8FA;
+    }
+  }
+}

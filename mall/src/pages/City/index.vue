@@ -1,6 +1,10 @@
 <template>
-  <div>
+  <div class="city-container">
     <van-nav-bar title="城市列表" left-arrow @click-left="back"/>
+    <section class="city-search">
+      <van-icon class="search-icon" name="search" />
+      <input placeholder="请输入城市关键字" v-model="cityKeyword"/>
+    </section>
   </div>
 </template>
 
@@ -15,7 +19,8 @@
     components: { BScroll },
     data() {
       return {
-        cities: cityData
+        cities: cityData, // 城市数据
+        cityKeyword: '', // 搜索城市关键字
       };
     }
   }
