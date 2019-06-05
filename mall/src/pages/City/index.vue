@@ -5,6 +5,8 @@
       <van-icon class="search-icon" name="search" />
       <input placeholder="请输入城市关键字" v-model="cityKeyword"/>
     </section>
+    <b-scroll>
+    </b-scroll>
   </div>
 </template>
 
