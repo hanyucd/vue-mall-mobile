@@ -50,7 +50,8 @@
       </b-scroll>
     </section>
     <!-- 搜索结果 -->
-    <search v-show="isShowSearch" 
+    <search 
+      v-show="isShowSearch" 
       :searchResult="dataList" 
       :searchKeyword="searchKeyword" 
       :isEmptySearchResult="isEmptySearchResult"

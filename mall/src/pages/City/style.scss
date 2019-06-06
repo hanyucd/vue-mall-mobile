@@ -1,4 +1,6 @@
 .city-container {
+  display: flex;
+  flex-direction: column;
   .city-search {
     display: flex;
     align-items: center;
@@ -13,6 +15,19 @@
       margin: 0 1.5vw;
       font-size: 14px;
       background: #F7F8FA;
+    }
+  }
+  .city-box {
+    flex: 1;
+    .content-scroll {
+      .location-city {
+        .title {
+          height: 8vw;
+          line-height: 8vw;
+          padding-left: 2.5vw;
+          background: #F2F2F2;
+        }
+      }
     }
   }
 }
