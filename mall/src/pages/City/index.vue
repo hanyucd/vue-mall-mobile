@@ -10,6 +10,11 @@
         <div class="container">
           <section class="location-city">
             <p class="title">当前城市</p>
+            <div class="city-list">
+              <div class="city-wrapper">
+                <p class="city-name">杭州</p>
+              </div>
+            </div>
           </section>
         </div>
       </b-scroll>

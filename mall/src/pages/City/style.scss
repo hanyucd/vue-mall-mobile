@@ -27,6 +27,12 @@
           padding-left: 2.5vw;
           background: #F2F2F2;
         }
+        .city-list {
+          padding: 5px 30px 5px 5px;
+          display: flex;
+          flex: wrap;
+          box-sizing: border-box;
+        }
       }
     }
   }
