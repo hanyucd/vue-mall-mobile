@@ -1,3 +1,29 @@
+@mixin city-layout {
+  .title {
+    height: 8vw;
+    line-height: 8vw;
+    padding-left: 2.5vw;
+    background: #F2F2F2;
+  }
+  .city-list {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    padding: 5px 30px 5px 5px;
+    box-sizing: border-box;
+    .city-wrapper {
+      width: calc(100% / 3);
+      .city-name {
+        padding: 5px 0;
+        border: 1px solid #ccc;
+        border-radius: 2.5px;
+        margin: 5px;
+        text-align: center;
+      }
+    }
+  }
+}
+
 .city-container {
   display: flex;
   flex-direction: column;
@@ -18,22 +44,40 @@
     }
   }
   .city-box {
+    position: relative;
     flex: 1;
+    overflow: hidden;
     .content-scroll {
+      position: absolute;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
       .location-city {
-        .title {
-          height: 8vw;
-          line-height: 8vw;
-          padding-left: 2.5vw;
-          background: #F2F2F2;
-        }
-        .city-list {
-          padding: 5px 30px 5px 5px;
-          display: flex;
-          flex: wrap;
-          box-sizing: border-box;
-        }
+        @include city-layout;
+      }
+      .hot-city {
+        @include city-layout;
       }
     }
+  }
+  .more-city {
+    .title {
+      height: 8vw;
+      line-height: 8vw;
+      padding-left: 2.5vw;
+      background: #F2F2F2;
+    }
+    .city-list {
+      box-sizing: border-box;
+      border-bottom: 1px solid #F2F2F2;
+      .city-name {
+        height: 10.5vw;
+        line-height: 10.5vw;
+        padding-left: 10px;
+        font-size: 13px;
+      }
+    }
+    & :last-child { border: none; }
   }
 }
