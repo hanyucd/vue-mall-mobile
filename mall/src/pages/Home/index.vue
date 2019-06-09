@@ -2,7 +2,7 @@
   <div>
     <!-- 顶部搜素 -->
     <header class="header">
-      <section class="city" @click="changeCity">杭州 ▼</section>
+      <section class="city" @click="changeCity">{{ locationCity }} ▼</section>
       <section class="search-box">
         <van-icon name="search" class="search-icon"/>
         <input class="box" type="text" @focus="showSearch" placeholder="请输入搜索关键词" v-model="searchKeyword" />
@@ -95,6 +95,11 @@
         isloadMore: false, // 是否加载更多
       };
     },
+    watch: {
+      searchKeyword(newCity, old) {
+        console.log('new:', newCity, old)
+      }
+    },
     created() {
       this._getHome();
       // 监听输入框变化做函数节流 实现 搜索联想
@@ -178,7 +183,7 @@
       /**
        * 监听子组件派发的事件
        */
-      clickSearch(searchKeyword) { this.searchKeyword = searchKeyword},
+      clickSearch(searchKeyword) { this.searchKeyword = searchKeyword },
       scroll() {},
       /**
        * 首页滚动到底部 | 处理子组件派发的事件 | 重新计算 better-scroll

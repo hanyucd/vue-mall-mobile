@@ -1,4 +1,4 @@
-import { categoryCache, searchHistoryCache, cityCache } from '@/assets/js/cache';
+import { categoryCache, searchHistoryCache, locationCityCache } from '@/assets/js/cache';
 import * as types from './mutations-type';
 
 // 设置大分类列表
@@ -16,14 +16,14 @@ const deleteSearchHistory = ({ commit }) => {
   commit(types.SEARCH_HISTORY_LIST, searchHistoryCache.deleteCache());
 }
 
-// 设置城市
-const setCity = ({ commit }, city) => {
-  commit(types.CITY, cityCache.setCache(city));
+// 设置定位城市
+const setLocationCity = ({ commit }, cityName) => {
+  commit(types.LOCATION_CITY, locationCityCache.setCache(cityName));
 };
 
 export default {
   setCategoryList, // 设置大分类列表
   setSearchHistory, // 设置搜索历史列表
   deleteSearchHistory, // 删除搜索历史列表
-  setCity, // 设置城市
+  setLocationCity, // 设置定位城市
 }

@@ -15,7 +15,7 @@
             <p class="title">当前城市</p>
             <div class="city-list">
               <div class="city-wrapper">
-                <p class="city-name">杭州</p>
+                <p class="city-name">{{ locationCity }}</p>
               </div>
             </div>
           </section>
@@ -24,7 +24,7 @@
             <p class="title">热门城市</p>
             <div class="city-list">
               <div class="city-wrapper" v-for="item of cities.data.hotCities" :key="item.id">
-                <p class="city-name">{{ item.name }}</p>
+                <p class="city-name" @click="setLocCity(item.name)">{{ item.name }}</p>
               </div>
             </div>
           </section>
@@ -32,7 +32,7 @@
           <section class="more-city" v-for="(value, key) of cities.data.cities" :key="key">
             <p class="title">{{ key }}</p>
             <div class="city-list" v-for="item of value" :key="item.id">
-              <p class="city-name">{{ item.name }}</p>
+              <p class="city-name" @click="setLocCity(item.name)">{{ item.name }}</p>
             </div>
           </section>
         </div>
@@ -55,6 +55,15 @@
         cities: cityData, // 城市数据
         cityKeyword: '', // 搜索城市关键字
       };
+    },
+    methods: {
+      /**
+       * 选择定位城市
+       */
+      setLocCity(cityName) {
+        this.setLocationCity(cityName);
+        // this.back();
+      }
     }
   }
 </script>
