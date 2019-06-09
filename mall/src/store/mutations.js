@@ -12,6 +12,10 @@ const mutations = {
   // 设置 state 中 searchHistoryList
   [types.SEARCH_HISTORY_LIST](state, searchHistoryList) {
     state.searchHistoryList = searchHistoryList
+  },
+  // 设置 state 中 city
+  [types.CITY](state, city) {
+    state.city = city;
   }
 };
 

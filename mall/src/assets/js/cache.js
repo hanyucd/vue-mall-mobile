@@ -2,6 +2,8 @@ const storage = window.localStorage;
 const CATEGORY_LIST = 'category_list'; // 分类 key
 const SEARCH_HISTORY = 'search_history'; // 搜素历史 key
 const SEARCH_HISTORY_MAX = 20; // 搜索历史缓存最大长度
+const CITY = 'city'; // 城市 key
+const DEF_CITY = '北京'; // 默认城市
 
 // 分类缓存
 let categoryCache = {
@@ -43,7 +45,19 @@ let searchHistoryCache = {
   }
 };
 
+// 城市缓存
+let cityCache = {
+  setCache(city = '') {
+    storage.setItem(CITY, JSON.stringify(city));
+    return city;
+  },
+  getCache() {
+    return storage.getItem(CITY) ? JSON.parse(storage.getItem(CITY)) : DEF_CITY;
+  }
+};
+
 export {
   categoryCache, // 分类缓存
   searchHistoryCache, // 搜索历史缓存
+  cityCache, // 城市缓存
 };

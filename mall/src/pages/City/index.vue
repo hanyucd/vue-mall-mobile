@@ -1,10 +1,12 @@
 <template>
   <div class="city-container">
     <van-nav-bar title="城市列表" left-arrow @click-left="back"/>
+    
     <section class="city-search">
       <van-icon class="search-icon" name="search" />
       <input placeholder="请输入城市关键字" v-model="cityKeyword"/>
     </section>
+
     <section class="city-box">
       <b-scroll class="content-scroll">
         <div class="container">
