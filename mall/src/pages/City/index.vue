@@ -56,6 +56,9 @@
         cityKeyword: '', // 搜索城市关键字
       };
     },
+    watch: {
+      cityKeyword() {}
+    },
     methods: {
       /**
        * 选择定位城市
