@@ -42,6 +42,7 @@
       font-size: 14px;
       background: #F7F8FA;
     }
+    .clear-icon { color: #999; }
   }
   .city-box {
     position: relative;
@@ -59,25 +60,41 @@
       .hot-city {
         @include city-layout;
       }
-    }
-  }
-  .more-city {
-    .title {
-      height: 8vw;
-      line-height: 8vw;
-      padding-left: 2.5vw;
-      background: #F2F2F2;
-    }
-    .city-list {
-      box-sizing: border-box;
-      border-bottom: 1px solid #F2F2F2;
-      .city-name {
-        height: 10.5vw;
-        line-height: 10.5vw;
-        padding-left: 10px;
-        font-size: 13px;
+      .more-city {
+        .title {
+          height: 8vw;
+          line-height: 8vw;
+          padding-left: 2.5vw;
+          background: #F2F2F2;
+        }
+        .city-list {
+          box-sizing: border-box;
+          border-bottom: 1px solid #F2F2F2;
+          .city-name {
+            height: 10.5vw;
+            line-height: 10.5vw;
+            padding-left: 10px;
+            font-size: 13px;
+          }
+        }
+        & :last-child { border: none; }
+      }
+      .search-list {
+        .search-item {
+          height: 10.5vw;
+          line-height: 10.5vw;
+          padding-left: 10px;
+          box-sizing: border-box;
+          border-bottom: 1px solid #F2F2F2;
+          font-size: 13px;
+        }
+        & :last-child { border: none; }
+      }
+      .null-search {
+        text-align: center;
+        margin-top: 50px;
+        font-size: 14px;
       }
     }
-    & :last-child { border: none; }
   }
 }
