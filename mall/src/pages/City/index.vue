@@ -10,7 +10,13 @@
 
     <section class="city-box">
       <!-- 城市列表 -->
-      <b-scroll class="content-scroll" v-show="!cityKeyword">
+      <b-scroll 
+        class="content-scroll" 
+        v-show="!cityKeyword" 
+        :listenScroll="listenScroll" 
+        :probeType="probeType"
+        v-on:scroll="cityScroll"
+      >
         <div class="container">
           <!-- 当前城市 -->
           <section class="location-city">
@@ -69,6 +75,9 @@
         cities: cityData, // 城市数据
         cityKeyword: '', // 搜索城市关键字
         searchCityList: [], // 搜索城市列表
+        listenScroll: true, // 监听滚动位置
+        probeType: 3, // 不仅在屏幕滑动的过程中，而且在 momentum 滚动动画运行过程中实时派发 scroll 事件
+        scrollY: 0, // 实时滚动的 Y 坐标
       };
     },
     watch: {
@@ -104,7 +113,11 @@
       /**
        * 清空搜索框关键字
        */
-      clearSearchInput() { this.cityKeyword = ''; }
+      clearSearchInput() { this.cityKeyword = ''; },
+      /**
+       * 监听子组件派发的 scroll 事件 | 实时获取滚动的 Y 坐标
+       */
+      cityScroll(pos) { this.scrollY = pos.y; }
     }
   }
 </script>
