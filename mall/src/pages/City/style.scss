@@ -96,5 +96,17 @@
         font-size: 14px;
       }
     }
+    .fixed-top {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      background: #f2f2f2;
+      .fixed-title {
+        height: 8vw;
+        line-height: 8vw;
+        padding-left: 2.5vw;
+      }
+    }
   }
 }

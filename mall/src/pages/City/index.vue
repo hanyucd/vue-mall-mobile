@@ -19,7 +19,7 @@
       >
         <div class="container">
           <!-- 当前城市 -->
-          <section class="location-city">
+          <section class="location-city" ref="locCityRef">
             <p class="title">当前城市</p>
             <div class="city-list">
               <div class="city-wrapper">
@@ -28,7 +28,7 @@
             </div>
           </section>
           <!-- 热门城市 -->
-          <section class="hot-city">
+          <section class="hot-city" ref="hotCityRef">
             <p class="title">热门城市</p>
             <div class="city-list">
               <div class="city-wrapper" v-for="item of cities.data.hotCities" :key="item.id">
@@ -37,7 +37,7 @@
             </div>
           </section>
           <!-- 更多城市 -->
-          <section class="more-city" v-for="(value, key) of cities.data.cities" :key="key">
+          <section class="more-city" v-for="(value, key) of cities.data.cities" :key="key" ref="cityGroupRef">
             <p class="title">{{ key }}</p>
             <div class="city-list" v-for="item of value" :key="item.id">
               <p class="city-name" @click="setLocCity(item.name)">{{ item.name }}</p>
@@ -56,6 +56,11 @@
         <!-- 无相关搜索结果 -->
         <article class="null-search" v-show="!searchCityList.length">暂时没有相关数据~~</article>
       </b-scroll>
+
+      <!-- 固定顶部字母标题 -->
+      <article class="fixed-top" v-show="topFixedTitle">
+        <h1 class="fixed-title">{{ topFixedTitle }}</h1>
+      </article>
     </section>
   </div>
 </template>
@@ -78,13 +83,36 @@
         listenScroll: true, // 监听滚动位置
         probeType: 3, // 不仅在屏幕滑动的过程中，而且在 momentum 滚动动画运行过程中实时派发 scroll 事件
         scrollY: 0, // 实时滚动的 Y 坐标
+        topFixedTitle: '', // 顶部固定字母标题
+        cityHeightList: [], // 城市区间列表列表高度
       };
+    },
+    computed: {
+      // 提取字母列表
+      letterList() {
+        return Object.keys(this.cities.data.cities);
+      }
     },
     watch: {
       // 监听输入框变化做函数节流 实现 搜索联想
       cityKeyword() {
         throttle(this._searchCity(), 300, 500);
+      },
+      // 监听 Y 轴滚动
+      scrollY(newY) {
+        // console.log(newY)
+        (newY > 0 || -newY < this.cityHeightList[0]) && (this.topFixedTitle = '');
+
+        for (let i = 0; i < this.cityHeightList.length; i++) {
+          let height_1 = this.cityHeightList[i];
+          let height_2 = this.cityHeightList[i + 1];
+
+         (-newY >= height_1 && -newY < height_2) && (this.topFixedTitle = this.letterList[i]);
+        }
       }
+    },
+    mounted() {
+      this._caclHeight();
     },
     methods: {
       /**
@@ -117,7 +145,21 @@
       /**
        * 监听子组件派发的 scroll 事件 | 实时获取滚动的 Y 坐标
        */
-      cityScroll(pos) { this.scrollY = pos.y; }
+      cityScroll(pos) { this.scrollY = pos.y; },
+      /**
+       * 计算每组城市区间高度
+       */
+      _caclHeight() {
+        // 当前城市 + 热门城市高度
+        let height = this.$refs.locCityRef.clientHeight + this.$refs.hotCityRef.clientHeight;
+        this.cityHeightList.push(height);
+
+        let cityGroup = this.$refs.cityGroupRef;
+        for (let item of cityGroup) {
+          height += item.clientHeight;
+          this.cityHeightList.push(height);
+        }
+      }
     }
   }
 </script>
