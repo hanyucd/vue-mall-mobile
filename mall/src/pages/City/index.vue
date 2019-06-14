@@ -62,19 +62,23 @@
         <h1 class="fixed-title">{{ topFixedTitle }}</h1>
       </article>
     </section>
+
+    <!-- 右侧字母导航列表 -->
+    <letter-nav :letterList="letterList"></letter-nav>
   </div>
 </template>
 
 <script>
   import cityData from '@/assets/js/city';
   import BScroll from '@/components/BScroll';
+  import LetterNav from './LetterNav';
   import { GoodsMixin } from '@/mixins/goodsMixin';
   import { throttle } from '@/utils/tools'; // 导入节流函数
 
   export default {
     name: 'City',
     mixins: [ GoodsMixin ],
-    components: { BScroll },
+    components: { BScroll, LetterNav },
     data() {
       return {
         cities: cityData, // 城市数据
