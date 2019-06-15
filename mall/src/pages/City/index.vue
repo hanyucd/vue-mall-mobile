@@ -10,9 +10,10 @@
 
     <section class="city-box">
       <!-- 城市列表 -->
-      <b-scroll 
+      <b-scroll
         class="content-scroll" 
         v-show="!cityKeyword" 
+        ref="cityScrollRef"
         :listenScroll="listenScroll" 
         :probeType="probeType"
         v-on:scroll="cityScroll"
@@ -64,7 +65,7 @@
     </section>
 
     <!-- 右侧字母导航列表 -->
-    <letter-nav :letterList="letterList"></letter-nav>
+    <letter-nav :letterList="letterList" :activeIndex="activeIndex" v-on:letter-evt="onLetterEvt"></letter-nav>
   </div>
 </template>
 
@@ -89,6 +90,7 @@
         scrollY: 0, // 实时滚动的 Y 坐标
         topFixedTitle: '', // 顶部固定字母标题
         cityHeightList: [], // 城市区间列表列表高度
+        activeIndex: -1 // 当前激活字母下标 | 传向子组件
       };
     },
     computed: {
@@ -98,13 +100,12 @@
       }
     },
     watch: {
-      // 监听输入框变化做函数节流 实现 搜索联想
+      // 监听输入框变化，做函数节流 实现 搜索联想
       cityKeyword() {
         throttle(this._searchCity(), 300, 500);
       },
       // 监听 Y 轴滚动
       scrollY(newY) {
-        // console.log(newY)
         (newY > 0 || -newY < this.cityHeightList[0]) && (this.topFixedTitle = '');
 
         for (let i = 0; i < this.cityHeightList.length; i++) {
@@ -113,6 +114,15 @@
 
          (-newY >= height_1 && -newY < height_2) && (this.topFixedTitle = this.letterList[i]);
         }
+      },
+      // 监听顶部固定标题变化
+      topFixedTitle(newTitle) {
+        if (!newTitle) {
+          this.activeIndex = -1;
+          return;
+        }
+        let index = this.letterList.indexOf(newTitle);
+        this.activeIndex = index;
       }
     },
     mounted() {
@@ -163,6 +173,13 @@
           height += item.clientHeight;
           this.cityHeightList.push(height);
         }
+      },
+      /**
+       * 监听子组件派发事件，实现滚动元素到目标位置
+       */
+      onLetterEvt(index) {
+        this.activeIndex = index;
+        this.$refs.cityScrollRef.scrollToElement(this.$refs.cityGroupRef[index], 200);
       }
     }
   }
