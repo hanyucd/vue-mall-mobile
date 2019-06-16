@@ -59,13 +59,13 @@
       </b-scroll>
 
       <!-- 固定顶部字母标题 -->
-      <article class="fixed-top" v-show="topFixedTitle">
+      <article class="fixed-top" v-show="topFixedTitle" ref="topTitleRef">
         <h1 class="fixed-title">{{ topFixedTitle }}</h1>
       </article>
     </section>
 
     <!-- 右侧字母导航列表 -->
-    <letter-nav :letterList="letterList" :activeIndex="activeIndex" v-on:letter-evt="onLetterEvt"></letter-nav>
+    <letter-nav v-show="!cityKeyword" :letterList="letterList" :activeIndex="activeIndex" v-on:letter-evt="onLetterEvt"></letter-nav>
   </div>
 </template>
 
@@ -90,7 +90,8 @@
         scrollY: 0, // 实时滚动的 Y 坐标
         topFixedTitle: '', // 顶部固定字母标题
         cityHeightList: [], // 城市区间列表列表高度
-        activeIndex: -1 // 当前激活字母下标 | 传向子组件
+        activeIndex: -1, // 当前激活字母下标 | 传向子组件
+        betweenDiff: 0 // 差距 | 用于顶部标题上移距离
       };
     },
     computed: {
@@ -112,8 +113,17 @@
           let height_1 = this.cityHeightList[i];
           let height_2 = this.cityHeightList[i + 1];
 
-         (-newY >= height_1 && -newY < height_2) && (this.topFixedTitle = this.letterList[i]);
+         if (-newY >= height_1 && -newY < height_2) {
+           this.topFixedTitle = this.letterList[i]; // 设置顶部固定标题
+           this.betweenDiff = newY + height_2; // 计算到顶部差距
+         }
         }
+      },
+      // 监听差距
+      betweenDiff(newDiff) {
+        let diff = (newDiff > 0 && newDiff < 30) ? newDiff - 30 : 0;
+        console.log(newDiff)
+        this.$refs.topTitleRef.style.transform = `translate3d(0, ${ diff }px, 0)`;
       },
       // 监听顶部固定标题变化
       topFixedTitle(newTitle) {
@@ -134,7 +144,7 @@
        */
       setLocCity(cityName) {
         this.setLocationCity(cityName);
-        // this.back();
+        this.back();
       },
       /**
        * 搜索相关城市

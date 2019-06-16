@@ -53,6 +53,7 @@
         curTabIndex: 0, // 当前子分类激活下标
         curTabIndexCopy: 0, // 当前子分类激活下标副本 | 对重复点击相同子分类做节流
         goodsList: [], // 商品列表
+        isEmptyGoodsList: false, // 是否无商品列表
       };
     },
     async created() {

@@ -55,10 +55,14 @@ export default {
       justify-content: center;
       align-items: center;
       width: 6vw;
+      border-radius: 50%;
       font-size: 14px;
       text-align: center;
     }
-    .active-letter { color: $color; }
+    .active-letter { 
+      background: $color;
+      color: #fff; 
+    }
   }
 </style>
 
