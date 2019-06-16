@@ -20,12 +20,12 @@
           </van-tab>
         </van-tabs>
         <div class="scroll-wrapper">
-          <b-scroll class="content-scroll" :data="goodsList" v-if="goodsList.length">
+          <b-scroll class="content-scroll" :data="goodsList" v-if="!isEmptyGoodsList && goodsList.length">
             <div class="container">
               <goods-list :goodsList="goodsList"></goods-list>
             </div>
           </b-scroll>
-          <article class="no-data" v-show="!goodsList.length">暂无数据~~</article>
+          <article class="no-data" v-show="isEmptyGoodsList">暂无数据~~</article>
         </div>
       </section>
     </div>
@@ -53,7 +53,7 @@
         curTabIndex: 0, // 当前子分类激活下标
         curTabIndexCopy: 0, // 当前子分类激活下标副本 | 对重复点击相同子分类做节流
         goodsList: [], // 商品列表
-        isEmptyGoodsList: false, // 是否无商品列表
+        isEmptyGoodsList: false, // 是否为空商品列表
       };
     },
     async created() {
@@ -81,6 +81,7 @@
         
         return;
       }
+      
       this._getCategoryList();
     },
     methods: {
@@ -118,6 +119,8 @@
           let res = await ajax.getGoodsList(categorySubId);
           if (res.code === 200) {
             this.goodsList = res.result;
+            // 判断是否为空商品列表
+            this.isEmptyGoodsList = !this.goodsList.length ? true : false;
           }
         } catch (error) {
           console.log(error);
