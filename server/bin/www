@@ -12,7 +12,8 @@ var http = require('http');
  * Get port from environment and store in Express.
  */
 
-var port = normalizePort(process.env.PORT || '3000');
+// var port = normalizePort(process.env.PORT || '3000');
+var port = normalizePort(process.env.PORT || '8000'); // 服务器临时部署端口
 // app.set('port', port);
 
 /**
