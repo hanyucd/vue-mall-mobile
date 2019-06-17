@@ -27,7 +27,7 @@ export default {
     /**
      * 处理点击字母事件，向父组件传值
      */
-    handleLetterNav(index) { 
+    handleLetterNav(index) {
       if (this.activeIndex === index) return;
 
       this.$emit('letter-evt', index);
@@ -43,7 +43,7 @@ export default {
     position: fixed;
     top: 20vh;
     bottom: 2vh;
-    right: 0;
+    right: 1vw;
     display: flex;
     flex-direction: column;
     padding: 10px 0;

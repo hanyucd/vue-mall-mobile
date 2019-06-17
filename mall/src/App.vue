@@ -2,9 +2,11 @@
   <div id="app">
     <transition :name="animateName">
       <keep-alive v-if="$route.meta.keepAlive">
-        <router-view id="view"></router-view>
+         <!-- 这里是会被缓存的视图组件 -->
+        <router-view id="view" v-if="$route.meta.keepAlive" />
       </keep-alive>
-      <router-view v-else id="view"></router-view>
+      <!-- 这里是不被缓存的视图组件 -->
+      <router-view v-if="!$route.meta.keepAlive" id="view" />
     </transition>
   </div>
 </template>

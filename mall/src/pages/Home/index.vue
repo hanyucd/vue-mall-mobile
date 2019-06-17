@@ -96,8 +96,9 @@
       };
     },
     watch: {
-      searchKeyword(newCity, old) {
-        console.log('new:', newCity, old)
+      // 监听定位城市变化 | 值在 GoodsMixin 中
+      locationCity(newCity, old) {
+        this._getHome();
       }
     },
     created() {
@@ -112,7 +113,6 @@
           this._search(this.searchKeyword, false);
         }
       }, 1000, 1000));
-      // console.log('首页生命')
     },
     destroyed() {
       // 注销 watch

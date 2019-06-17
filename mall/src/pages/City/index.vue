@@ -11,10 +11,10 @@
     <section class="city-box">
       <!-- 城市列表 -->
       <b-scroll
-        class="content-scroll" 
-        v-show="!cityKeyword" 
+        class="content-scroll"
+        v-show="!cityKeyword"
         ref="cityScrollRef"
-        :listenScroll="listenScroll" 
+        :listenScroll="listenScroll"
         :probeType="probeType"
         v-on:scroll="cityScroll"
       >
@@ -122,7 +122,6 @@
       // 监听差距
       betweenDiff(newDiff) {
         let diff = (newDiff > 0 && newDiff < 30) ? newDiff - 30 : 0;
-        console.log(newDiff)
         this.$refs.topTitleRef.style.transform = `translate3d(0, ${ diff }px, 0)`;
       },
       // 监听顶部固定标题变化

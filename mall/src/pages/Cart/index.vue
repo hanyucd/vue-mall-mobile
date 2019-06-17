@@ -18,6 +18,9 @@
       return {
         msg: '开发中...'
       }
+    },
+    created() {
+      console.log('购物车创建')
     }
   }
 </script>
