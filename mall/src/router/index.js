@@ -16,14 +16,6 @@ Vue.use(Router);
  */
 const router =  new Router({
   mode: 'history',
-  scrollBehavior(to, from ,scrollBehavior) {
-    if (to.name === 'City') {
-      console.log(to)
-    }
-    // console.log("to:", to)
-    // console.log("from:", from)
-    // console.log("scrollBehavior：", scrollBehavior)
-  },
   routes: [
     { path: '/', redirect: { name: 'Home' } },
     { path: '/home', name: 'Home', component: Home, meta: { keepAlive: true }}, // 首页

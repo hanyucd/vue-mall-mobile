@@ -137,12 +137,17 @@
     mounted() {
       this._caclHeight();
     },
+    activated() {
+      // keep-alive 组件激活 cityScrollRef 滚动到顶部
+      this.$refs.cityScrollRef.scrollTo(0, 0); 
+    },
     methods: {
       /**
        * 选择定位城市
        */
       setLocCity(cityName) {
         this.setLocationCity(cityName);
+        // 返回到上一页，方法在 loadMixin 中
         this.back();
       },
       /**
