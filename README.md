@@ -9,7 +9,7 @@
 
 后端：脚手架工具 koa-generator **狼叔-桑世龙**写的；（狼叔说：少抱怨，多思考，未来更美好）
 
-主体：**vue + vue-router + vuex + axios + koa + mongodb + mongoose + vant**
+主体：**vue + vue-router + vuex + axios + scss + koa + mongodb + mongoose + vant**
 
 其他：**better-scroll + vue-awesome-swiper**
 
