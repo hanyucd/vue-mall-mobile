@@ -14,7 +14,7 @@
       </transition>
     </header>
     <!-- 内容区 -->
-    <section class="content" v-if="homeData">
+    <section class="content" v-if="homeData" @touchstart.prevent="touchstart" @touchmove.prevent="touchmove" @touchend.prevent="touchend">
       <b-scroll 
         class="content-scroll"
         ref="homeScrollRef"
@@ -24,7 +24,7 @@
         :pullup="true"
         :bounce="bounce"
         :listenScroll="true"
-        @scroll="scroll"
+        v-on:scroll="contentScroll"
         v-on:scrollEnd="homeScrollEnd"
       >
         <div class="container">
@@ -93,6 +93,7 @@
         isShowSearch: false, // 是否显示搜索区
         isEmptySearchResult: false, // 是否无搜索结果
         isloadMore: false, // 是否加载更多
+        touch: {},
       };
     },
     watch: {
@@ -184,7 +185,6 @@
        * 监听子组件派发的事件
        */
       clickSearch(searchKeyword) { this.searchKeyword = searchKeyword },
-      scroll() {},
       /**
        * 首页滚动到底部 | 处理子组件派发的事件 | 重新计算 better-scroll
        */
@@ -206,7 +206,32 @@
       /**
        * 切换城市
        */
-      changeCity() { this.$router.push({ name: 'City' }) }
+      changeCity() { this.$router.push({ name: 'City' }) },
+      /**
+       * 监听子组件派发事件 | 获取实时滚动位置坐标
+       *  @param {Object} pos 滚动的实时坐标
+       */
+      contentScroll(pos) {
+        console.log(pos)
+      },
+      /**
+       * 触摸开始 | 当用户在触摸平面上放置了一个触点时触发
+       */
+      touchstart() {
+        console.log('touchstart')
+      },
+      /**
+       * 触摸移动 | 当用户在触摸平面上移动触点时触发
+       */
+      touchmove() {
+        console.log('touchmove')
+      },
+      /**
+       * 触摸结束 | 当一个触点被用户从触摸平面上移除
+       */
+      touchend() {
+        console.log('touchend')
+      },
     }
   }
 </script>
