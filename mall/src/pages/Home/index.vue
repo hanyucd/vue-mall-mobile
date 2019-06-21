@@ -48,6 +48,9 @@
           <hot-goods :hotGoods="homeData.hotGoods"></hot-goods>
         </div>
       </b-scroll>
+      
+      <!-- 下拉刷新 -->
+      <refresh></refresh>
     </section>
     <!-- 搜索结果 -->
     <search 
@@ -72,6 +75,7 @@
   import Floor from './Floor';
   import HotGoods from './HotGoods';
   import Search from './Search';
+  import Refresh from './Refresh';
   import BScroll from '@/components/BScroll';
   import FooterNav from '@/components/FooterNav';
   import { GoodsMixin } from '@/mixins/goodsMixin';
@@ -82,7 +86,7 @@
   export default {
     name: 'Home',
     mixins: [ GoodsMixin, loadMixin ],
-    components: { Banner, Category, Recommend, Floor, HotGoods, Search, BScroll, FooterNav },
+    components: { Banner, Category, Recommend, Floor, HotGoods, Search, Refresh, BScroll, FooterNav },
     data() {
       return {
         homeData: {}, // 首页数据
