@@ -222,6 +222,7 @@
        * 触摸开始 | 当用户在触摸平面上放置了一个触点时触发
        */
       touchstart() {
+        this.touch.init = true;
         console.log('touchstart')
       },
       /**
