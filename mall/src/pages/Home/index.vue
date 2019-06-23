@@ -98,6 +98,8 @@
         isEmptySearchResult: false, // 是否无搜索结果
         isloadMore: false, // 是否加载更多
         touch: {},
+        isRotate: false,
+        isTrans: false,
       };
     },
     watch: {
@@ -221,8 +223,9 @@
       /**
        * 触摸开始 | 当用户在触摸平面上放置了一个触点时触发
        */
-      touchstart() {
+      touchstart(event) {
         this.touch.init = true;
+        this.touch.startY = event.touches[0].pageY;
         console.log('touchstart')
       },
       /**
