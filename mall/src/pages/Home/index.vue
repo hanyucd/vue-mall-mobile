@@ -218,7 +218,7 @@
        *  @param {Object} pos 滚动的实时坐标
        */
       contentScroll(pos) {
-        console.log(pos)
+        // console.log(pos)
       },
       /**
        * 触摸开始 | 当用户在触摸平面上放置了一个触点时触发
@@ -226,19 +226,18 @@
       touchstart(event) {
         this.touch.init = true;
         this.touch.startY = event.touches[0].pageY;
-        console.log('touchstart')
       },
       /**
        * 触摸移动 | 当用户在触摸平面上移动触点时触发
        */
-      touchmove() {
-        console.log('touchmove')
+      touchmove(event) {
+        let moveY = event.touches[0].pageY;
+        console.log(moveY)
       },
       /**
        * 触摸结束 | 当一个触点被用户从触摸平面上移除
        */
       touchend() {
-        console.log('touchend')
       },
     }
   }
