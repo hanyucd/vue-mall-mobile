@@ -218,7 +218,6 @@
        *  @param {Object} pos 滚动的实时坐标
        */
       contentScroll(pos) {
-        // console.log(pos)
       },
       /**
        * 触摸开始 | 当用户在触摸平面上放置了一个触点时触发
