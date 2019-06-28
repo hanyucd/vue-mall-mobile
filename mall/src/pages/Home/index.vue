@@ -100,6 +100,9 @@
         touch: {},
         isRotate: false,
         isTrans: false,
+        translateY: 0,
+        rotate: 0,
+        opac: 0,
       };
     },
     watch: {
@@ -231,7 +234,11 @@
        */
       touchmove(event) {
         let moveY = event.touches[0].pageY;
-        console.log(moveY)
+        let distanceY = moveY - this.touch.startY;
+        this.translateY = Math.max(0, distanceY / 3.5);
+        this.rotate = Math.max(0, Math.min(360, distanceY));
+        (this.translateY > 80) && (this.isRotate = true);
+        this.opac = distanceY / 320;
       },
       /**
        * 触摸结束 | 当一个触点被用户从触摸平面上移除
