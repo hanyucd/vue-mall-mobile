@@ -9,7 +9,7 @@ const GoodsDetails = () => import('@/pages/GoodsDetails'); // 商品详情
 const City = () => import('@/pages/City'); // 城市选择
 
 // 定义路由跳转动画
-Router.prototype.animateFlag = 0;
+// Router.prototype.animateFlag = 0;
 Vue.use(Router);
 /**
  * keepAlive 需要缓存的页面
@@ -18,12 +18,12 @@ const router =  new Router({
   mode: 'history',
   routes: [
     { path: '/', redirect: { name: 'Home' } },
-    { path: '/home', name: 'Home', component: Home, meta: { keepAlive: true }}, // 首页
-    { path: '/category', name: 'Category', component: Category }, // 商品分类
-    { path: '/cart', name: 'Cart', component: Cart, meta: { keepAlive: true } }, // 购物车
-    { path: '/me', name: 'Me', component: User }, // 个人中心
-    { path: '/city', name: 'City', component: City, meta: { keepAlive: true } }, // 城市选择
-    { path: '/goodsDetails', name: 'GoodsDetails', component: GoodsDetails, props: route => ({ goodsId: route.query.goodsId }) }, // 商品信息
+    { path: '/home', name: 'Home', component: Home, meta: { keepAlive: true, index: 1 }}, // 首页
+    { path: '/category', name: 'Category', component: Category, meta: { index: 2 } }, // 商品分类
+    { path: '/cart', name: 'Cart', component: Cart, meta: { keepAlive: true, index: 3 } }, // 购物车
+    { path: '/me', name: 'Me', component: User, meta: { index: 4 } }, // 个人中心
+    { path: '/city', name: 'City', component: City, meta: { keepAlive: true, index: 5 } }, // 城市选择
+    { path: '/goodsDetails', name: 'GoodsDetails', component: GoodsDetails, props: route => ({ goodsId: route.query.goodsId }), meta: { index: 6 } }, // 商品信息
     { path: '*', redirect: { name: 'Home' } }
   ]
 });

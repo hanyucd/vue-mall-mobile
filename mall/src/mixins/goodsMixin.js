@@ -24,7 +24,7 @@ export const GoodsMixin = {
     },
     // 退回到上一页
     back() {
-      this.$router.animateFlag = 1;
+      // this.$router.animateFlag = 1;
       this.$router.go(-1);
     }
   }
