@@ -3,19 +3,21 @@ import { mapMutations, mapGetters, mapActions } from 'vuex';
 export const GoodsMixin = {
   computed: {
     ...mapGetters([
-      'goodsDetails', 
-      'categoryList', 
-      'searchHistoryList',
-      'locationCity',
+      'goodsDetails', // 商品详情
+      'categoryList', // 大分类列表
+      'locationCity', // 定位城市
+      'searchHistoryList', // 搜索历史列表
+      'browseHistoryList', // 浏览历史列表
     ])
   },
   methods: {
     ...mapMutations({ setGoodsDetails: 'GOODS_DETAILS' }),
     ...mapActions([
-      'setCategoryList',
-      'setSearchHistory',
-      'deleteSearchHistory',
-      'setLocationCity',
+      'setCategoryList', // 设置大分类列表
+      'setLocationCity', // 设置定位城市
+      'setSearchHistory', // 设置搜索历史列表
+      'deleteSearchHistory', // 删除搜索历史列表
+      'setBrowseHistory', // 设置浏览历史列表
     ]),
     // 跳转商品详情页
     goGoodsDetails(item) {

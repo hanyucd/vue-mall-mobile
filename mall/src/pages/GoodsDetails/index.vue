@@ -150,14 +150,15 @@
        * 商品详情
        */
       async _goodsDetails(goodsId) {
-        // console.log('id:', goodsId)
-
         try {
           let res = await ajax.getGoodsDetails(goodsId);
           this.goodsInfo = res.result;
-          console.log(res);
           if (this.goodsInfo) {
             document.title = this.goodsInfo.name;
+            // 添加该商品到浏览历史 | 方法在 GoodsMixin 中
+            setTimeout(() => {
+              this.setBrowseHistory(this.goodsInfo);
+            }, 300);
           }
         } catch (error) {
           (error.code === 404) && this.$toast(error.message);

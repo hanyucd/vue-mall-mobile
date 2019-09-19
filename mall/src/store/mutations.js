@@ -9,13 +9,17 @@ const mutations = {
   [types.CATEGORY_LIST](state, categoryList) {
     state.categoryList = categoryList;
   },
-  // 设置 state 中 searchHistoryList
-  [types.SEARCH_HISTORY_LIST](state, searchHistoryList) {
-    state.searchHistoryList = searchHistoryList
-  },
   // 设置 state 中 locationCity
   [types.LOCATION_CITY](state, cityName) {
     state.locationCity = cityName;
+  },
+  // 设置 state 中 searchHistoryList
+  [types.SEARCH_HISTORY_LIST](state, searchHistoryList) {
+    state.searchHistoryList = searchHistoryList;
+  },
+  // 设置 state 中 browseHistoryList
+  [types.BROWSE_HISTORY_LIST](state, browseHistoryList) {
+    state.browseHistoryList = browseHistoryList;
   }
 };
 
