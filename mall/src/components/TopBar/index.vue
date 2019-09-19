@@ -1,6 +1,8 @@
 <template>
-  <div class="top-bar">
-    {{ title }}
+  <div class="top-bar" :class="[ !hasBack ? 'center' : 'between' ]">
+    <van-icon v-show="hasBack" class="back-icon" name="arrow-left" @click="$router.go(-1)" />
+    <span>{{ title }}</span>
+    <div></div>
   </div>
 </template>
 
@@ -8,20 +10,23 @@
   export default {
     name: 'TopBar',
     props: {
-      title: { type: String, default: '' }
+      title: { type: String, default: '' },
+      hasBack: { type: Boolean, default: false }
     }
   }
 </script>
 
 <style lang="scss" scoped>
   .top-bar {
-    height: 11.5vw;
     display: flex;
-    justify-content: center;
     align-items: center;
+    height: 11.5vw;
+    padding: 0 3vw;
     background: #fff;
     border-bottom: 1px solid #eee;
     font-size: 4.5vw;
     box-sizing: border-box;
   }
+  .center { justify-content: center; }
+  .between { justify-content: space-between; }
 </style>

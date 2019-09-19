@@ -1,6 +1,6 @@
 <template>
   <div class="city-container">
-    <van-nav-bar title="城市列表" left-arrow @click-left="back"/>
+    <top-bar title="城市列表" hasBack></top-bar>
     
     <section class="city-search">
       <van-icon class="search-icon" name="search" />
@@ -71,6 +71,7 @@
 
 <script>
   import cityData from '@/assets/js/city';
+  import TopBar from '@/components/TopBar';
   import BScroll from '@/components/BScroll';
   import LetterNav from './LetterNav';
   import { GoodsMixin } from '@/mixins/goodsMixin';
@@ -79,7 +80,7 @@
   export default {
     name: 'City',
     mixins: [ GoodsMixin ],
-    components: { BScroll, LetterNav },
+    components: { TopBar, BScroll, LetterNav },
     data() {
       return {
         cities: cityData, // 城市数据

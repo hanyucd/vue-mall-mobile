@@ -22,17 +22,20 @@
     </section>
     <!-- 其他：收藏商品、地址管理、最近浏览 -->
     <section class="other-entry">
+      <!-- 收藏商品 -->
       <div class="colection">
         <van-icon class="mark-icon" name="star-o" />
         <span>收藏商品</span>
         <van-icon class="arrow-icon" name="arrow" />
       </div>
+      <!-- 地址管理 -->
       <div class="colection">
         <van-icon class="mark-icon" name="star-o" />
         <span>地址管理</span>
         <van-icon class="arrow-icon" name="arrow" />
       </div>
-      <div class="colection">
+      <!-- 最近浏览 -->
+      <div class="colection" @click="$router.push({ name: 'BrowseHistory' })">
         <van-icon class="mark-icon" name="eye-o" />
         <span>最近浏览</span>
         <van-icon class="arrow-icon" name="arrow" />

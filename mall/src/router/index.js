@@ -7,6 +7,7 @@ const Cart = () => import('@/pages/Cart'); // 购物车
 const User = () => import('@/pages/User'); // 个人中心
 const GoodsDetails = () => import('@/pages/GoodsDetails'); // 商品详情
 const City = () => import('@/pages/City'); // 城市选择
+const BrowseHistory = () => import('@/pages/BrowseHistory'); // 浏览历史
 
 Vue.use(Router);
 /**
@@ -22,6 +23,7 @@ const router =  new Router({
     { path: '/me', name: 'Me', component: User, meta: { index: 4 } }, // 个人中心
     { path: '/city', name: 'City', component: City, meta: { keepAlive: true, index: 5 } }, // 城市选择
     { path: '/goodsDetails', name: 'GoodsDetails', component: GoodsDetails, props: route => ({ goodsId: route.query.goodsId }), meta: { index: 6 } }, // 商品信息
+    { path: '/browseHistory', name: 'BrowseHistory', component: BrowseHistory, meta: { index: 7} }, // 浏览历史
     { path: '*', redirect: { name: 'Home' } }
   ]
 });
@@ -33,6 +35,7 @@ const title = {
   Me: '个人中心',
   City: '城市选择',
   GoodsDetails: '商品详情',
+  BrowseHistory: '浏览历史'
 };
 
 // 注册全局导航前置钩子用来拦截导航
