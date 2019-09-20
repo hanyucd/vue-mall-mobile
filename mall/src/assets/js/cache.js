@@ -80,6 +80,17 @@ let browseHistoryCache = {
   },
   getCache() {
     return storage.getItem(BROWSE_HISTORY) ? JSON.parse(storage.getItem(BROWSE_HISTORY)) : [];
+  },
+  deleteOneCache(goodsId = "") {
+    let browseHistoryList = this.getCache();
+    // 找到满足条件元素的下标
+    let index = browseHistoryList.findIndex(item => item.id === goodsId);
+    // 删除它
+    browseHistoryList.splice(index, 1);
+    
+    storage.setItem(BROWSE_HISTORY, JSON.stringify(browseHistoryList));
+    
+    return browseHistoryList;
   }
 };
 

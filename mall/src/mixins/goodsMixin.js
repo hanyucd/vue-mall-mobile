@@ -18,6 +18,7 @@ export const GoodsMixin = {
       'setSearchHistory', // 设置搜索历史列表
       'deleteSearchHistory', // 删除搜索历史列表
       'setBrowseHistory', // 设置浏览历史列表
+      'deleteOneBrowseHistory', // 删除一条浏览历史
     ]),
     // 跳转商品详情页
     goGoodsDetails(item) {

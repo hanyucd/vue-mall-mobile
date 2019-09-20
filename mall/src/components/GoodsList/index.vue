@@ -13,6 +13,10 @@
           <span class="orl-pic">{{ item.orl_price }}</span>
         </p>
       </section>
+      <!-- 删除按钮 -->
+      <section class="delete-btn" v-if="isBrowseHistory">
+        <van-icon name="close" class="delete-icon" @click.stop="$emit('deleteOneHistory', item)" />
+      </section>
     </li>
     <p class="load-more" v-if="isloadMore">- 加载更多 -</p>
     <p class="load-more" v-else>- 我们是有底线的 -</p>
@@ -29,6 +33,7 @@
       goodsList: { type: Array, default: () => [] },
       searchKeyword: { type: String, default: '' }, // 搜索关键字
       isloadMore: { type: Boolean, default: false }, // 是否加载更多
+      isBrowseHistory: { type: Boolean, default: false }, // 是否为浏览历史
     },
     data() {
       return {

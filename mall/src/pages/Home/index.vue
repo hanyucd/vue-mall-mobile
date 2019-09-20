@@ -15,7 +15,7 @@
     </header>
     <!-- 内容区 -->
     <section class="content" v-if="homeData" @touchstart.prevent="touchstart" @touchmove.prevent="touchmove" @touchend.prevent="touchend">
-      <b-scroll 
+      <b-scroll
         class="content-scroll"
         ref="homeScrollRef"
         v-if="homeData"

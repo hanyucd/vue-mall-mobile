@@ -20,7 +20,6 @@ const setLocationCity = ({ commit }, cityName) => {
 const setSearchHistory = ({ commit }, searchKeyword) => {
   commit(types.SEARCH_HISTORY_LIST, searchHistoryCache.setCache(searchKeyword));
 };
-
 // 删除搜索历史列表
 const deleteSearchHistory = ({ commit }) => {
   commit(types.SEARCH_HISTORY_LIST, searchHistoryCache.deleteCache());
@@ -29,7 +28,11 @@ const deleteSearchHistory = ({ commit }) => {
 // 设置浏览历史列表
 const setBrowseHistory = ({ commit }, browseHistory) => {
   commit(types.BROWSE_HISTORY_LIST, browseHistoryCache.setCache(browseHistory));
-}
+};
+// 删除一条浏览历史
+const deleteOneBrowseHistory = ({ commit }, goodsId) => {
+  commit(types.BROWSE_HISTORY_LIST, browseHistoryCache.deleteOneCache(goodsId));
+};
 
 export default {
   setCategoryList, // 设置大分类列表
@@ -37,4 +40,5 @@ export default {
   setSearchHistory, // 设置搜索历史列表
   deleteSearchHistory, // 删除搜索历史列表
   setBrowseHistory, // 设置浏览历史列表
-}
+  deleteOneBrowseHistory, // 删除一条浏览历史
+};

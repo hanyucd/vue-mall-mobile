@@ -40,6 +40,15 @@ ul {
         }
       }
     }
+    .delete-btn {
+      flex-basis: 10%;
+      display: flex;
+      .delete-icon {
+        margin: auto;
+        font-size: 1.3rem;
+        color: red;
+      }
+    }
   }
   .load-more {
     text-align: center;

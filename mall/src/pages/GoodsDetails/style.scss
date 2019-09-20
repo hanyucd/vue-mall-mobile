@@ -115,15 +115,15 @@ $borderColor: #F6F7F8;
       display: flex;
       justify-content: space-between;
       .buy-total {
-        p { 
-          font-size: 12px; 
-          margin-bottom: 15px; 
+        p {
+          font-size: 12px;
+          margin-bottom: 15px;
           span { color: $color; }
         }
         span { font-size: 14px; color: #999; }
       }
     }
-    .drawer-buy-now { 
+    .drawer-buy-now {
       flex-basis: 20%;
       display: flex;
       justify-content: center;
