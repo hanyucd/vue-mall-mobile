@@ -1,0 +1,67 @@
+$color: #b532e9;
+
+.login {
+  position: relative;
+  background-image: url('../../assets/imgs/login-bg.jpg');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  .form-container {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 90%;
+    margin: 0 auto;
+    box-sizing: border-box;
+    border-radius: .2rem;
+    padding: .8rem;
+    background: #fff;
+    box-shadow: -2px 3px 23px 1px rgba(0, 0, 0, 0.1);
+    .title {
+      font-size: 1.3rem;
+      color: #000;
+      letter-spacing: .2rem;
+      margin-bottom: 1.5rem;
+    }
+    .input-wrapper {
+      position: relative;
+      margin-bottom: 2rem;
+      .u-name, .u-password {
+        width: 100%;
+        height: 3rem;
+        caret-color: $color;
+        font-size: 1.5rem;
+        letter-spacing: .1rem;
+        &::-webkit-input-placeholder {
+          color: #D8D8D8;
+          font-size: 1.3rem;
+          letter-spacing: .1rem;
+        }
+      }
+      &::before {
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        content: "";
+        height: 2px;
+        background: rgba(0, 0, 0, 0.1);
+      }
+    }
+    .login-btn {
+      height: 3rem;
+      line-height: 3rem;
+      text-align: center;
+      color: #fff;
+      background: $color;
+      border-radius: .2rem;
+    }
+    .register-entry {
+      margin-top: 1rem;
+      text-align: right;
+      letter-spacing: .1rem;
+      color: $color;
+    }
+  }
+}

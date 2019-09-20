@@ -1,9 +1,10 @@
 <template>
   <div class="user">
-    <top-bar title="会员中心"></top-bar>
+    <top-bar title="个人中心"></top-bar>
+    
     <section class="user-info">
       <img class="avatar" src="http://img4.imgtn.bdimg.com/it/u=198369807,133263955&fm=27&gp=0.jpg" />
-      <p>登录 / 注册</p>
+      <p @click="$router.push({ name: 'Login' })">登录 / 注册</p>
     </section>
     <!-- 订单索引 -->
     <section class="order-index-wrapper">
@@ -23,19 +24,19 @@
     <!-- 其他：收藏商品、地址管理、最近浏览 -->
     <section class="other-entry">
       <!-- 收藏商品 -->
-      <div class="colection">
+      <div class="collection">
         <van-icon class="mark-icon" name="star-o" />
         <span>收藏商品</span>
         <van-icon class="arrow-icon" name="arrow" />
       </div>
       <!-- 地址管理 -->
-      <div class="colection">
+      <div class="address">
         <van-icon class="mark-icon" name="star-o" />
         <span>地址管理</span>
         <van-icon class="arrow-icon" name="arrow" />
       </div>
       <!-- 最近浏览 -->
-      <div class="colection" @click="$router.push({ name: 'BrowseHistory' })">
+      <div class="browse-history" @click="$router.push({ name: 'BrowseHistory' })">
         <van-icon class="mark-icon" name="eye-o" />
         <span>最近浏览</span>
         <van-icon class="arrow-icon" name="arrow" />

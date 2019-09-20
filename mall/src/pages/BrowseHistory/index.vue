@@ -4,7 +4,7 @@
 
     <b-scroll class="content-scroll" :data="browseHistoryList">
       <div v-if="!browseHistoryList.length" class="empty-browse-history">
-        暂未浏览任何商品 ~~
+        暂无浏览历史 ~~
       </div>
       <goods-list v-else :goodsList="browseHistoryList" isBrowseHistory v-on:deleteOneHistory="removeOneHistory"></goods-list>
     </b-scroll>
