@@ -1,18 +1,32 @@
 $color: #b532e9;
 
+.login-slide-enter, .reg-slide-enter {
+  opacity: 0;
+}
+.login-slide-enter-active, 
+.reg-slide-enter-active {
+  transition: all 1s ease;
+}
+.login-slide-leave-active,
+.reg-slide-leave-active {
+  display: none;
+}
+
 .login {
-  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   background-image: url('../../assets/imgs/login-bg.jpg');
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover;
   .form-container {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+    // position: absolute;
+    // top: 50%;
+    // left: 50%;
+    // transform: translate(-50%, -50%);
     width: 90%;
-    margin: 0 auto;
+    // margin: 0 auto;
     box-sizing: border-box;
     border-radius: .2rem;
     padding: .8rem;
