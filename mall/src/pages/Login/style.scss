@@ -1,5 +1,6 @@
 $color: #b532e9;
 
+// 登录 、注册切换动画
 .login-slide-enter, .reg-slide-enter {
   opacity: 0;
 }
@@ -25,8 +26,8 @@ $color: #b532e9;
     // top: 50%;
     // left: 50%;
     // transform: translate(-50%, -50%);
-    width: 90%;
     // margin: 0 auto;
+    width: 90%;
     box-sizing: border-box;
     border-radius: .2rem;
     padding: .8rem;
@@ -62,7 +63,19 @@ $color: #b532e9;
         height: 2px;
         background: rgba(0, 0, 0, 0.1);
       }
+      &::after {
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        content: "";
+        height: 2px;
+        background: $color;
+        transform: scaleX(0);
+        transition: transform 200ms cubic-bezier(0.0, 0, 0.2, 1) 0ms;
+      }
     }
+    .focus-a::after { transform: scaleX(1); }
     .login-btn {
       height: 3rem;
       line-height: 3rem;
@@ -71,7 +84,7 @@ $color: #b532e9;
       background: $color;
       border-radius: .2rem;
     }
-    .register-entry {
+    .register-entry, .login-entry {
       margin-top: 1rem;
       text-align: right;
       letter-spacing: .1rem;
