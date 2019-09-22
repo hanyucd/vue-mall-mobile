@@ -20,6 +20,7 @@ const router = new Router();
 
 // error handler
 onerror(app);
+app.proxy = true; // 设置一些 proxy header 参数会被加到信任列表中
 app.use(cors());
 // middlewares
 app.use(bodyparser({

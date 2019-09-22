@@ -7,7 +7,7 @@ class Tools {
   // 格式化当前日期
   getCurDate() {
     // 返回格式：20190925
-    return sd.format(new Date(), 'YYYMMDD');
+    return sd.format(new Date(), 'YYYYMMDD');
   }
 }
 
