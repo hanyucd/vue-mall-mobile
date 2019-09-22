@@ -26,6 +26,16 @@ class Ajax {
   register(userName = '', password = '') {
     return post(Url.registerApi, { userName, password });
   }
+  
+  // 登录 | POST
+  login(userName = '', password = '') {
+    return post(Url.loginApi, { userName, password });
+  }
+  
+  // 发送短信验证码 | POST
+  sendSMSCode(mobilePhone) {
+    return post(Url.sendSMSCodeApi, { mobilePhone });
+  }
 }
 
 export default new Ajax();

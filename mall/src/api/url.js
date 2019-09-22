@@ -10,7 +10,9 @@ export const Url = {
   goodsDetailsApi: baseURL + '/api/goods/goodsDetails', // 单个商品详情接口
   goodsListApi: baseURL + '/api/goods/goodsList', // 分类商品列表接口
   searchApi: baseURL + '/api/search', // 搜索接口
-  registerApi: baseURL + '/api/user/register', // 注册接口
+  registerApi: baseURL + '/api/user/register', // 用户注册接口
+  loginApi: baseURL + '/api/user/login', // 用户登录接口
+  sendSMSCodeApi: baseURL + '/api/user/sendSMSCode', // 发送短信验证码接口
   
 
   addGoodsToCartApi: baseURL + '/user/addGoodsToCart', // 添加商品到购物车接口

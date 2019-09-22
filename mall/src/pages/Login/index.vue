@@ -43,7 +43,7 @@
         </section>
         <!-- 短信验证码 -->
         <section class="input-wrapper" :class="[ focusIndex === 4 ? 'focus-a' : '' ]">
-          <input type="text" class="sms" @focus="handleFocus(4)" @blur="handleBlur" v-model="sms" maxlength="6" placeholder="短信验证码" autocomplete="off" />
+          <input type="text" class="sms" @focus="handleFocus(4)" @blur="handleBlur" v-model="smsCode" maxlength="6" placeholder="短信验证码" autocomplete="off" />
           <span class="send-sms" @click="sendSMSCode">发送验证码</span>
         </section>
         <!-- 注册按钮 -->
@@ -55,6 +55,7 @@
       </article>
     </transition>
 
+    <!-- 后退 -->
     <back @backEvt="back" />
   </div>
 </template>
@@ -76,7 +77,7 @@
         password: '', // 密码
         verifyCode: '', // 图形验证码
         mobilePhone: '', // 手机号
-        sms: '', // 短信验证码
+        smsCode: '', // 短信验证码
       }
     },
     methods: {
@@ -99,7 +100,7 @@
         this.password = '';
         this.verifyCode = '';
         this.mobilePhone = '';
-        this.sms = '';
+        this.smsCode = '';
       },
       /**
        * 表单验证
@@ -120,8 +121,8 @@
             if (!this.verifyCode) return toast('请输入验证码');
             break;
           case 2:
-            if (!this.mobilePhone) return toast('请输入正确的手机号码');
-            if (!this.sms) return toast('请输入短信验证码');
+            if (this.mobilePhone.length != 11) return toast('请输入正确的手机号码');
+            if (!this.smsCode) return toast('请输入短信验证码');
             break;
         }
 
@@ -135,21 +136,43 @@
  
         let userName = this.userName;
         let password = this.password;
-        let res = await ajax.register(userName,  password);
-        console.log(res)
+        
+        try {
+          let res = await ajax.register(userName,  password);
+          console.log(res)
+        } catch (error) {
+          console.log(error);
+        }
       },
       /**
        * 登录
        */
       async login() {
         if (!this._checkForm(1)) return;
-        console.log('登录')
+        
+        let userName = this.userName;
+        let password = this.password;
+
+        try {
+          let res = await ajax.login(userName,  password);
+          console.log(res)
+        } catch (error) {
+          console.log(error);
+        }
       },
       /**
        * 发送短信验证码
        */
-      sendSMSCode() {
-        console.log('发送短信验证码')
+      async sendSMSCode() {
+        // 手机号码错误
+        // if (this.mobilePhone.length != 11 || !/^[1][3,4,5,7,8][0-9]{9}$/.test(this.mobilePhone)) return this.$toast('请输入正确的手机号码');
+        
+        try {
+          let res = await ajax.sendSMSCode(this.mobilePhone);
+          console.log(res)
+        } catch (error) {
+          console.log(error);
+        }
       }
     }
   }

@@ -16,4 +16,24 @@ router.post('/register', async (ctx) => {
   }
 });
 
+/**
+ * 发送短信验证码
+ */
+router.post('/sendSMSCode', async (ctx) => {
+  ctx.body = {
+    code: 200,
+    msg: '发送成功'
+  }
+});
+
+/**
+ * 用户登录
+ */
+router.post('/login', async (ctx) => {
+  ctx.body = {
+    code: 200,
+    msg: '登录成功'
+  }
+});
+
 module.exports = router;
