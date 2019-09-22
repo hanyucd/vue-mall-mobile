@@ -37,22 +37,34 @@ $color: #b532e9;
       font-size: 1.3rem;
       color: #000;
       letter-spacing: .2rem;
-      margin-bottom: 1.5rem;
+      margin-bottom: 1rem;
     }
     .input-wrapper {
       position: relative;
-      margin-bottom: 2rem;
-      .u-name, .u-password {
-        width: 100%;
+      display: flex;
+      align-items: center;
+      margin-bottom: 1.5rem;
+      .u-name, .u-password, .verify-code, .mobile-phone, .sms {
+        flex: 1;
+        width: 0;
         height: 3rem;
-        caret-color: $color;
         font-size: 1.5rem;
         letter-spacing: .1rem;
+        caret-color: $color;
+        -webkit-caret-color: $color;
+        -moz-caret-color: $color;
+        -o-caret-color: $color;
+        -ms-caret-color: $color;
         &::-webkit-input-placeholder {
           color: #D8D8D8;
-          font-size: 1.3rem;
+          font-size: 1.2rem;
           letter-spacing: .1rem;
         }
+      }
+      .send-sms {
+        color: $color;
+        font-size: 1.1rem;
+        letter-spacing: .1rem;
       }
       &::before {
         position: absolute;

@@ -17,9 +17,14 @@ class Ajax {
     return get(Url.goodsListApi, { categorySubId });
   }
 
-  // 搜索
+  // 搜索 | POST
   search(keyword, page = 1) {
     return post(Url.searchApi, { keyword, page });
+  }
+
+  // 注册 | POST
+  register(userName = '', password = '') {
+    return post(Url.registerApi, { userName, password });
   }
 }
 

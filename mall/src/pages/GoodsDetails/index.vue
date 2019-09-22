@@ -109,12 +109,12 @@
     </article>
 
     <!-- 后退 -->
-    <back @backEvt="back"></back>
+    <back @backEvt="back" />
   </div>
 </template>
 
 <script>
-  import Back from './Back';
+  import Back from '@/components/Back';
   import BScroll from '@/components/BScroll';
   import { ImagePreview } from 'vant'; // 图片预览
   import { GoodsMixin } from '@/mixins/goodsMixin';
