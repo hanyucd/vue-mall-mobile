@@ -12,9 +12,9 @@ let querystring = require('querystring');
 function sendSMSCode(mobilePhone, randomNum) {
   let queryData = querystring.stringify({
     "mobile": mobilePhone,  // 接受短信的用户手机号码
-    "tpl_id": "187915",  // 您申请的短信模板ID，根据实际情况修改
+    "tpl_id": "187915",  // 您申请的短信模板 ID，根据实际情况修改
     "tpl_value": `#code#=${ randomNum }`,  // 您设置的模板变量，根据实际情况修改
-    "key": "d52256474eb6d73350e47eb52adbca67",  // 应用APPKEY(应用详细页查询)
+    "key": "d52256474eb6d73350e47eb52adbca67",  // 应用 APPKEY (应用详细页查询)
   });
   
   let queryUrl = 'http://v.juhe.cn/sms/send?' + queryData;

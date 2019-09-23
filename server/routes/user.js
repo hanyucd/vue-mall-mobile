@@ -1,6 +1,5 @@
 const Router = require('koa-router');
-const UserModel = require('../models/user');
-const GoodsModel = require('../models/goods');
+const userService = require('../service/user');
 const tools = require('../utils/tools');
 const jwt = require('../utils/jwt');
 
@@ -32,15 +31,19 @@ router.post('/login', async (ctx) => {
  */
 router.post('/sendSMSCode', async (ctx) => {
   let { mobilePhone } = ctx.request.body; // 手机号码
-  let ip = ctx.request.ip.substr(0, 7) == "::ffff:" ? ctx.request.ip.substr(7) : ctx.request.ip; // 客户端 ip
+  let clientIp = ctx.request.ip.substr(0, 7) == "::ffff:" ? ctx.request.ip.substr(7) : ctx.request.ip; // 客户端 ip
   let curDate = tools.getCurDate(); // 当前时间
-  console.log('ip:', ip)
-  console.log('date:', curDate)
-  
-  ctx.body = {
-    code: 200,
-    num: mobilePhone,
-    msg: '发送成功'
+  // console.log('ip:', clientIp)
+  // console.log('date:', curDate)
+  let args = { mobilePhone, clientIp, curDate };
+
+  try {
+    let smsCodeData = await userService.dispatchSMSCode(args);
+    if (smsCodeData) {
+      ctx.body = smsCodeData;
+    }
+  } catch(error) {
+    console.log(error);
   }
 });
 
