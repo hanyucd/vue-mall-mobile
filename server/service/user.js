@@ -43,7 +43,7 @@ class userService {
           const data = sendSMSCode(mobilePhone, randomNum);
           switch (data.error_code) {
             case 0:
-              return { code: 200, msg: '短信发送成功' };
+              return { code: 200, msg: '验证码发送成功' };
             case 10012:
               return { code: 5000, msg: '没有免费短信了' };
             default:
@@ -61,7 +61,7 @@ class userService {
             // 创建新文档 | 新增数据
             let mPdoc = await MobilePhoneModel.create({ mobilePhone, clientIp, curDate, sendCount: 1 });
             console.log(mPdoc)
-            return { code: 200, msg: '短信发送成功' };
+            return { code: 200, msg: '验证码发送成功' };
           case 10012:
             return { code: 5000, msg: '没有免费短信了' };
           default:

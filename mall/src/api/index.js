@@ -23,8 +23,8 @@ class Ajax {
   }
 
   // 注册 | POST
-  register(userName = '', password = '') {
-    return post(Url.registerApi, { userName, password });
+  register(userName = '', password = '', mobilePhone = '', smsCode = '') {
+    return post(Url.registerApi, { userName, password, mobilePhone, smsCode });
   }
   
   // 登录 | POST

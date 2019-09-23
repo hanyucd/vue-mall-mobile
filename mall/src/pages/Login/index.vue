@@ -44,7 +44,8 @@
         <!-- 短信验证码 -->
         <section class="input-wrapper" :class="[ focusIndex === 4 ? 'focus-a' : '' ]">
           <input type="text" class="sms" @focus="handleFocus(4)" @blur="handleBlur" v-model="smsCode" maxlength="6" placeholder="短信验证码" autocomplete="off" />
-          <span class="send-sms" @click="sendSMSCode">发送验证码</span>
+          <span class="send-sms" v-if="!countdownText" @click="sendSMSCode">发送验证码</span>
+          <span class="send-sms" v-else>{{ countdownText }}s后再试</span>
         </section>
         <!-- 注册按钮 -->
         <section class="login-btn" @click="register">注册</section>
@@ -78,6 +79,8 @@
         verifyCode: '', // 图形验证码
         mobilePhone: '', // 手机号
         smsCode: '', // 短信验证码
+        countdownText: '', // 倒计时文本
+        cDTime: 60 // 60 秒倒计时
       }
     },
     methods: {
@@ -96,11 +99,10 @@
       switchForm(flag) {
         this.switchFlag = flag;
         this.focusIndex = 0; // 重置表单索引
-        this.userName = '';
-        this.password = '';
-        this.verifyCode = '';
-        this.mobilePhone = '';
-        this.smsCode = '';
+        let resetData = [ 'userName', 'password', 'verifyCode', 'mobilePhone', 'smsCode' ];
+        for (let item of resetData) {
+          this[item] = ''
+        }
       },
       /**
        * 表单验证
@@ -132,13 +134,11 @@
        * 注册
        */
       async register() {
-        if (!this._checkForm(2)) return;
- 
-        let userName = this.userName;
-        let password = this.password;
-        
+        // if (!this._checkForm(2)) return;
+
+        let { userName, password, mobilePhone, smsCode } = this.$data;
         try {
-          let res = await ajax.register(userName,  password);
+          let res = await ajax.register(userName,  password, mobilePhone, smsCode);
           console.log(res)
         } catch (error) {
           console.log(error);
@@ -150,9 +150,7 @@
       async login() {
         if (!this._checkForm(1)) return;
         
-        let userName = this.userName;
-        let password = this.password;
-
+        let { userName, password } = this.$data;
         try {
           let res = await ajax.login(userName,  password);
           console.log(res)
@@ -165,11 +163,35 @@
        */
       async sendSMSCode() {
         // 手机号码错误
-        // if (this.mobilePhone.length != 11 || !/^[1][3,4,5,7,8][0-9]{9}$/.test(this.mobilePhone)) return this.$toast('请输入正确的手机号码');
+        if (this.mobilePhone.length != 11 || !/^[1][3,4,5,7,8][0-9]{9}$/.test(this.mobilePhone)) return this.$toast('请输入正确的手机号码');
         
         try {
           let res = await ajax.sendSMSCode(this.mobilePhone);
           console.log(res)
+
+          if (res.code === 200) {
+            this.cDTime = 60; // 首先恢复为 60 s
+            let timer = setInterval(() => {
+              if (this.cDTime <= 0) {
+                this.countdownText = '';
+                clearInterval(timer); // 清除定时器
+                return;
+              }
+              this.countdownText = this.cDTime--;
+            }, 1000);
+          } else if (res.code === 4010) {
+            let timer = setInterval(() => {
+              if (res.time <= 0) {
+                this.countdownText = '';
+                clearInterval(timer); // 清除定时器
+                this.cDTime = 60;
+                return;
+              }
+              this.countdownText = res.time--;
+            }, 1000);
+          }
+          // 反馈消息
+          this.$toast(res.msg);
         } catch (error) {
           console.log(error);
         }

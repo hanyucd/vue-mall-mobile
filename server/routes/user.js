@@ -9,10 +9,14 @@ const router = new Router();
  * 用户注册
  */
 router.post('/register', async (ctx) => {
-  let a = ctx.request.body;
+  let { userName, password, mobilePhone, smsCode } = ctx.request.body;
+
   ctx.body = {
     code: 200,
-    r: a
+    userName,
+    password,
+    mobilePhone,
+    smsCode
   }
 });
 
@@ -38,10 +42,9 @@ router.post('/sendSMSCode', async (ctx) => {
   let args = { mobilePhone, clientIp, curDate };
 
   try {
-    let smsCodeData = await userService.dispatchSMSCode(args);
-    if (smsCodeData) {
-      ctx.body = smsCodeData;
-    }
+    // let smsCodeData = await userService.dispatchSMSCode(args);
+    // ctx.body = smsCodeData;
+    ctx.body = { code: 200, msg: '验证码发送成功' };
   } catch(error) {
     console.log(error);
   }
