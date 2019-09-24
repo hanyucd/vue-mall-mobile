@@ -4,10 +4,11 @@ const views = require('koa-views');
 const json = require('koa-json');
 const onerror = require('koa-onerror');
 const bodyparser = require('koa-bodyparser');
+const session = require('koa-session');
 const logger = require('koa-logger');
 const cors = require('koa2-cors'); // 解决跨域的中间件 koa2-cors
 // 导入数据库连接文件
-const { connect } = require('./utils/connect'); 
+const { connect } = require('./utils/connect');
 // 导入业务逻辑文件
 const initDataService = require('./service/initData');
 // 导入路由文件
@@ -18,10 +19,27 @@ const user = require('./routes/user');
 const app = new Koa();
 const router = new Router();
 
+app.proxy = true; // 设置一些 proxy header 参数会被加到信任列表中
+app.keys = [ 'session secret' ]; // 设置签名的 Cookie 密钥
 // error handler
 onerror(app);
-app.proxy = true; // 设置一些 proxy header 参数会被加到信任列表中
-app.use(cors());
+// session 配置
+const CONFIG = {
+  key: 'sessionId',
+  maxAge: 60000, // cookie 的过期时间 60000ms => 60s => 1min
+  overwrite: true, // 是否可以 overwrite (默认 default true)
+  httpOnly: true, // true 表示只有服务器端可以获取 cookie
+  signed: true, // 默认 签名
+  rolling: false, // 在每次请求时强行设置 cookie，这将重置 cookie 过期时间（默认：false）
+  renew: false, // 在每次请求时强行设置 session，这将重置 session 过期时间（默认：false）
+};
+app.use(session(CONFIG, app));
+app.use(cors({
+  origin: function(ctx) {
+    return ctx.header.origin
+  }, // 允许发来请求的域名
+  credentials: true, // 标示该响应是合法的
+}));
 // middlewares
 app.use(bodyparser({
   enableTypes:['json', 'form', 'text']
@@ -29,7 +47,6 @@ app.use(bodyparser({
 app.use(json());
 app.use(logger());
 app.use(require('koa-static')(__dirname + '/public'));
-
 app.use(views(__dirname + '/views', {
   extension: 'ejs'
 }));

@@ -168,6 +168,24 @@ HTTP 头信息 Authorization 字段里，若后端判断 token 失效 或 错误
 
 https://juejin.im/post/5b5730d16fb9a04fca3c7f16
 
+### 前后端分离下跨域读写 cookie
+
+https://github.com/koajs/session
+
+https://blog.moxiaonai.cn/koa2-session.html
+
+https://blog.inhere.top/axios-yu-koa-kua-yu-xi-dai-cookie/
+
+https://www.qingtingip.com/h_280412.html
+
+http://www.ruanyifeng.com/blog/2016/04/cors.html
+
+https://www.jianshu.com/p/5b3acded5182
+
+https://juejin.im/post/5c8faf386fb9a0710a1bbfbe
+
+https://juejin.im/post/5a6ad754f265da3e513352e5
+
 ### 实现功能
 
 - [x] 商城首页板块展示

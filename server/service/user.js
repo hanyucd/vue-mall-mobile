@@ -16,7 +16,7 @@ class userService {
     for (let i = 0; i < randomNumLen; i++) {
       randomNum += Math.floor(Math.random() * 10);
     }
-    // console.log('random:', randomNum)
+    console.log('random:', randomNum)
 
     try {
       // 根据当前日期查询到相应文档
@@ -40,32 +40,33 @@ class userService {
           // 更新单个文档
           await mobilePhoneDoc.updateOne({ _id: mobilePhoneDoc._id }, { sendCount, sendTimestamp: +new Date() });
           // 执行发送短信验证码
-          const data = sendSMSCode(mobilePhone, randomNum);
+          // const data = sendSMSCode(mobilePhone, randomNum);
           switch (data.error_code) {
             case 0:
-              return { code: 200, msg: '验证码发送成功' };
+              return { randomNum, code: 200, msg: '验证码发送成功' };
             case 10012:
-              return { code: 5000, msg: '没有免费短信了' };
+              return { randomNum, code: 5000, msg: '没有免费短信了' };
             default:
-              return { code: 4000, msg: '未知错误' };
+              return { randomNum, code: 4000, msg: '未知错误' };
           }
         } else {
           return { code: 4020, msg: '当前手机号码发送次数达到上限，明天重试' };
         }
 
       } else {
+        return { randomNum, code: 200, msg: '验证码发送成功' };
         // 执行发送短信验证码
-        const data = sendSMSCode(mobilePhone, randomNum);
+        // const data = sendSMSCode(mobilePhone, randomNum);
         switch (data.error_code) {
           case 0:
             // 创建新文档 | 新增数据
             let mPdoc = await MobilePhoneModel.create({ mobilePhone, clientIp, curDate, sendCount: 1 });
             console.log(mPdoc)
-            return { code: 200, msg: '验证码发送成功' };
+            return { randomNum, code: 200, msg: '验证码发送成功' };
           case 10012:
-            return { code: 5000, msg: '没有免费短信了' };
+            return { randomNum, code: 5000, msg: '没有免费短信了' };
           default:
-            return { code: 4000, msg: '未知错误' };
+            return { randomNum, code: 4000, msg: '未知错误' };
         }
       }
     } catch (error) {

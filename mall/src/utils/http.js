@@ -8,6 +8,7 @@ import { Dialog } from 'vant';
  */
 
 axios.defaults.timeout = 3000; // 默认超时设置
+axios.defaults.withCredentials = true; // 表示跨域请求时是否需要使用凭证
 // axios.defaults.baseURL = process.env.NODE_ENV === 'production' ? '/v1' : '/api'; // 相对路径设置
   
 /**

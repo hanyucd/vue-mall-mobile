@@ -10,7 +10,12 @@ const router = new Router();
  */
 router.post('/register', async (ctx) => {
   let { userName, password, mobilePhone, smsCode } = ctx.request.body;
-
+  
+  console.log(ctx.session)
+  if (!ctx.session.smsCode) return ctx.body = { code: 5010, msg: '验证码已过期' };
+  if (ctx.session.smsCode !== smsCode) return ctx.body = { code: 5020, msg: '验证码不正确' };
+  
+  console.log('session: ', ctx.session.smsCode)
   ctx.body = {
     code: 200,
     userName,
@@ -42,9 +47,13 @@ router.post('/sendSMSCode', async (ctx) => {
   let args = { mobilePhone, clientIp, curDate };
 
   try {
-    // let smsCodeData = await userService.dispatchSMSCode(args);
-    // ctx.body = smsCodeData;
-    ctx.body = { code: 200, msg: '验证码发送成功' };
+    let smsCodeData = await userService.dispatchSMSCode(args);
+    if (smsCodeData.code === 200) {
+      // 将验证码保存入 session 中
+      ctx.session.smsCode = smsCodeData.randomNum;
+      ctx.body = smsCodeData;
+    }
+    // ctx.body = { code: 200, msg: '验证码发送成功' };
   } catch(error) {
     console.log(error);
   }
