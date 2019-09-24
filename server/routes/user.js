@@ -11,18 +11,13 @@ const router = new Router();
 router.post('/register', async (ctx) => {
   let { userName, password, mobilePhone, smsCode } = ctx.request.body;
   
-  console.log(ctx.session)
+  if (!userName || !password || !mobilePhone || !smsCode) return ctx.body = { code: 4020, msg: '请输入完整信息' };
   if (!ctx.session.smsCode) return ctx.body = { code: 5010, msg: '验证码已过期' };
   if (ctx.session.smsCode !== smsCode) return ctx.body = { code: 5020, msg: '验证码不正确' };
   
-  console.log('session: ', ctx.session.smsCode)
-  ctx.body = {
-    code: 200,
-    userName,
-    password,
-    mobilePhone,
-    smsCode
-  }
+  let args = { userName, password, mobilePhone };
+  let userData = await userService.accountHandle(args, true); // true 表示注册处理
+  ctx.body = userData;
 });
 
 /**
@@ -48,15 +43,24 @@ router.post('/sendSMSCode', async (ctx) => {
 
   try {
     let smsCodeData = await userService.dispatchSMSCode(args);
-    if (smsCodeData.code === 200) {
-      // 将验证码保存入 session 中
-      ctx.session.smsCode = smsCodeData.randomNum;
-      ctx.body = smsCodeData;
-    }
-    // ctx.body = { code: 200, msg: '验证码发送成功' };
+    // 将验证码保存入 session 中
+    (smsCodeData.code === 200) && (ctx.session.smsCode = smsCodeData.randomNum);
+    ctx.body = smsCodeData;
   } catch(error) {
     console.log(error);
   }
+});
+
+/**
+ * 发送图片验证码
+ */
+router.get('/sendPicCode', async (ctx) => {
+  let picCode = tools.createCaptcha();
+  // 将验证码保存入 session 中
+  ctx.session.picCode = picCode.text;
+  // 指定返回的类型
+  ctx.response.type = 'image/svg+xml';
+  ctx.body = picCode.data;
 });
 
 module.exports = router;

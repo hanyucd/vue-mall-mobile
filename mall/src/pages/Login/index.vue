@@ -4,9 +4,9 @@
     <transition name="login-slide">
       <article class="form-container" v-if="switchFlag === 1">
         <h2 class="title">登录</h2>
-        <!-- 用户名 -->
+        <!-- 手机号码 -->
         <section class="input-wrapper" :class="[ focusIndex === 1 ? 'focus-a' : '' ]">
-          <input type="text" class="u-name" @focus="handleFocus(1)" @blur="handleBlur" v-model="userName" maxlength="10" placeholder="用户名" autocomplete="off" />
+          <input type="text" class="mobile-phone" @focus="handleFocus(1)" @blur="handleBlur" v-model="mobilePhone" maxlength="10" placeholder="手机号码" autocomplete="off" />
         </section>
         <!-- 密码 -->
         <section class="input-wrapper" :class="[ focusIndex === 2 ? 'focus-a' : '' ]">
@@ -15,6 +15,9 @@
         <!-- 图形验证码 -->
         <section class="input-wrapper" :class="[ focusIndex === 3 ? 'focus-a' : '' ]">
           <input type="text" class="verify-code" @focus="handleFocus(3)" @blur="handleBlur" v-model="verifyCode" maxlength="4" placeholder="验证码" autocomplete="off" />
+          <div @click="updatePicCode">
+            <img ref="picCode" class="pic-code" src="" title="看不清？点击刷新" />
+          </div>
         </section>
         <!-- 登录按钮 -->
         <section class="login-btn" @click="login">登录</section>
@@ -39,7 +42,7 @@
         </section>
         <!-- 手机号 -->
         <section class="input-wrapper" :class="[ focusIndex === 3 ? 'focus-a' : '' ]">
-          <input type="text" class="mobile-phone" @focus="handleFocus(3)" @blur="handleBlur" v-model="mobilePhone" maxlength="11" placeholder="手机号" autocomplete="off" />
+          <input type="text" class="mobile-phone" @focus="handleFocus(3)" @blur="handleBlur" v-model="mobilePhone" maxlength="11" placeholder="手机号码" autocomplete="off" />
         </section>
         <!-- 短信验证码 -->
         <section class="input-wrapper" :class="[ focusIndex === 4 ? 'focus-a' : '' ]">
@@ -82,6 +85,9 @@
         countdownText: '', // 倒计时文本
         cDTime: 60 // 60 秒倒计时
       }
+    },
+    created() {
+      this.$nextTick(() => this.updatePicCode());
     },
     methods: {
       /**
@@ -134,7 +140,7 @@
        * 注册
        */
       async register() {
-        // if (!this._checkForm(2)) return;
+        if (!this._checkForm(2)) return;
 
         let { userName, password, mobilePhone, smsCode } = this.$data;
         try {
@@ -195,7 +201,11 @@
         } catch (error) {
           console.log(error);
         }
-      }
+      },
+      /**
+       * 更新图形验证码
+       */
+      updatePicCode() { this.$refs.picCode['src'] = ajax.sendPicCode(); }
     }
   }
 </script>

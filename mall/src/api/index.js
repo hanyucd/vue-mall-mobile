@@ -36,6 +36,12 @@ class Ajax {
   sendSMSCode(mobilePhone) {
     return post(Url.sendSMSCodeApi, { mobilePhone });
   }
+
+  // 发送图形验证码 | GET
+  sendPicCode() {
+    return Url.sendPicCodeApi;
+  }
+
 }
 
 export default new Ajax();

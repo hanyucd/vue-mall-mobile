@@ -9,10 +9,6 @@ const router = new Router();
 router.get('/home', async (ctx) => {
   try {
     let homeData = await goodsService.getHome();
-    
-    console.log('session:', ctx.session.smsCode)
-    // console.log('session:', ctx.session)
-    // ctx.session = null;
     ctx.body = { code: 200, result: homeData[0] };
   } catch (error) {
     ctx.body = { code: -1, result: [] };

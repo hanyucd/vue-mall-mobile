@@ -1,4 +1,5 @@
 const MobilePhoneModel = require('../models/mobilePhone');
+const UserModel = require('../models/user');
 const sendSMSCode = require('../utils/sms');
 
 class userService {
@@ -68,6 +69,27 @@ class userService {
           default:
             return { randomNum, code: 4000, msg: '未知错误' };
         }
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  /**
+   * 用户账号处理：注册 & 登录
+   * @param {Object} 
+   * @param {Boolean} handleFlag 处理标识 true: 注册, false: 登录
+   */
+  async accountHandle({ userName, password, mobilePhone }, handleFlag = true) {
+    try {
+      let userDoc = await UserModel.findOne({ mobilePhone });
+      if (!userDoc) {
+        let userEntity = new UserModel({ userName, password, mobilePhone });
+        // 保存到数据库中
+        let user = await userEntity.save();
+        return user;
+      } else {
+        if (userDoc.mobilePhone === mobilePhone) return { code: 1, msg: '账号号已存在, 可直接登录' };
       }
     } catch (error) {
       console.log(error);

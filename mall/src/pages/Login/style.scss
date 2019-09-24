@@ -66,6 +66,9 @@ $color: #b532e9;
         font-size: 1.1rem;
         letter-spacing: .1rem;
       }
+      .pic-code {
+        flex-basis: 30%;
+      }
       &::before {
         position: absolute;
         left: 0;

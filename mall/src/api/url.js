@@ -13,6 +13,7 @@ export const Url = {
   registerApi: baseURL + '/api/user/register', // 用户注册接口
   loginApi: baseURL + '/api/user/login', // 用户登录接口
   sendSMSCodeApi: baseURL + '/api/user/sendSMSCode', // 发送短信验证码接口
+  sendPicCodeApi: baseURL + `/api/user/sendPicCode?mt=${ Math.random() }`, // 发送图形验证码接口
   
 
   addGoodsToCartApi: baseURL + '/user/addGoodsToCart', // 添加商品到购物车接口

@@ -9,7 +9,7 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "dependencies": {
-    "bcrypt": "^3.0.6",
+    "bcryptjs": "^2.4.3",
     "debug": "^2.6.3",
     "ejs": "~2.3.3",
     "jsonwebtoken": "^8.5.1",
@@ -26,7 +26,8 @@
     "koa2-cors": "^2.0.6",
     "mongoose": "^5.5.5",
     "request": "^2.88.0",
-    "silly-datetime": "^0.1.2"
+    "silly-datetime": "^0.1.2",
+    "svg-captcha": "^1.4.0"
   },
   "devDependencies": {
     "nodemon": "^1.8.1"
