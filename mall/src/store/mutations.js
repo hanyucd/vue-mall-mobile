@@ -22,8 +22,8 @@ const mutations = {
     state.browseHistoryList = browseHistoryList;
   },
   // 设置 state 中 token
-  [types.TOKEN](state, token) {
-    state.token = token;
+  [types.USER_TOKEN](state, token) {
+    state.userToken = token;
   },
 };
 

@@ -12,7 +12,7 @@ const state = {
   locationCity: locationCityCache.getCache(), // 定位城市
   searchHistoryList: searchHistoryCache.getCache(), // 搜索历史
   browseHistoryList: browseHistoryCache.getCache(), // 浏览历史
-  token: tokenCache.getCache(), // token
+  userToken: tokenCache.getCache(), // 用户 token
 };
 
 export default state;

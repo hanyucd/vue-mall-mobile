@@ -8,26 +8,26 @@ const secret = 'vue-mall-mobile';
  */
 const _createToken = (userInfo) => {
   // JWT 格式 token | 有效时间 1 小时
-  return jwt.sign({ userInfo }, secret, { expiresIn: '10s' });
+  return jwt.sign({ userInfo }, secret, { expiresIn: '1h' });
 };
 
 /**
- * 解码 token (验证 secret 和 检查有效期 exp)
+ * 验证 token 结果 (验证 secret 和 检查有效期 exp)
  */
 const _verify = (token) => {
   return jwt.verify(token, secret, (error, decoded) => {
     if(error) {
       // token 过期期 eg: { code: 401, name: 'TokenExpiredError', message: 'jwt expired' } | 401 token 过期
-      return { code: 401, name: error.name, message: error.message }
+      return { code: 401, name: error.name, error_msg: error.message }
     } else {
       // 结果格式 eg： { userId: '5cd7b5159ea7ac253029178d', iat: 1557640469, exp: 1557644069 } | iat（创建的时间戳），exp（到期时间戳）
+      console.log(decoded);
       return { code: 200, ...decoded };
     }
   });
 };
 
 module.exports = {
-  secret,
   _createToken,
   _verify
 };

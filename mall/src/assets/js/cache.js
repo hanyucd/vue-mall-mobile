@@ -6,7 +6,7 @@ const SEARCH_HISTORY = 'search_history'; // 搜素历史 key
 const SEARCH_HISTORY_MAX = 20; // 搜索历史缓存最大长度
 const BROWSE_HISTORY = 'browse_history'; // 浏览历史 key
 const BROWSE_HISTORY_MAX = 20; // 浏览历史缓存最大长度
-const TOKEN = 'token'; // token key
+const USER_TOKEN = 'user_token'; // token key
 
 // 分类缓存
 let categoryCache = {
@@ -97,15 +97,15 @@ let browseHistoryCache = {
 
 // token 缓存
 let tokenCache = {
-  setCache(token = '') {
-    storage.setItem(TOKEN, JSON.stringify(token));
-    return token;
+  setCache(userToken = '') {
+    storage.setItem(USER_TOKEN, JSON.stringify(userToken));
+    return userToken;
   },
   getCache() {
-    return storage.getItem(TOKEN) ? JSON.parse(storage.getItem(TOKEN)) : '';
+    return storage.getItem(USER_TOKEN) ? JSON.parse(storage.getItem(USER_TOKEN)) : '';
   },
   deleteCache() {
-    storage.removeItem(TOKEN);
+    storage.removeItem(USER_TOKEN);
     return '';
   }
 }

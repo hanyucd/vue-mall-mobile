@@ -35,13 +35,13 @@ const deleteOneBrowseHistory = ({ commit }, goodsId) => {
   commit(types.BROWSE_HISTORY_LIST, browseHistoryCache.deleteOneCache(goodsId));
 };
 
-// 设置 token
-const setToken = ({ commit }, token) => {
-  commit(types.TOKEN, tokenCache.setCache(token));
+// 设置用户 token
+const setUserToken = ({ commit }, userToken) => {
+  commit(types.USER_TOKEN, tokenCache.setCache(userToken));
 };
-// 删除 token
-const deleteToken = ({ commit }) => {
-  commit(types.TOKEN, tokenCache.deleteCache());
+// 删除用户 token
+const deleteUserToken = ({ commit }) => {
+  commit(types.USER_TOKEN, tokenCache.deleteCache());
 };
 
 
@@ -52,6 +52,6 @@ export default {
   deleteSearchHistory, // 删除搜索历史列表
   setBrowseHistory, // 设置浏览历史列表
   deleteOneBrowseHistory, // 删除一条浏览历史
-  setToken, // 设置 token
-  deleteToken, // 删除 token
+  setUserToken, // 设置用户 token
+  deleteUserToken, // 删除用户 token
 };

@@ -8,7 +8,7 @@ import { Dialog } from 'vant';
  * 数据请求 | 封装 axios
  */
 
-axios.defaults.timeout = 3000; // 默认超时设置
+axios.defaults.timeout = 10000; // 默认超时设置 10s
 axios.defaults.withCredentials = true; // 表示跨域请求时是否需要使用凭证
 // axios.defaults.baseURL = process.env.NODE_ENV === 'production' ? '/v1' : '/api'; // 相对路径设置
   
@@ -17,11 +17,9 @@ axios.defaults.withCredentials = true; // 表示跨域请求时是否需要使�
  */
 axios.interceptors.request.use(config => {
   // 在发送请求之前做某事
-  let token = store.getters.token;
+  const userToken = store.getters.userToken;
   // 添加 token 到 headers 中
-  (token) && (config.headers['Authorization'] = `Bearer ${ token }`);
-  
-  console.log("config", config)
+  (userToken) && (config.headers['Authorization'] = `Bearer ${ userToken }`);
   return config;
 }, error => {
   return Promise.reject(error);
@@ -30,20 +28,56 @@ axios.interceptors.request.use(config => {
 /**
  * 响应拦截器
  */
-// axios.interceptors.response.use(response => {
-//   // 对响应数据做些事
-//   return Promise.resolve(response);
-// }, error => {
-//   if (error.response.status && error.response.status === 401) {
-//     localStorage.removeItem('token');
-//     localStorage.removeItem('userName');
-//     Dialog.confirm({ message: '用户认证信息过期', confirmButtonText: '前往登录' })
-//       .then(() => {
-//         router.push({ name: 'Login' });
-//       }).catch(() => null);
-//   }
-//   return Promise.reject(error);
-// });
+axios.interceptors.response.use(response => {
+  // 对响应数据做些事
+  return Promise.resolve(response);
+}, error => {
+  if (error && error.response) {
+    switch (error.response.status) {
+      case 400:
+        console.log('错误请求');
+        break;
+      case 401:
+        store.dispatch('deleteUserToken');
+        break;
+      case 403:
+        console.log('拒绝访问');
+        break;
+      case 404:
+        console.log('请求错误,未找到该资源');
+        break;
+      case 405:
+        console.log('请求方法未允许');
+        break;
+      case 408:
+        console.log('请求超时');
+        break;
+      case 500:
+        console.log('服务器端出错');
+        break;
+      case 501:
+        console.log('网络未实现');
+        break;
+      case 502:
+        console.log('网络错误');
+        break;
+      case 503:
+        console.log('服务不可用');
+        break;
+      case 504:
+        console.log('网络超时');
+        break;
+      case 505:
+        console.log('http 版本不支持该请求');
+        break;
+      default:
+        console.log(`连接错误${ error.response.status }`);
+    }
+  } else {
+    console.log('连接到服务器失败');
+  }
+  return Promise.reject(error);
+});
 
 /**
  * 封装 get 方法
@@ -70,7 +104,7 @@ export function get(url, params = {}) {
         }
       })
       .catch(error => {
-        console.log('网络错误!');
+        // console.log('网络错误!');
         reject(error);
       });
   });
@@ -101,7 +135,7 @@ export function post(url, data = {}) {
         }
       })
       .catch(error => {
-        console.log('网络错误!');
+        // console.log('网络错误!');
         reject(error);
       });
   });

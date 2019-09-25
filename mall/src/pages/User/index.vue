@@ -1,10 +1,16 @@
 <template>
   <div class="user">
     <top-bar title="个人中心"></top-bar>
-    
-    <section class="user-info">
+    <!-- 头像 用户名 -->
+    <section class="user-info" v-if="!userToken || !userInfo">
       <img class="avatar" src="http://img4.imgtn.bdimg.com/it/u=198369807,133263955&fm=27&gp=0.jpg" />
       <p @click="$router.push({ name: 'Login' })">登录 / 注册</p>
+    </section>
+    <section class="user-info" v-else>
+      <img class="avatar" :src="userInfo.avatar" />
+      <p class="use-name">欢迎您：{{ userInfo.userName }}</p>
+      <p @click="logout">退出登录</p>
+      <van-icon name="setting" class="setting" />
     </section>
     <!-- 订单索引 -->
     <section class="order-index-wrapper">
@@ -50,10 +56,13 @@
 <script>
   import TopBar from '@/components/TopBar';
   import FooterNav from '@/components/FooterNav';
+  import { GoodsMixin } from '@/mixins/goodsMixin';
   import ajax from '@/api';
 
   export default {
     name: 'User',
+    mixins: [ GoodsMixin ],
+    inject: [ 'reload' ],
     components: { TopBar, FooterNav },
     data() {
       return {
@@ -64,7 +73,8 @@
           { icon: "points", status: 3, title: "待收货" },
           { icon: "thumb-circle-o", status: 4, title: "评价" },
           { icon: "like-o", status: 5, title: "已完成" }
-        ]
+        ],
+        userInfo: null, // 用户信息
       }
     },
     created() {
@@ -76,11 +86,28 @@
        */
       async _getUserInfo() {
         try {
-          let userInfo = await ajax.getUserInfo();
-          console.log(userInfo)
+          let res = await ajax.getUserInfo();
+          console.log(res)
+          if (res.code === 200) this.userInfo = res.userInfo;
         } catch(error) {
           console.log(error);
         }
+      },
+      /**
+       * 退出
+       */
+      logout() {
+        this.$dialog.confirm({
+          title: '提示',
+          message: '您确定退出账号吗？',
+          confirmButtonText: '确定',
+          confirmButtonColor: '#b532e9'
+        })
+        .then(() => {
+          // 删除本地用户 token && 刷新组件
+          (this.userToken) && (this.deleteUserToken()) && this.reload();
+        })
+        .catch(error => null);
       }
     }
   }

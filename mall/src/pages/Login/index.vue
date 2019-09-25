@@ -153,9 +153,7 @@
             return;
           }
           // 设置 token | 方法在 GoodsMixin
-          (res.token) && this.setToken(res.token);
-          // (res.token) && this.setToken(res.token) && setTimeout(() => this.$router.go(-1), 1500);
-          // setTimeout(() => this.$router.go(-1), 1500);
+          (res.token) && this.setUserToken(res.token) && setTimeout(() => this.$router.go(-1), 1000);
         } catch (error) {
           console.log(error);
         }
@@ -176,9 +174,7 @@
             return;
           }
           // 设置 token | 方法在 GoodsMixin
-          (res.token) && this.setToken(res.token);
-          // (res.token) && this.setToken(res.token) && setTimeout(() => this.$router.go(-1), 1500);
-          // setTimeout(() => this.$router.go(-1), 1500);
+          (res.token) && this.setUserToken(res.token) && setTimeout(() => this.$router.go(-1), 1000);
         } catch (error) {
           console.log(error);
         }

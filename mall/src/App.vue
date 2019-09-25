@@ -6,7 +6,7 @@
         <router-view id="view" v-if="$route.meta.keepAlive" />
       </keep-alive>
       <!-- 这里是不被缓存的视图组件 -->
-      <router-view v-if="!$route.meta.keepAlive" id="view" />
+      <router-view v-if="!$route.meta.keepAlive && isRouterAlive" id="view" />
     </transition>
   </div>
 </template>
@@ -14,8 +14,16 @@
 <script>
   export default {
     name: 'App',
+    provide () {
+      return {
+        reload: this.reload
+      }
+    },
     data() {
-      return { transitionName: '' };
+      return { 
+        transitionName: '',
+        isRouterAlive: true // 用于刷新页面用
+      };
     },
     watch: {
       $route(to, from) {
@@ -27,6 +35,14 @@
           // 如果 to 索引大于 from 索引,判断为前进状态,反之则为后退状态
           this.transitionName = (to.meta.index > from.meta.index) ? 'slide-left' : 'slide-right';
         }
+      }
+    },
+    methods: {
+      reload() {
+        this.isRouterAlive = false;
+        this.$nextTick(() => {
+          this.isRouterAlive = true;
+        })
       }
     }
   }

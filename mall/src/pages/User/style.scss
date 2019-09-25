@@ -2,6 +2,7 @@ $color: #b532e9;
 
 .user {
   .user-info {
+    position: relative;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -16,6 +17,13 @@ $color: #b532e9;
       color: #fff;
       font-size: 14px;
       margin-top: 20px;
+    }
+    .setting {
+      position: absolute;
+      color: #fff;
+      top: 2rem;
+      right: 2rem;
+      font-size: 1.3rem;
     }
   }
   .order-index-wrapper {

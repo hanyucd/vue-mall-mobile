@@ -1,5 +1,6 @@
 const Router = require('koa-router');
 const userService = require('../service/user');
+const checkUserStat = require('../middleware/checkUserStat');
 const tools = require('../utils/tools');
 const jwt = require('../utils/jwt');
 
@@ -75,12 +76,8 @@ router.get('/sendPicCode', async (ctx) => {
 /**
  * 获取用户信息
  */
-router.get('/userInfo', async (ctx) => {
-  let 
-  ctx.body = {
-    code: 200,
-    msg: 'userInfo'
-  }
+router.get('/userInfo', checkUserStat, async (ctx) => {
+  ctx.body = ctx.userInfo;
 });
 
 module.exports = router;
