@@ -38,6 +38,9 @@
       }
     },
     methods: {
+      /**
+       * 用于刷新组件
+       */
       reload() {
         this.isRouterAlive = false;
         this.$nextTick(() => {

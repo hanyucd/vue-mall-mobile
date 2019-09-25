@@ -20,7 +20,8 @@
           </div>
         </section>
         <!-- 登录按钮 -->
-        <section class="login-btn" @click="login">登录</section>
+        <van-button v-if="!isLoading" size="large" color="#b532e9" @click="login" text="登录" />
+        <van-button v-else size="large" loading loading-type="spinner" loading-text="正在登录 ..." color="#b532e9" />
         <!-- 前往注册 -->
         <section class="register-entry">
           <span @click="switchForm(2)">注册账号</span>
@@ -51,7 +52,8 @@
           <span class="send-sms" v-else>{{ countdownText }}s后再试</span>
         </section>
         <!-- 注册按钮 -->
-        <section class="login-btn" @click="register">注册</section>
+        <van-button v-if="!isLoading" size="large" color="#b532e9" @click="register" text="注册" />
+        <van-button v-else size="large" loading loading-type="spinner" loading-text="正在注册 ..." color="#b532e9" />
         <!-- 前往登录 -->
         <section class="login-entry">
           <span @click="switchForm(1)">登录账号</span>
@@ -82,6 +84,7 @@
         mobilePhone: '', // 手机号
         verifyCode: '', // 图形验证码
         smsCode: '', // 短信验证码
+        isLoading: false, // 登录 或 注册按钮状态
         countdownText: '', // 倒计时文本
         cDTime: 60 // 60 秒倒计时
       }
@@ -106,6 +109,7 @@
         this.switchFlag = flag;
         (this.switchFlag === 1) && this.$nextTick(() => this._updatePicCode());
         this.focusIndex = 0; // 重置表单索引
+        this.isLoading = false; // 重置登录 或 注册按钮状态
         let resetData = [ 'userName', 'password', 'verifyCode', 'mobilePhone', 'smsCode' ];
         for (let item of resetData) {
           this[item] = ''
@@ -121,20 +125,21 @@
           this.$toast(text);
           return false;
         };
-        // 公共检查
-        if (this.mobilePhone.length != 11 || !/^[1][3,4,5,7,8][0-9]{9}$/.test(this.mobilePhone)) return toast('请输入正确的手机号码');
-        if (!this.password) return toast('请输入密码');
 
         switch (flag) {
           case 1:
+            if (this.mobilePhone.length != 11 || !/^[1][3,4,5,7,8][0-9]{9}$/.test(this.mobilePhone)) return toast('请输入正确的手机号码');
+            if (!this.password) return toast('请输入密码');
             if (!this.verifyCode) return toast('请输入验证码');
             break;
           case 2:
             if (!this.userName) return toast('请输入用户名');
+            if (!this.password) return toast('请输入密码');
+            if (this.mobilePhone.length != 11 || !/^[1][3,4,5,7,8][0-9]{9}$/.test(this.mobilePhone)) return toast('请输入正确的手机号码');
             if (!this.smsCode) return toast('请输入短信验证码');
             break;
         }
-
+        
         return true;
       },
       /**
@@ -143,6 +148,7 @@
       async register() {
         if (!this._checkForm(2)) return;
 
+        this.isLoading = true; // 按钮加载状态
         let { userName, password, mobilePhone, smsCode } = this.$data;
         try {
           let res = await ajax.register(userName,  password, mobilePhone, smsCode);
@@ -150,6 +156,7 @@
           /// 反馈消息
           if (res.code !== 200) {
             this.$toast(res.msg);
+            this.isLoading = false; // 重置按钮状态
             return;
           }
           // 设置 token | 方法在 GoodsMixin
@@ -164,6 +171,7 @@
       async login() {
         if (!this._checkForm(1)) return;
         
+        this.isLoading = true; // 按钮加载状态
         let { mobilePhone, password, verifyCode } = this.$data;
         try {
           let res = await ajax.login(mobilePhone,  password, verifyCode);
@@ -171,6 +179,7 @@
           // 反馈消息
           if (res.code !== 200) {
             this.$toast(res.msg);
+            this.isLoading = false; // 重置按钮状态
             return;
           }
           // 设置 token | 方法在 GoodsMixin

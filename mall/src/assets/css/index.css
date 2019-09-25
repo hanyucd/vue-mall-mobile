@@ -171,17 +171,6 @@ input[type=checkbox]:checked::after {
     padding: 5px;
 }
 
-.van-loading {
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%);
-    z-index: 100;
-    padding: 10px;
-    border-radius: 3px;
-    background-color: rgba(0, 0, 0, 0.5);
-}
-
 .my-warpper .van-cell:not(:last-child):after {
     left: 0;
 }
