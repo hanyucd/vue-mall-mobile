@@ -95,13 +95,12 @@ class userService {
             let userInfo = await userEntity.save();
             return {
               code: 200,
-              msg: '注册成功', 
               userName: userInfo.userName, 
               gender: userInfo.gender, 
               avatar: userInfo.avatar, 
               mobilePhone: userInfo.mobilePhone,
               year: userInfo.year,
-              month: userInfo.month, 
+              month: userInfo.month,
               day: userInfo.day
             };
         }
@@ -115,7 +114,6 @@ class userService {
               ? { code: -2, msg: '密码不正确' }
               : {
                   code: 200,
-                  msg: '登录成功',
                   userName: userDoc.userName, 
                   gender: userDoc.gender,
                   avatar: userDoc.avatar, 

@@ -42,6 +42,10 @@ class Ajax {
     return Url.sendPicCodeApi;
   }
 
+  // 获取用户信息 | GET
+  getUserInfo() {
+    return get(Url.userInfoApi);
+  }
 }
 
 export default new Ajax();

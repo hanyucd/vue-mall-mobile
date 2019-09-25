@@ -6,6 +6,7 @@ const SEARCH_HISTORY = 'search_history'; // 搜素历史 key
 const SEARCH_HISTORY_MAX = 20; // 搜索历史缓存最大长度
 const BROWSE_HISTORY = 'browse_history'; // 浏览历史 key
 const BROWSE_HISTORY_MAX = 20; // 浏览历史缓存最大长度
+const TOKEN = 'token'; // token key
 
 // 分类缓存
 let categoryCache = {
@@ -94,9 +95,25 @@ let browseHistoryCache = {
   }
 };
 
+// token 缓存
+let tokenCache = {
+  setCache(token = '') {
+    storage.setItem(TOKEN, JSON.stringify(token));
+    return token;
+  },
+  getCache() {
+    return storage.getItem(TOKEN) ? JSON.parse(storage.getItem(TOKEN)) : '';
+  },
+  deleteCache() {
+    storage.removeItem(TOKEN);
+    return '';
+  }
+}
+
 export {
   categoryCache, // 分类缓存
   locationCityCache, // 定位城市缓存
   searchHistoryCache, // 搜索历史缓存
   browseHistoryCache, // 浏览历史缓存
+  tokenCache, // token 缓存
 };

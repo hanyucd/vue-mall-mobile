@@ -147,11 +147,15 @@
         try {
           let res = await ajax.register(userName,  password, mobilePhone, smsCode);
           console.log(res)
-          // (res.code === 200) && setTimeout(() => this.$router.go(-1), 1500);
-          // 反馈消息
+          /// 反馈消息
           if (res.code !== 200) {
             this.$toast(res.msg);
+            return;
           }
+          // 设置 token | 方法在 GoodsMixin
+          (res.token) && this.setToken(res.token);
+          // (res.token) && this.setToken(res.token) && setTimeout(() => this.$router.go(-1), 1500);
+          // setTimeout(() => this.$router.go(-1), 1500);
         } catch (error) {
           console.log(error);
         }
@@ -166,14 +170,15 @@
         try {
           let res = await ajax.login(mobilePhone,  password, verifyCode);
           console.log(res)
-          // (res.code === 200) && setTimeout(() => this.$router.go(-1), 1500);
           // 反馈消息
           if (res.code !== 200) {
             this.$toast(res.msg);
+            return;
           }
-          // (res.code === 200)
-          //   ? console.log(res.code)
-          //   : this.$toast(res.msg); // 反馈消息
+          // 设置 token | 方法在 GoodsMixin
+          (res.token) && this.setToken(res.token);
+          // (res.token) && this.setToken(res.token) && setTimeout(() => this.$router.go(-1), 1500);
+          // setTimeout(() => this.$router.go(-1), 1500);
         } catch (error) {
           console.log(error);
         }

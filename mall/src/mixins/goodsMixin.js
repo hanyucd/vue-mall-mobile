@@ -8,6 +8,7 @@ export const GoodsMixin = {
       'locationCity', // 定位城市
       'searchHistoryList', // 搜索历史列表
       'browseHistoryList', // 浏览历史列表
+      'token', // token
     ])
   },
   methods: {
@@ -19,6 +20,8 @@ export const GoodsMixin = {
       'deleteSearchHistory', // 删除搜索历史列表
       'setBrowseHistory', // 设置浏览历史列表
       'deleteOneBrowseHistory', // 删除一条浏览历史
+      'setToken', // 设置 token
+      'deleteToken' // 删除 token
     ]),
     // 跳转商品详情页
     goGoodsDetails(item) {

@@ -50,6 +50,7 @@
 <script>
   import TopBar from '@/components/TopBar';
   import FooterNav from '@/components/FooterNav';
+  import ajax from '@/api';
 
   export default {
     name: 'User',
@@ -64,6 +65,22 @@
           { icon: "thumb-circle-o", status: 4, title: "评价" },
           { icon: "like-o", status: 5, title: "已完成" }
         ]
+      }
+    },
+    created() {
+      this._getUserInfo();
+    },
+    methods: {
+      /**
+       * 获取用户信息
+       */
+      async _getUserInfo() {
+        try {
+          let userInfo = await ajax.getUserInfo();
+          console.log(userInfo)
+        } catch(error) {
+          console.log(error);
+        }
       }
     }
   }

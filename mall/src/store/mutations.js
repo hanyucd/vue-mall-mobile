@@ -20,7 +20,11 @@ const mutations = {
   // 设置 state 中 browseHistoryList
   [types.BROWSE_HISTORY_LIST](state, browseHistoryList) {
     state.browseHistoryList = browseHistoryList;
-  }
+  },
+  // 设置 state 中 token
+  [types.TOKEN](state, token) {
+    state.token = token;
+  },
 };
 
 export default mutations;

@@ -17,8 +17,9 @@ router.post('/register', async (ctx) => {
   
   let args = { userName, password, mobilePhone };
   let userData = await userService.accountHandle(args, 2); // 2: 表示注册处理
-  // (userData.code === 200) && null;
-  ctx.body = userData;
+  ctx.body = (userData.code === 200)
+    ? { code: 200, msg: '注册成功', token: jwt._createToken(userData) }
+    : userData;
 });
 
 /**
@@ -33,8 +34,9 @@ router.post('/login', async (ctx) => {
 
   let args = { mobilePhone, password };
   let userData = await userService.accountHandle(args, 1); // 1: 表示登录处理
-  // (userData.code === 200) && null;
-  ctx.body = userData;
+  ctx.body = (userData.code === 200)
+    ? { code: 200, msg: '登录成功', token: jwt._createToken(userData) }
+    : userData;
 });
 
 /**
@@ -68,6 +70,17 @@ router.get('/sendPicCode', async (ctx) => {
   // 指定返回的类型
   ctx.response.type = 'image/svg+xml';
   ctx.body = picCode.data;
+});
+
+/**
+ * 获取用户信息
+ */
+router.get('/userInfo', async (ctx) => {
+  let 
+  ctx.body = {
+    code: 200,
+    msg: 'userInfo'
+  }
 });
 
 module.exports = router;

@@ -1,4 +1,5 @@
 import axios from 'axios';
+import store from '../store';
 import router from '../router';
 import { Toast } from 'vant';
 import { Dialog } from 'vant';
@@ -14,17 +15,17 @@ axios.defaults.withCredentials = true; // 表示跨域请求时是否需要使�
 /**
  *  请求拦截器
  */
-// axios.interceptors.request.use(config => {
-//   // 在发送请求之前做某事
-//   let token = localStorage.getItem('token');
-//   if (token) {
-//     // 添加 token 到 headers 中
-//     config.headers['Authorization'] = `Bearer ${ token }`;
-//   }
-//   return config;
-// }, error => {
-//   return Promise.reject(error);
-// });
+axios.interceptors.request.use(config => {
+  // 在发送请求之前做某事
+  let token = store.getters.token;
+  // 添加 token 到 headers 中
+  (token) && (config.headers['Authorization'] = `Bearer ${ token }`);
+  
+  console.log("config", config)
+  return config;
+}, error => {
+  return Promise.reject(error);
+});
 
 /**
  * 响应拦截器
