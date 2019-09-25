@@ -78,18 +78,55 @@ class userService {
   /**
    * 用户账号处理：注册 & 登录
    * @param {Object} 
-   * @param {Boolean} handleFlag 处理标识 true: 注册, false: 登录
+   * @param {Number} handleFlag 处理标识 1: 登录, 2: 注册
    */
-  async accountHandle({ userName, password, mobilePhone }, handleFlag = true) {
+  async accountHandle({ userName, password, mobilePhone }, handleFlag = 1) {
     try {
       let userDoc = await UserModel.findOne({ mobilePhone });
+
       if (!userDoc) {
-        let userEntity = new UserModel({ userName, password, mobilePhone });
-        // 保存到数据库中
-        let user = await userEntity.save();
-        return user;
+        switch (handleFlag) {
+          case 1:
+            return { code: -1, msg: '账号不存在, 可先注册' };
+          case 2:
+            // 注册账号
+            let userEntity = new UserModel({ userName, password, mobilePhone });
+            // 保存到数据库中
+            let userInfo = await userEntity.save();
+            return {
+              code: 200,
+              msg: '注册成功', 
+              userName: userInfo.userName, 
+              gender: userInfo.gender, 
+              avatar: userInfo.avatar, 
+              mobilePhone: userInfo.mobilePhone,
+              year: userInfo.year,
+              month: userInfo.month, 
+              day: userInfo.day
+            };
+        }
+
       } else {
-        if (userDoc.mobilePhone === mobilePhone) return { code: 1, msg: '账号号已存在, 可直接登录' };
+        switch (handleFlag) {
+          case 1:
+            // 登录账号
+            let result = await userDoc.comparePassword(password, userDoc.password); // 进行密码比对是否一致
+            return !result
+              ? { code: -2, msg: '密码不正确' }
+              : {
+                  code: 200,
+                  msg: '登录成功',
+                  userName: userDoc.userName, 
+                  gender: userDoc.gender,
+                  avatar: userDoc.avatar, 
+                  mobilePhone: userDoc.mobilePhone,
+                  year: userDoc.year,
+                  month: userDoc.month, 
+                  day: userDoc.day
+                };
+          case 2:
+            return (userDoc.mobilePhone === mobilePhone) && { code: 1, msg: '账号已存在, 可直接登录' };
+        }
       }
     } catch (error) {
       console.log(error);

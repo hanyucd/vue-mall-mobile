@@ -16,7 +16,8 @@ router.post('/register', async (ctx) => {
   if (ctx.session.smsCode !== smsCode) return ctx.body = { code: 5020, msg: '验证码不正确' };
   
   let args = { userName, password, mobilePhone };
-  let userData = await userService.accountHandle(args, true); // true 表示注册处理
+  let userData = await userService.accountHandle(args, 2); // 2: 表示注册处理
+  // (userData.code === 200) && null;
   ctx.body = userData;
 });
 
@@ -24,10 +25,16 @@ router.post('/register', async (ctx) => {
  * 用户登录
  */
 router.post('/login', async (ctx) => {
-  ctx.body = {
-    code: 200,
-    msg: '登录成功'
-  }
+  let { mobilePhone , password, verifyCode } = ctx.request.body;
+  
+  if (!mobilePhone || !password || !verifyCode) return ctx.body = { code: 4020, msg: '请输入完整信息' };
+  if (!ctx.session.picCode) return ctx.body = { code: 5010, msg: '验证码已过期' };
+  if (ctx.session.picCode.toUpperCase() !== verifyCode.toUpperCase()) return ctx.body = { code: 5020, msg: '验证码不正确' };
+
+  let args = { mobilePhone, password };
+  let userData = await userService.accountHandle(args, 1); // 1: 表示登录处理
+  // (userData.code === 200) && null;
+  ctx.body = userData;
 });
 
 /**

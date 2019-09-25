@@ -6,7 +6,7 @@
         <h2 class="title">登录</h2>
         <!-- 手机号码 -->
         <section class="input-wrapper" :class="[ focusIndex === 1 ? 'focus-a' : '' ]">
-          <input type="text" class="mobile-phone" @focus="handleFocus(1)" @blur="handleBlur" v-model="mobilePhone" maxlength="10" placeholder="手机号码" autocomplete="off" />
+          <input type="text" class="mobile-phone" @focus="handleFocus(1)" @blur="handleBlur" v-model="mobilePhone" maxlength="11" placeholder="手机号码" autocomplete="off" />
         </section>
         <!-- 密码 -->
         <section class="input-wrapper" :class="[ focusIndex === 2 ? 'focus-a' : '' ]">
@@ -15,7 +15,7 @@
         <!-- 图形验证码 -->
         <section class="input-wrapper" :class="[ focusIndex === 3 ? 'focus-a' : '' ]">
           <input type="text" class="verify-code" @focus="handleFocus(3)" @blur="handleBlur" v-model="verifyCode" maxlength="4" placeholder="验证码" autocomplete="off" />
-          <div @click="updatePicCode">
+          <div @click="_updatePicCode">
             <img ref="picCode" class="pic-code" src="" title="看不清？点击刷新" />
           </div>
         </section>
@@ -79,15 +79,15 @@
         focusIndex: 0, // 输入框聚焦索引
         userName: '', // 用户名
         password: '', // 密码
-        verifyCode: '', // 图形验证码
         mobilePhone: '', // 手机号
+        verifyCode: '', // 图形验证码
         smsCode: '', // 短信验证码
         countdownText: '', // 倒计时文本
         cDTime: 60 // 60 秒倒计时
       }
     },
     created() {
-      this.$nextTick(() => this.updatePicCode());
+      this.$nextTick(() => this._updatePicCode());
     },
     methods: {
       /**
@@ -104,6 +104,7 @@
        */
       switchForm(flag) {
         this.switchFlag = flag;
+        (this.switchFlag === 1) && this.$nextTick(() => this._updatePicCode());
         this.focusIndex = 0; // 重置表单索引
         let resetData = [ 'userName', 'password', 'verifyCode', 'mobilePhone', 'smsCode' ];
         for (let item of resetData) {
@@ -120,8 +121,8 @@
           this.$toast(text);
           return false;
         };
-        
-        if (!this.userName) return toast('请输入用户名');
+        // 公共检查
+        if (this.mobilePhone.length != 11 || !/^[1][3,4,5,7,8][0-9]{9}$/.test(this.mobilePhone)) return toast('请输入正确的手机号码');
         if (!this.password) return toast('请输入密码');
 
         switch (flag) {
@@ -129,7 +130,7 @@
             if (!this.verifyCode) return toast('请输入验证码');
             break;
           case 2:
-            if (this.mobilePhone.length != 11) return toast('请输入正确的手机号码');
+            if (!this.userName) return toast('请输入用户名');
             if (!this.smsCode) return toast('请输入短信验证码');
             break;
         }
@@ -146,6 +147,11 @@
         try {
           let res = await ajax.register(userName,  password, mobilePhone, smsCode);
           console.log(res)
+          // (res.code === 200) && setTimeout(() => this.$router.go(-1), 1500);
+          // 反馈消息
+          if (res.code !== 200) {
+            this.$toast(res.msg);
+          }
         } catch (error) {
           console.log(error);
         }
@@ -156,10 +162,18 @@
       async login() {
         if (!this._checkForm(1)) return;
         
-        let { userName, password } = this.$data;
+        let { mobilePhone, password, verifyCode } = this.$data;
         try {
-          let res = await ajax.login(userName,  password);
+          let res = await ajax.login(mobilePhone,  password, verifyCode);
           console.log(res)
+          // (res.code === 200) && setTimeout(() => this.$router.go(-1), 1500);
+          // 反馈消息
+          if (res.code !== 200) {
+            this.$toast(res.msg);
+          }
+          // (res.code === 200)
+          //   ? console.log(res.code)
+          //   : this.$toast(res.msg); // 反馈消息
         } catch (error) {
           console.log(error);
         }
@@ -205,7 +219,7 @@
       /**
        * 更新图形验证码
        */
-      updatePicCode() { this.$refs.picCode['src'] = ajax.sendPicCode(); }
+      _updatePicCode() { this.$refs.picCode['src'] = ajax.sendPicCode(); }
     }
   }
 </script>

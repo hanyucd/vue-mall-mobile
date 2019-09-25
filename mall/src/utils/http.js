@@ -55,7 +55,7 @@ export function get(url, params = {}) {
     axios.get(url, { params })
       .then(res => {
         if (res.status === 200) {
-          if (res.data.code === 200 || !res.data.code) {
+          if (res.data || !res.data.code) {
             // 请求成功
             resolve(res.data);
           } else {
@@ -86,7 +86,7 @@ export function post(url, data = {}) {
     axios.post(url, data)
       .then(res => {
         if (res.status === 200) {
-          if (res.data.code === 200 || !res.data.code) {
+          if (res.data || !res.data.code) {
             // 请求成功
             resolve(res.data);
           } else {

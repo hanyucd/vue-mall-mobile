@@ -28,8 +28,8 @@ class Ajax {
   }
   
   // 登录 | POST
-  login(userName = '', password = '') {
-    return post(Url.loginApi, { userName, password });
+  login(mobilePhone = '', password = '', verifyCode = '') {
+    return post(Url.loginApi, { mobilePhone, password, verifyCode });
   }
   
   // 发送短信验证码 | POST
