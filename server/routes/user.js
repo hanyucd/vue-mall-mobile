@@ -85,7 +85,7 @@ router.get('/sendPicCode', async (ctx) => {
  * 获取用户信息
  */
 router.get('/userInfo', checkUserStat, async (ctx) => {
-  ctx.body = ctx.userInfo ? { code: 200, userInfo: ctx.userInfo  }: { code: 488, msg: '未知错误' };
+  ctx.body = ctx.userInfo ? { code: 200, userInfo: ctx.userInfo  } : { code: 488, msg: '未知错误' };
 });
 
 /**
