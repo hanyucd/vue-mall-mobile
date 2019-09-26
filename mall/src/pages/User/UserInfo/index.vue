@@ -92,8 +92,7 @@
     },
     watch: {
       isShowSetting(newValue) {
-        // newValue && this._getUserInfo();
-        this._getUserInfo();
+        newValue && this._getUserInfo();
       },
     },
     methods: {
