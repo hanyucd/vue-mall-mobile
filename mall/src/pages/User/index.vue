@@ -10,7 +10,7 @@
       <img class="avatar" :src="userInfo.avatar" />
       <p class="use-name">欢迎您：{{ userInfo.userName }}</p>
       <p @click="logout">退出登录</p>
-      <van-icon name="setting" class="setting" />
+      <van-icon name="setting" class="setting" @click="isShowSetting = true" />
     </section>
     <!-- 订单索引 -->
     <section class="order-index-wrapper">
@@ -48,6 +48,8 @@
         <van-icon class="arrow-icon" name="arrow" />
       </div>
     </section>
+
+    <user-info :isShowSetting="isShowSetting" @closeSetting="isShowSetting = $event" />
     <!-- 底部导航 -->
     <footer-nav></footer-nav>
   </div>
@@ -56,6 +58,7 @@
 <script>
   import TopBar from '@/components/TopBar';
   import FooterNav from '@/components/FooterNav';
+  import UserInfo from './UserInfo';
   import { GoodsMixin } from '@/mixins/goodsMixin';
   import ajax from '@/api';
 
@@ -63,7 +66,7 @@
     name: 'User',
     mixins: [ GoodsMixin ],
     inject: [ 'reload' ],
-    components: { TopBar, FooterNav },
+    components: { TopBar, FooterNav, UserInfo },
     data() {
       return {
         // 待付款 1，待发货 2，待收货 3，评价 4，已完成
@@ -75,6 +78,7 @@
           { icon: "like-o", status: 5, title: "已完成" }
         ],
         userInfo: null, // 用户信息
+        isShowSetting: true // 是否显示用户设置
       }
     },
     created() {
@@ -94,7 +98,7 @@
         }
       },
       /**
-       * 退出
+       * 退出登录状态
        */
       logout() {
         this.$dialog.confirm({
@@ -108,7 +112,7 @@
           (this.userToken) && (this.deleteUserToken()) && this.reload();
         })
         .catch(error => null);
-      }
+      },
     }
   }
 </script>

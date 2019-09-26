@@ -15,6 +15,7 @@ export const Url = {
   sendSMSCodeApi: baseURL + '/api/user/sendSMSCode', // 发送短信验证码接口
   sendPicCodeApi: baseURL + `/api/user/sendPicCode?mt=${ Math.random() }`, // 发送图形验证码接口
   userInfoApi: baseURL + '/api/user/userInfo', // 用户信息
+  updateUserInfoApi: baseURL + '/api/user/updateUserInfo', // 更新用户信息
 
   addGoodsToCartApi: baseURL + '/user/addGoodsToCart', // 添加商品到购物车接口
   cartInfoApi: baseURL + '/user/getCartInfo', // 购物车数据接口

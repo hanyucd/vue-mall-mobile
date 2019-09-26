@@ -95,12 +95,12 @@ export function get(url, params = {}) {
             resolve(res.data);
           } else {
             // 请求错误
-            reject(res.data);
+            reject(res);
           }
         } else {
           // 服务器错误
           console.log('服务器错误!');
-          reject(res.data);
+          reject(res);
         }
       })
       .catch(error => {
@@ -126,12 +126,12 @@ export function post(url, data = {}) {
             resolve(res.data);
           } else {
             // 请求错误
-            reject(res.data);
+            reject(res);
           }
         } else {
           // 服务器错误
           console.log('服务器错误!');
-          reject(res.data);
+          reject(res);
         }
       })
       .catch(error => {

@@ -46,6 +46,11 @@ class Ajax {
   getUserInfo() {
     return get(Url.userInfoApi);
   }
+
+  // 更新用户信息 | POST
+  updateUserInfo(data) {
+    return post(Url.updateUserInfoApi, data);
+  }
 }
 
 export default new Ajax();

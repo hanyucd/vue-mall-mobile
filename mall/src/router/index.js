@@ -31,7 +31,7 @@ const router =  new Router({
 });
 
 const title = {
-  Home: '首页',
+  Home: '轻松购',
   Category: '商品分类',
   Cart: '购物车',
   Me: '个人中心',

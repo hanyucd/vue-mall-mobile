@@ -1,0 +1,76 @@
+$color: #b532e9;
+
+// 定义进入动画 
+@keyframes bounceFromRightToCenter {
+	from { transform: translate3d(100%, 0, 0); }
+	to { transform: translate3d(0, 0, 0); }
+}
+// 定义退出动画 
+@keyframes bounceFromCenterToRight {
+	from { transform: translate3d(0, 0, 0); }
+	to { transform: translate3d(100%, 0, 0); }
+}
+
+// 进入
+.bounce-enter-active {
+	animation: bounceFromRightToCenter .5s forwards;
+	box-shadow: -3px 0  5px rgba(0, 0, 0, .1);
+}
+// 离开
+.bounce-leave-active {
+	animation: bounceFromCenterToRight .5s forwards;
+	box-shadow: -3px 0  5px rgba(0, 0, 0, .1);
+}
+
+.setting-info {
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: 0;
+  bottom: 0;
+	background: #fff;
+	z-index: 200;
+	.options {
+		display: flex;
+		align-items: center;
+		font-size: 1rem;
+		padding: 1rem .5rem;
+		border-bottom: 1px solid #eee;
+		.title {
+			min-width: 30%;
+		}
+		.github {
+			color: #D8D8D8;
+			flex: 1;
+		}
+		.u-name, .u-email, .u-gender, .u-birth {
+			width: 0;
+			flex: 1;
+			&::-webkit-input-placeholder {
+				color: #D8D8D8;
+				font-size: 1rem;
+				letter-spacing: .1rem;
+			}
+		}
+	}
+	.btn-container {
+		width: 90%;
+		margin: 3rem auto 0 auto;
+		.common {
+			height: 3rem;
+			line-height: 3rem;
+			text-align: center;
+			border-radius: .2rem;
+		}
+		.save-btn {
+			background: $color;
+			color: #fff;
+		}
+		.close-btn {
+			box-sizing: border-box;
+			border: 1px solid $color;
+			margin-top: 1rem;
+			color: $color;
+		}
+	}
+}

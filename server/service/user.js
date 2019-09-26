@@ -99,6 +99,7 @@ class userService {
               gender: userInfo.gender, 
               avatar: userInfo.avatar, 
               mobilePhone: userInfo.mobilePhone,
+              email: userInfo.email,
               year: userInfo.year,
               month: userInfo.month,
               day: userInfo.day
@@ -118,6 +119,7 @@ class userService {
                   gender: userDoc.gender,
                   avatar: userDoc.avatar, 
                   mobilePhone: userDoc.mobilePhone,
+                  email: userDoc.email,
                   year: userDoc.year,
                   month: userDoc.month, 
                   day: userDoc.day

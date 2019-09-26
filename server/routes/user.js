@@ -80,4 +80,11 @@ router.get('/userInfo', checkUserStat, async (ctx) => {
   ctx.body = ctx.userInfo;
 });
 
+/**
+ * 更新用户信息
+ */
+router.post('/updateUserInfo', checkUserStat, async (ctx) => {
+  ctx.body = { code: 200, ...ctx.request.body };
+})
+
 module.exports = router;

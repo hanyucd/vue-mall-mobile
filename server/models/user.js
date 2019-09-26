@@ -10,7 +10,7 @@ const userSchema = new Schema({
   userName: { type: String, unique: true }, //  用户名 | unique 表示唯一
   password: String, // 密码
   mobilePhone: String, // 手机号码
-  email: String, // 邮箱
+  email: { type: String, default: '' }, // 邮箱
   gender: { type: String, default: '男', enum: [ '男', '女', '保密' ] }, // 性别
   avatar: { type: String, default: 'http://img4.imgtn.bdimg.com/it/u=198369807,133263955&fm=27&gp=0.jpg' }, // 头像
   year: { type: Number, default: new Date().getFullYear() },
