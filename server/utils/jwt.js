@@ -17,11 +17,18 @@ const _createToken = (userInfo) => {
 const _verify = (token) => {
   return jwt.verify(token, secret, (error, decoded) => {
     if(error) {
-      // token 过期期 eg: { code: 401, name: 'TokenExpiredError', message: 'jwt expired' } | 401 token 过期
-      return { code: 401, name: error.name, error_msg: error.message }
+      switch (error.name) {
+        // token 过期 eg: { code: 401, name: 'TokenExpiredError', message: 'jwt expired' } | 401 token 过期
+        case 'TokenExpiredError':
+          return { code: 401, name: error.name, error_msg: error.message }
+        // token 错误
+        case 'JsonWebTokenError':
+          return { code: 400, name: error.name, error_msg: error.message };
+        default:
+          return error;
+      }
     } else {
-      // 结果格式 eg： { userId: '5cd7b5159ea7ac253029178d', iat: 1557640469, exp: 1557644069 } | iat（创建的时间戳），exp（到期时间戳）
-      console.log(decoded);
+      // 验证成功 eg：{ userId: '5cd7b5159ea7ac253029178d', iat: 1557640469, exp: 1557644069 } | iat（创建的时间戳），exp（到期时间戳）
       return { code: 200, ...decoded };
     }
   });

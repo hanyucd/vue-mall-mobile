@@ -48,8 +48,8 @@ class Ajax {
   }
 
   // 更新用户信息 | POST
-  updateUserInfo(data) {
-    return post(Url.updateUserInfoApi, data);
+  updateUserInfo(userInfoData) {
+    return post(Url.updateUserInfoApi, userInfoData);
   }
 }
 

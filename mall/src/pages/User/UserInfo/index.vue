@@ -92,10 +92,23 @@
     },
     watch: {
       isShowSetting(newValue) {
-        newValue && this._getUserInfo();
+        // newValue && this._getUserInfo();
+        this._getUserInfo();
       },
     },
     methods: {
+      /**
+       * 重置用户信息
+       */
+      _resetUserInfo() {
+        this.userName = '';
+        this.email = '';
+        this.year = '';
+        this.month = '';
+        this.day = '';
+        this.gender = 'X';
+        this.birth = 'X 年 X 月 X 日';
+      },
       /**
        * 获取用户信息
        */
@@ -112,23 +125,11 @@
             this.birth = `${ this.year } 年 ${ this.month } 月 ${ this.day } 日` 
           }
         } catch(error) {
-          if (error.response) {
-            console.log(error.response);
-            switch (error.response.status) {
-              case 401:
-                this.userName = '';
-                this.gender = 'X';
-                this.email = '';
-                this.year = '';
-                this.month = '';
-                this.day = '';
-                this.birth = 'X 年 X 月 X 日';
-                this.$toast(error.response.data.msg); // 反馈信息
-                break;
-              default:
-                console.log(error);
-                break;
-            }
+          if (error.response && error.response.status === 401 || 400 || 403) {
+            this._resetUserInfo();
+            this.$toast(error.response.data.msg); // 反馈信息
+          } else {
+            console.log(error);
           }
         }
       },
@@ -151,6 +152,8 @@
        * 更新个人信息
        */
       async saveNewUserInfo() {
+        if (!this.userName) return this.$toast('用户名不能为空');
+
         try {
           let newUserInfo = {
             userName: this.userName,
@@ -161,11 +164,19 @@
             day: this.day,
           };
           const res = await ajax.updateUserInfo(newUserInfo);
-          console.log(res)
+          if (res.code === 200) {
+            // 设置 token | 方法在 GoodsMixin
+            (res.token) && this.setUserToken(res.token) && setTimeout(() => this.$emit('closeSetting', false), 1000);
+          }
+          this.$toast(res.msg);
         } catch(error) {
-          console.log(error);
+          if (error.response && error.response.status === 401 || 400 || 403) {
+            this._resetUserInfo();
+            this.$toast(error.response.data.msg); // 反馈信息
+          } else {
+            console.log(error);
+          }
         }
-        console.log('保存')
       }
     }
   }

@@ -38,6 +38,7 @@ app.use(cors({
   origin: function(ctx) {
     return ctx.header.origin
   }, // 允许发来请求的域名
+  allowMethods: [ 'GET', 'POST', 'PUT', 'DELETE', 'OPTIONS' ], // 设置所允许的 HTTP请求方法
   credentials: true, // 标示该响应是合法的
 }));
 // middlewares
@@ -58,20 +59,19 @@ app.use(async (ctx, next) => {
   const ms = new Date() - start;
   console.log(`${ctx.method} ${ctx.url} - ${ms}ms`);
 });
-// 主要执行初始化数据任务逻辑 | 访问 localhost:3000 执行数据导入任务
+
 app.use(async (ctx, next) => {
   const url = ctx.request.url;
-  if (url == '/') {
-    let res = await initDataService.index();
-    ctx.body = res;
-  }
+  // 主要执行初始化数据导入数据库 | 访问 localhost:3000 执行数据导入任务
+  if (url == '/') ctx.body = await initDataService.index();
+  
   await next();
 });
 
 // 装载所有子路由
 router.use('/api', search.routes()); // 搜索
-router.use('/api/goods', goods.routes()); // 商品
-router.use('/api/user', user.routes()); // 用户
+router.use('/api/goods', goods.routes()); // 商品相关
+router.use('/api/user', user.routes()); // 用户相关
 // 加载路由中间件
 app.use(router.routes())
    .use(router.allowedMethods());
@@ -83,7 +83,7 @@ app.on('error', (err, ctx) => {
 
 // 立即执行函数
 (async () => {
-  await connect(); // 执行连接数据库函数
+  await connect(); // 执行连接数据库任务
 })();
 
 module.exports = app;

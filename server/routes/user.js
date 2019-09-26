@@ -17,10 +17,14 @@ router.post('/register', async (ctx) => {
   if (ctx.session.smsCode !== smsCode) return ctx.body = { code: 5020, msg: '验证码不正确' };
   
   let args = { userName, password, mobilePhone };
-  let userData = await userService.accountHandle(args, 2); // 2: 表示注册处理
-  ctx.body = (userData.code === 200)
-    ? { code: 200, msg: '注册成功', token: jwt._createToken(userData) }
-    : userData;
+  try {
+    const userData = await userService.accountHandle(args, 2); // 2: 表示注册处理
+    ctx.body = (userData.code === 200)
+      ? { code: 200, msg: '注册成功', token: jwt._createToken(userData) }
+      : userData;
+  } catch(error) {
+    console.log(error);
+  }
 });
 
 /**
@@ -34,10 +38,14 @@ router.post('/login', async (ctx) => {
   if (ctx.session.picCode.toUpperCase() !== verifyCode.toUpperCase()) return ctx.body = { code: 5020, msg: '验证码不正确' };
 
   let args = { mobilePhone, password };
-  let userData = await userService.accountHandle(args, 1); // 1: 表示登录处理
-  ctx.body = (userData.code === 200)
-    ? { code: 200, msg: '登录成功', token: jwt._createToken(userData) }
-    : userData;
+  try {
+    const userData = await userService.accountHandle(args, 1); // 1: 表示登录处理
+    ctx.body = (userData.code === 200)
+      ? { code: 200, msg: '登录成功', token: jwt._createToken(userData) }
+      : userData;
+  } catch(error) {
+    console.log(error);
+  }
 });
 
 /**
@@ -77,14 +85,25 @@ router.get('/sendPicCode', async (ctx) => {
  * 获取用户信息
  */
 router.get('/userInfo', checkUserStat, async (ctx) => {
-  ctx.body = ctx.userInfo;
+  ctx.body = ctx.userInfo ? { code: 200, userInfo: ctx.userInfo  }: { code: 488, msg: '未知错误' };
 });
 
 /**
  * 更新用户信息
  */
 router.post('/updateUserInfo', checkUserStat, async (ctx) => {
-  ctx.body = { code: 200, ...ctx.request.body };
+  if (ctx.userInfo) {
+    const { mobilePhone } = ctx.userInfo;
+    const needUpdateInfo = ctx.request.body;
+    try {
+      let newUserInfo = await userService.updateUserInfo(mobilePhone, needUpdateInfo);
+      ctx.body = (newUserInfo.code === 1 || 0)
+        ? newUserInfo
+        : { code: 200, msg: "修改成功", token: jwt._createToken(newUserInfo) };
+    } catch(error) {
+      console.log(error);
+    }
+  }
 })
 
 module.exports = router;

@@ -5,7 +5,9 @@ const jwt = require('../utils/jwt');
  */
 const checkUserStat = async (ctx, next) => {
   if (!ctx.header['authorization']) {
-    ctx.body = { code: 200, msg: '未登录' };
+    // 设置响应状态码 403 Forbidden
+    ctx.response.status = 403;
+    ctx.body = { code: 403, msg: '未登录' };
     return;
   }
   // 获取 token
@@ -13,15 +15,20 @@ const checkUserStat = async (ctx, next) => {
   // 验证 token 结果
   const result = jwt._verify(token);
 
-  console.log(result);
   if (result) {
     switch (result.code) {
       case 401:
-        ctx.response.status = 401; // 设置响应状态码
-        ctx.body = { msg: '登录状态已过期，请重新登录', ...result }
+        // 设置响应状态码 401： Unauthorized
+        ctx.response.status = 401;
+        ctx.body = { msg: '登录状态已过期，请重新登录', ...result };
+        break;
+      case 400:
+        // 客户端请求的语法错误 400：Bad Reques
+        ctx.response.status = 400;
+        ctx.body = { msg: 'Token 错误', ...result };
         break;
       case 200:
-        ctx.userInfo = result;
+        ctx.userInfo = result.userInfo;
         await next();
         break;
     }

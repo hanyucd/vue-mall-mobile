@@ -78,7 +78,12 @@
           { icon: "like-o", status: 5, title: "已完成" }
         ],
         userInfo: null, // 用户信息
-        isShowSetting: true // 是否显示用户设置
+        isShowSetting: false // 是否显示用户设置
+      }
+    },
+    watch: {
+      userToken(newToken) {
+        newToken && this._getUserInfo();
       }
     },
     created() {
@@ -94,7 +99,7 @@
           console.log(res)
           if (res.code === 200) this.userInfo = res.userInfo;
         } catch(error) {
-          console.log(error);
+          (error.response.status === 403) ? null : console.log(error);
         }
       },
       /**

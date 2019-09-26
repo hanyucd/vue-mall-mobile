@@ -1,6 +1,8 @@
 const MobilePhoneModel = require('../models/mobilePhone');
 const UserModel = require('../models/user');
 const sendSMSCode = require('../utils/sms');
+// “投影” (projection) | 数据库需要返回的数据
+const PROJECTION = { userName: 1, gender: 1, avatar: 1, mobilePhone: 1, email: 1, year: 1, month: 1, day: 1 };
 
 class userService {
   /**
@@ -115,7 +117,7 @@ class userService {
               ? { code: -2, msg: '密码不正确' }
               : {
                   code: 200,
-                  userName: userDoc.userName, 
+                  userName: userDoc.userName,
                   gender: userDoc.gender,
                   avatar: userDoc.avatar, 
                   mobilePhone: userDoc.mobilePhone,
@@ -129,6 +131,36 @@ class userService {
         }
       }
     } catch (error) {
+      console.log(error);
+    }
+  }
+
+  /**
+   * 更新用户信息
+   * @param {String} mobilePhone 用户手机号
+   * @param {Object} needUpdateInfo 需要更新的信息
+   */
+  async updateUserInfo(mobilePhone, needUpdateInfo) {
+    try {
+      let userDoc = await UserModel.findOne({ mobilePhone });
+      if (userDoc) {
+        if (needUpdateInfo.userName === userDoc.userName) {
+          await UserModel.updateOne({ _id: userDoc._id }, needUpdateInfo); // 更新用户信息
+          const newUserInfo = await UserModel.findById({ _id: userDoc._id }, PROJECTION); // 查询用户信息并返回所需数据
+          return newUserInfo;
+        } else {
+          let user = await UserModel.findOne({ userName: needUpdateInfo.userName });
+          // 检查数据库中是否已存在同名用户
+          if (user) return { code: 1, msg: '用户名已经存在' };
+          // 数据库不存在同名用户，可更新数据
+          await UserModel.updateOne({ _id: userDoc._id }, needUpdateInfo); // 更新用户信息
+          const newUserInfo = await UserModel.findById({ _id: userDoc._id }, PROJECTION); // 查询用户信息并返回所需数据
+          return newUserInfo;
+        }
+      } else {
+        return { code: 0, msg: '您还未注册账号' };
+      }
+    } catch(error) {
       console.log(error);
     }
   }
