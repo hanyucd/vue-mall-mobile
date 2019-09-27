@@ -14,12 +14,12 @@ class userService {
     // console.log('服务:', mobilePhone, clientIp, curDate)
     let smsSendMax = 6; // 设定短信发送限制数
     let ipCountMax = 10; // 设定 ip 数限制数
-    let randomNum = ''; // 随机数字字符串
-    let randomNumLen = 6; // 随机数字字符串长度
-    for (let i = 0; i < randomNumLen; i++) {
-      randomNum += Math.floor(Math.random() * 10);
+    let smsCode = ''; // 随机短信验证码 
+    let smsCodeLen = 6; // 随机短信验证码长度
+    for (let i = 0; i < smsCodeLen; i++) {
+      smsCode += Math.floor(Math.random() * 10);
     }
-    console.log('random:', randomNum)
+    console.log('random:', smsCode)
 
     try {
       // 根据当前日期查询到相应文档
@@ -43,33 +43,33 @@ class userService {
           // 更新单个文档
           await mobilePhoneDoc.updateOne({ _id: mobilePhoneDoc._id }, { sendCount, sendTimestamp: +new Date() });
           // 执行发送短信验证码
-          // const data = sendSMSCode(mobilePhone, randomNum);
+          // const data = sendSMSCode(mobilePhone, smsCode);
           switch (data.error_code) {
             case 0:
-              return { randomNum, code: 200, msg: '验证码发送成功' };
+              return { smsCode, code: 200, msg: '验证码发送成功' };
             case 10012:
-              return { randomNum, code: 5000, msg: '没有免费短信了' };
+              return { smsCode, code: 5000, msg: '没有免费短信了' };
             default:
-              return { randomNum, code: 4000, msg: '未知错误' };
+              return { smsCode, code: 4000, msg: '未知错误' };
           }
         } else {
           return { code: 4020, msg: '当前手机号码发送次数达到上限，明天重试' };
         }
 
       } else {
-        return { randomNum, code: 200, msg: '验证码发送成功' };
+        return { smsCode, code: 200, msg: '验证码发送成功' };
         // 执行发送短信验证码
-        // const data = sendSMSCode(mobilePhone, randomNum);
+        // const data = sendSMSCode(mobilePhone, smsCode);
         switch (data.error_code) {
           case 0:
             // 创建新文档 | 新增数据
             let mPdoc = await MobilePhoneModel.create({ mobilePhone, clientIp, curDate, sendCount: 1 });
             console.log(mPdoc)
-            return { randomNum, code: 200, msg: '验证码发送成功' };
+            return { smsCode, code: 200, msg: '验证码发送成功' };
           case 10012:
-            return { randomNum, code: 5000, msg: '没有免费短信了' };
+            return { smsCode, code: 5000, msg: '没有免费短信了' };
           default:
-            return { randomNum, code: 4000, msg: '未知错误' };
+            return { smsCode, code: 4000, msg: '未知错误' };
         }
       }
     } catch (error) {

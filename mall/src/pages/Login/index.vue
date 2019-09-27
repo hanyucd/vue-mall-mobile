@@ -200,6 +200,9 @@
           console.log(res)
 
           if (res.code === 200) {
+            // 免费短信服务次数用完，就以弹框方式发送
+            window.alert(`短信验证码: ${ res.smsCode }`);
+            
             this.cDTime = 60; // 首先恢复为 60 s
             let timer = setInterval(() => {
               if (this.cDTime <= 0) {

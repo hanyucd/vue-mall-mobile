@@ -53,8 +53,8 @@ router.post('/login', async (ctx) => {
  */
 router.post('/sendSMSCode', async (ctx) => {
   let { mobilePhone } = ctx.request.body; // 手机号码
-  let clientIp = ctx.request.ip.substr(0, 7) == "::ffff:" ? ctx.request.ip.substr(7) : ctx.request.ip; // 客户端 ip
-  let curDate = tools.getCurDate(); // 当前时间
+  const clientIp = ctx.request.ip.substr(0, 7) == "::ffff:" ? ctx.request.ip.substr(7) : ctx.request.ip; // 客户端 ip
+  const curDate = tools.getCurDate(); // 当前时间
   // console.log('ip:', clientIp)
   // console.log('date:', curDate)
   let args = { mobilePhone, clientIp, curDate };
@@ -62,7 +62,7 @@ router.post('/sendSMSCode', async (ctx) => {
   try {
     let smsCodeData = await userService.dispatchSMSCode(args);
     // 将验证码保存入 session 中
-    (smsCodeData.code === 200) && (ctx.session.smsCode = smsCodeData.randomNum);
+    (smsCodeData.code === 200) && (ctx.session.smsCode = smsCodeData.smsCode);
     ctx.body = smsCodeData;
   } catch(error) {
     console.log(error);
