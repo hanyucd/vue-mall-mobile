@@ -84,21 +84,24 @@ class userService {
    */
   async accountHandle({ userName, password, mobilePhone }, handleFlag = 1) {
     try {
-      let userDoc = await UserModel.findOne({ mobilePhone });
+      const userDoc = await UserModel.findOne({ mobilePhone });
 
       if (!userDoc) {
         switch (handleFlag) {
           case 1:
             return { code: -1, msg: '账号不存在, 可先注册' };
           case 2:
+            // 查询是否已存在同用户名
+            const user = await UserModel.findOne({ userName });
+            if (user) return { code: 0, msg: '用户名已存在' };
             // 注册账号
             let userEntity = new UserModel({ userName, password, mobilePhone });
             // 保存到数据库中
             let userInfo = await userEntity.save();
             return {
               code: 200,
-              userName: userInfo.userName, 
-              gender: userInfo.gender, 
+              userName: userInfo.userName,
+              gender: userInfo.gender,
               avatar: userInfo.avatar, 
               mobilePhone: userInfo.mobilePhone,
               email: userInfo.email,
@@ -149,10 +152,11 @@ class userService {
           const newUserInfo = await UserModel.findById({ _id: userDoc._id }, PROJECTION); // 查询用户信息并返回所需数据
           return newUserInfo;
         } else {
+          // 查询是否已存在同用户名
           let user = await UserModel.findOne({ userName: needUpdateInfo.userName });
-          // 检查数据库中是否已存在同名用户
-          if (user) return { code: 1, msg: '用户名已经存在' };
-          // 数据库不存在同名用户，可更新数据
+          // 存在，则直接返回
+          if (user) return { code: 1, msg: '用户名已存在' };
+          // 不存在，可更新数据
           await UserModel.updateOne({ _id: userDoc._id }, needUpdateInfo); // 更新用户信息
           const newUserInfo = await UserModel.findById({ _id: userDoc._id }, PROJECTION); // 查询用户信息并返回所需数据
           return newUserInfo;

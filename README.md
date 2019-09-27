@@ -168,7 +168,7 @@ HTTP 头信息 Authorization 字段里，若后端判断 token 失效 或 错误
 
 https://juejin.im/post/5b5730d16fb9a04fca3c7f16
 
-### 前后端分离下跨域读写 cookie
+### 前后端分离模式下跨域读写 cookie
 
 https://github.com/koajs/session
 

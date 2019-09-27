@@ -74,7 +74,9 @@
       DeleteSearchHisory() {
         this.$dialog.confirm({
           title: '提示',
-          message: '确认删除搜索历史?'
+          message: '确定删除搜索历史?',
+          confirmButtonText: '确定',
+          confirmButtonColor: '#b532e9'
         }).then(() => {
           // 调用 Vuex 中的 Actions，方法在 GoodsMixin 中
           this.deleteSearchHistory();
