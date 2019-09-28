@@ -11,7 +11,8 @@ import '@/assets/css/reset.css';
 import '@/assets/css/border.css';
 import '@/assets/css/index.css';
 import '@/assets/css/icon.styl';
-require('./utils/adapter'); // 移动端适配
+// 执行移动端适配
+require('./utils/adapter')(document, window);
 
 Vue.use(Lazyload);  
 Vue.use(Vant);

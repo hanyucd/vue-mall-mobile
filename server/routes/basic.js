@@ -4,6 +4,25 @@ const goodsService = require('../service/goods');
 const router = new Router();
 
 /**
+ * ip 定位城市
+ */
+router.get('/ipLocation', async (ctx) => {
+  const ip = ctx.req.ip;
+  const clientIp =  ctx.req.headers['x-forwarded-for'] || // 判断是否有反向代理 IP
+    ctx.req.connection.remoteAddress || // 判断 connection 的远程 IP
+    ctx.req.socket.remoteAddress || // 判断后端的 socket 的 IP
+    ctx.req.connection.socket.remoteAddress || ''; 
+
+  console.log(ip, clientIp)
+  ctx.body = {
+    ip,
+    clientIp,
+    code: 200,
+    city: '北京'
+  };
+});
+
+/**
  * 根据关键字获取商品数据
  */
 router.post('/search', async (ctx) => {

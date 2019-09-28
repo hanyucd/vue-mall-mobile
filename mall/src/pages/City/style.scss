@@ -1,3 +1,5 @@
+$color:#b532e9;
+
 @mixin city-layout {
   .title {
     height: 8vw;
@@ -18,8 +20,10 @@
         border: 1px solid #ccc;
         border-radius: 2.5px;
         margin: 5px;
+        color: $color;
         text-align: center;
       }
+      .loc-city { border: 1px solid $color; };
     }
   }
 }
@@ -93,7 +97,6 @@
       .null-search {
         text-align: center;
         margin-top: 50px;
-        // font-size: 14px;
         letter-spacing: 2px;
         color: #999;
       }

@@ -12,8 +12,8 @@ var http = require('http');
  * Get port from environment and store in Express.
  */
 
-var port = normalizePort(process.env.PORT || '3000');
-// var port = normalizePort(process.env.PORT || '8000'); // 服务器临时部署端口
+// var port = normalizePort(process.env.PORT || '3000');
+var port = normalizePort(process.env.PORT || '8000'); // 服务器临时部署端口
 // app.set('port', port);
 
 /**
@@ -26,7 +26,7 @@ var server = http.createServer(app.callback());
  * Listen on provided port, on all network interfaces.
  */
 
-server.listen(port);
+server.listen(port, '0.0.0.0');
 server.on('error', onError);
 server.on('listening', onListening);
 

@@ -7,6 +7,11 @@ class Ajax {
     return get(Url.homeDataApi);
   }
 
+  // ip 定位城市
+  ipLocationCity() {
+    return get(Url.ipLocation);
+  }
+
   // 获取商品详情 | GET
   getGoodsDetails(goodsId) {
     return get(Url.goodsDetailsApi, { goodsId });

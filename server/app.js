@@ -13,7 +13,7 @@ const { connect } = require('./utils/connect');
 const initDataService = require('./service/initData');
 // 导入路由文件
 const goods = require('./routes/goods');
-const search = require('./routes/search');
+const basic = require('./routes/basic');
 const user = require('./routes/user');
 
 const app = new Koa();
@@ -69,7 +69,7 @@ app.use(async (ctx, next) => {
 });
 
 // 装载所有子路由
-router.use('/api', search.routes()); // 搜索
+router.use('/api', basic.routes()); // 基本
 router.use('/api/goods', goods.routes()); // 商品相关
 router.use('/api/user', user.routes()); // 用户相关
 // 加载路由中间件

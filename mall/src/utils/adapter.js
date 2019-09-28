@@ -5,7 +5,7 @@
   * scale 为 meta viewport 中的缩放大小
   */
 
- (function (doc, win) {
+ module.exports = function (doc, win) {
   var docEl = win.document.documentElement;
   var resizeEvt = 'orientationchange' in window ? 'orientationchange' : 'resize';
   /**
@@ -30,5 +30,4 @@
   win.addEventListener(resizeEvt, refreshRem, false);
   doc.addEventListener('DOMContentLoaded', refreshRem, false);
   refreshRem();
-
-})(document, window);
+};

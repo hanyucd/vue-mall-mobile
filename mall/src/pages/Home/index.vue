@@ -53,7 +53,7 @@
       <!-- <refresh></refresh> -->
     </section>
     <!-- 搜索结果 -->
-    <search 
+    <search
       v-show="isShowSearch" 
       :searchResult="dataList" 
       :searchKeyword="searchKeyword" 
@@ -109,6 +109,7 @@
       }
     },
     created() {
+      this._getLocCity();
       this._getHome();
       // 监听输入框变化做函数节流 实现 搜索联想
       this.unWatch = this.$watch('searchKeyword', throttle(() => {
@@ -126,6 +127,17 @@
       this.unWatch();
     },
     methods: {
+      /**
+       * ip 定位城市
+       */
+      async _getLocCity() {
+        try {
+          const res = await ajax.ipLocationCity();
+          console.log(res)
+        } catch(error) {
+          console.log(error);
+        }
+      },
       /**
        * 获取首页数据
        */
