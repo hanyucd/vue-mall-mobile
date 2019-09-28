@@ -48,16 +48,14 @@
         <van-icon class="arrow-icon" name="arrow" />
       </div>
     </section>
-
+    
+    <!-- 个人资料 -->
     <user-info :isShowSetting="isShowSetting" @closeSetting="isShowSetting = $event" />
-    <!-- 底部导航 -->
-    <footer-nav></footer-nav>
   </div>
 </template>
 
 <script>
   import TopBar from '@/components/TopBar';
-  import FooterNav from '@/components/FooterNav';
   import UserInfo from './UserInfo';
   import { GoodsMixin } from '@/mixins/goodsMixin';
   import ajax from '@/api';
@@ -66,7 +64,7 @@
     name: 'User',
     mixins: [ GoodsMixin ],
     inject: [ 'reload' ],
-    components: { TopBar, FooterNav, UserInfo },
+    components: { TopBar, UserInfo },
     data() {
       return {
         // 待付款 1，待发货 2，待收货 3，评价 4，已完成

@@ -1,7 +1,7 @@
 <template>
   <!-- 底部导航 -->
   <footer id="tabNav">
-    <section v-for="(item, index) of NavList" :key="index" :class="{ active: navIndex === index }" @click="clickTab(index, item.name)">
+    <section v-for="(item, index) of NavList" :key="index" :class="{ active: activeNavIndex === index }" @click="clickTab(index, item.name)">
       <van-icon :name="item.icon" />
       <div>{{ item.title }}</div>
     </section>
@@ -11,6 +11,9 @@
 <script>
   export default {
     name: 'FooterNav',
+    props: {
+      activeNavIndex: { type: Number, default: 0 }
+    },
     data() {
       return {
         NavList: [
@@ -19,21 +22,11 @@
           { title: '购物车', name: 'Cart', icon: 'shopping-cart' },
           { title: '我的', name: 'Me', icon: 'contact' }
         ],
-        navIndex: 0
       };
-    },
-    created() {
-      const { name } = this.$route;
-      switch (name) {
-        case 'Home': this.navIndex = 0; break;
-        case 'Category': this.navIndex = 1; break;
-        case 'Cart': this.navIndex = 2; break;
-        case 'Me': this.navIndex = 3; break;
-      }
     },
     methods: {
       clickTab(index, name) {
-        if (this.navIndex === index) return;
+        if (this.activeNavIndex === index) return;
         this.$router.push({ name });
       }
     }

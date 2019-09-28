@@ -50,7 +50,7 @@
       </b-scroll>
       
       <!-- 下拉刷新 -->
-      <refresh></refresh>
+      <!-- <refresh></refresh> -->
     </section>
     <!-- 搜索结果 -->
     <search 
@@ -63,8 +63,6 @@
       v-on:scrollEnd="searchScrollEnd"
       >
     </search>
-    <!-- 底部导航 -->
-    <footer-nav></footer-nav>
   </div>
 </template>
 
@@ -77,7 +75,6 @@
   import Search from './Search';
   import Refresh from './Refresh';
   import BScroll from '@/components/BScroll';
-  import FooterNav from '@/components/FooterNav';
   import { GoodsMixin } from '@/mixins/goodsMixin';
   import { loadMixin } from '@/mixins/loadMixin';
   import { throttle } from '@/utils/tools'; // 导入节流函数
@@ -86,7 +83,7 @@
   export default {
     name: 'Home',
     mixins: [ GoodsMixin, loadMixin ],
-    components: { Banner, Category, Recommend, Floor, HotGoods, Search, Refresh, BScroll, FooterNav },
+    components: { Banner, Category, Recommend, Floor, HotGoods, Search, Refresh, BScroll },
     data() {
       return {
         homeData: {}, // 首页数据

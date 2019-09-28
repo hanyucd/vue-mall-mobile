@@ -29,8 +29,6 @@
         </div>
       </section>
     </div>
-    <!-- 底部导航 -->
-    <footer-nav></footer-nav>
   </div>
 </template>
 
@@ -38,14 +36,13 @@
   import TopBar from '@/components/TopBar';
   import BScroll from '@/components/BScroll';
   import GoodsList from '@/components/GoodsList';
-  import FooterNav from '@/components/FooterNav';
   import { GoodsMixin } from '@/mixins/goodsMixin';
   import ajax from '@/api';
 
   export default {
     name: 'Category',
     mixins: [ GoodsMixin ],
-    components: { TopBar, BScroll, GoodsList, FooterNav },
+    components: { TopBar, BScroll, GoodsList },
     data() {
       return {
         sidebarIndex: 0, // 侧边栏导航下标
