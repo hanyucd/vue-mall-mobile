@@ -23,8 +23,8 @@ const router =  new Router({
     { path: '/cart', name: 'Cart', component: Cart, meta: { index: 3 } }, // 购物车
     { path: '/me', name: 'Me', component: User, meta: { index: 4 } }, // 个人中心
     { path: '/city', name: 'City', component: City, meta: { keepAlive: true, index: 5 } }, // 城市选择
-    { path: '/goodsDetails', name: 'GoodsDetails', component: GoodsDetails, props: route => ({ goodsId: route.query.goodsId }), meta: { index: 6 } }, // 商品信息
-    { path: '/browseHistory', name: 'BrowseHistory', component: BrowseHistory, meta: { index: 7} }, // 浏览历史
+    { path: '/browseHistory', name: 'BrowseHistory', component: BrowseHistory, meta: { index: 6 } }, // 浏览历史
+    { path: '/goodsDetails', name: 'GoodsDetails', component: GoodsDetails, props: route => ({ goodsId: route.query.goodsId }), meta: { index: 7 } }, // 商品信息
     { path: '/login', name: 'Login', component: Login, meta: { index: 8} }, // 登录、注册
     { path: '*', redirect: { name: 'Home' } }
   ]

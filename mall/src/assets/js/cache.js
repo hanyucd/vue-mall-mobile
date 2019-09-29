@@ -1,3 +1,5 @@
+import { addLocCacheTime, getLocCacheDate } from '@/utils/tools';
+
 const storage = window.localStorage;
 const CATEGORY_LIST = 'category_list'; // 分类 key
 const LOCATION_CITY = 'location_city'; // 定位城市 key
@@ -19,14 +21,19 @@ let categoryCache = {
   }
 };
 
-// 城市缓存
+// 定位城市缓存
 let locationCityCache = {
   setCache(cityName = '') {
-    storage.setItem(LOCATION_CITY, JSON.stringify(cityName));
-    return cityName;
+    const locCityData = addLocCacheTime(cityName);
+    storage.setItem(LOCATION_CITY, JSON.stringify(locCityData));
+    return locCityData;
   },
   getCache() {
-    return storage.getItem(LOCATION_CITY) ? JSON.parse(storage.getItem(LOCATION_CITY)) : DEF_LOCATION_CITY;
+    return getLocCacheDate(LOCATION_CITY);
+  },
+  deleteCache() {
+    storage.removeItem(LOCATION_CITY);
+    return null;
   }
 };
 

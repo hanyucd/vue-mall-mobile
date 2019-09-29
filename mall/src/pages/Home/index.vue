@@ -2,9 +2,9 @@
   <div>
     <!-- 顶部搜素 -->
     <header class="header">
-      <section class="city" @click="changeCity">{{ locationCity }} ▼</section>
+      <section class="city" @click="changeCity">{{ locationCity ? locationCity.data : '北京' }} ▼</section>
       <section class="search-box">
-        <van-icon name="search" class="search-icon"/>
+        <van-icon name="search" class="search-icon" />
         <input class="box" type="text" @focus="showSearch" placeholder="请输入搜索关键词" v-model="searchKeyword" />
         <van-icon name="clear" class="clear" @click="clearSearchInput" v-show="searchKeyword" />
       </section>
@@ -109,8 +109,10 @@
       }
     },
     created() {
-      this._getLocCity();
       this._getHome();
+      // 如果缓存中不存在定位城市,则执行定位函数
+      (!this.locationCity) && this._getLocCity();
+      
       // 监听输入框变化做函数节流 实现 搜索联想
       this.unWatch = this.$watch('searchKeyword', throttle(() => {
         this.dataList = []; // 发送搜索请求前先清空上一次搜索结果数组
@@ -133,7 +135,18 @@
       async _getLocCity() {
         try {
           const res = await ajax.ipLocationCity();
-          console.log(res)
+          // 方法在 goodsMixin 中
+          if (res.code !== 200) return this.$toast(res.msg);
+          
+          this.$dialog.confirm({
+            title: 'Tip',
+            message: `定位到您所在城市：${ res.locationCity }`,
+            confirmButtonText: '确认',
+            confirmButtonColor: '#b532e9'
+          })
+          .then(() => { this.setLocationCity(res.locationCity); })
+          .catch(error => this.$router.push({ name: 'City' }));
+
         } catch(error) {
           console.log(error);
         }

@@ -1,25 +1,32 @@
 const Router = require('koa-router');
 const goodsService = require('../service/goods');
-
+const tools = require('../utils/tools');
 const router = new Router();
 
 /**
  * ip 定位城市
  */
 router.get('/ipLocation', async (ctx) => {
-  const ip = ctx.req.ip;
+  // const clientIp = '42.196.44.48';
   const clientIp =  ctx.req.headers['x-forwarded-for'] || // 判断是否有反向代理 IP
     ctx.req.connection.remoteAddress || // 判断 connection 的远程 IP
     ctx.req.socket.remoteAddress || // 判断后端的 socket 的 IP
-    ctx.req.connection.socket.remoteAddress || ''; 
+    ctx.req.connection.socket.remoteAddress || '';
 
-  console.log(ip, clientIp)
-  ctx.body = {
-    ip,
-    clientIp,
-    code: 200,
-    city: '北京'
-  };
+  try {
+    const locationData = await tools.ipLocation(clientIp);
+
+    if (locationData.status !== 0) throw new Error('定位失败');
+    
+    const locCity = locationData.content.address_detail.city;
+    ctx.body = {
+      code: 200,
+      locationCity: locCity.substring(0, locCity.length - 1)
+    };
+  } catch(error) {
+    ctx.body = { msg: '定位失败', ...error };
+    console.log(error);
+  }
 });
 
 /**

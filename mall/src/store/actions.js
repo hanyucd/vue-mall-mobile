@@ -16,6 +16,10 @@ const setCategoryList = ({ commit }, categoryList) => {
 const setLocationCity = ({ commit }, cityName) => {
   commit(types.LOCATION_CITY, locationCityCache.setCache(cityName));
 };
+// 删除定位城市
+const deleteLocationCity = ({ commit }) => {
+  commit(types.LOCATION_CITY, locationCityCache.deleteCache());
+}
 
 // 设置搜索历史列表
 const setSearchHistory = ({ commit }, searchKeyword) => {
@@ -48,6 +52,7 @@ const deleteUserToken = ({ commit }) => {
 export default {
   setCategoryList, // 设置大分类列表
   setLocationCity, // 设置定位城市
+  deleteLocationCity, // 删除定位城市
   setSearchHistory, // 设置搜索历史列表
   deleteSearchHistory, // 删除搜索历史列表
   setBrowseHistory, // 设置浏览历史列表

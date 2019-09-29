@@ -24,7 +24,7 @@
             <p class="title">当前城市</p>
             <div class="city-list">
               <div class="city-wrapper">
-                <p class="city-name loc-city">{{ locationCity }}</p>
+                <p class="city-name loc-city">{{ locationCity ? locationCity.data : '北京' }}</p>
               </div>
             </div>
           </section>

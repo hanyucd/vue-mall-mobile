@@ -10,8 +10,8 @@ const mutations = {
     state.categoryList = categoryList;
   },
   // 设置 state 中 locationCity
-  [types.LOCATION_CITY](state, cityName) {
-    state.locationCity = cityName;
+  [types.LOCATION_CITY](state, locCityData) {
+    state.locationCity = locCityData;
   },
   // 设置 state 中 searchHistoryList
   [types.SEARCH_HISTORY_LIST](state, searchHistoryList) {

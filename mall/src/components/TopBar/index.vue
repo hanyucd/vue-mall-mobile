@@ -1,6 +1,6 @@
 <template>
   <div class="top-bar" :class="[ (!hasBack && !hasClose) ? 'center' : 'between' ]">
-    <van-icon v-if="hasBack" class="back-icon" name="arrow-left" @click="$router.go(-1)" />
+    <van-icon v-if="hasBack" class="back-icon" name="arrow-left" @click="goBack" />
     <van-icon v-if="hasClose" class="back-icon" name="arrow-left" @click="$emit('close', false)" />
     <span>{{ title }}</span>
     <div></div>
@@ -13,7 +13,15 @@
     props: {
       title: { type: String, default: '' },
       hasBack: { type: Boolean, default: false },
-      hasClose: { type: Boolean, default: false }
+      hasClose: { type: Boolean, default: false },
+      outBrowse: { type: Boolean, default: false }
+    },
+    methods: {
+      goBack() {
+        (this.outBrowse) 
+          ? this.$router.push({ name: 'Me' })
+          : this.$router.back();
+      }
     }
   }
 </script>

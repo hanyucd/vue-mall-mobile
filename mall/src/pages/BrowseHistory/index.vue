@@ -1,6 +1,6 @@
 <template>
   <div class="browse-history">
-    <top-bar title="浏览历史" hasBack></top-bar>
+    <top-bar title="浏览历史" hasBack outBrowse></top-bar>
 
     <b-scroll class="content-scroll" :data="browseHistoryList">
       <div v-if="!browseHistoryList.length" class="empty-browse-history">

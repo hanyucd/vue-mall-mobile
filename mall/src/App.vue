@@ -11,7 +11,7 @@
     </transition>
 
     <!-- 底部导航 -->
-    <transition name="nav-slide">
+    <transition :name="navName">
       <footer-nav v-if="isShowNav" :activeNavIndex="activeNavIndex"></footer-nav>
     </transition>
   </div>
@@ -31,15 +31,19 @@
     data() {
       return {
         mainName: '', // 内容区域动画名
-        isShowNav: true, // 是否显示底部导航 Tab
+        navName: '', // 导航动画名
+        isShowNav: false, // 是否显示底部导航 Tab
         activeNavIndex: 0, // 底部导航激活下标
-        isRouterAlive: true // 用于刷新页面用
+        isRouterAlive: true, // 用于刷新页面用
+        navTabs: ['Home', 'Category', 'Cart', 'Me'] // 底部导航
       };
     },
     watch: {
       $route(to, from) {
-        let navTabs = ['Home', 'Category', 'Cart', 'Me'];
+        const { navTabs } = this.$data;
         const { name } = to;
+        // 如果是在 navTab 页面内刷新浏览器，则显示导航栏
+        if (navTabs.includes(name) && !from.name) this.isShowNav = true;
 
         switch (name) {
           case 'Home': this.activeNavIndex = 0; break;
@@ -52,9 +56,12 @@
         if (navTabs.includes(name) && navTabs.includes(from.name)) {
           this.mainName = 'fade';
         } else {
-          // 如果 to 索引大于 from 索引, 判断为前进状态, 反之则为后退状态
-          this.mainName = (to.meta.index > from.meta.index) ? 'slide-left' : 'slide-right';
-          this.isShowNav = (to.meta.index > from.meta.index) ? false : true;
+          if (from.name) {
+            // 如果 to 索引大于 from 索引, 判断为前进状态, 反之则为后退状态
+            this.mainName = (to.meta.index > from.meta.index) ? 'slide-left' : 'slide-right';
+            this.navName = 'nav-slide'; // 设置底部导航动画名
+            this.isShowNav = (to.meta.index > from.meta.index) ? false : true;
+          }
         }
       }
     },

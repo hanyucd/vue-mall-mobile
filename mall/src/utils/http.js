@@ -1,6 +1,7 @@
 import axios from 'axios';
 import store from '../store';
 import router from '../router';
+import { locationCityCache } from '@/assets/js/cache';
 import { Toast } from 'vant';
 import { Dialog } from 'vant';
 
@@ -20,6 +21,9 @@ axios.interceptors.request.use(config => {
   const userToken = store.getters.userToken;
   // 添加 token 到 headers 中
   (userToken) && (config.headers['Authorization'] = `Bearer ${ userToken }`);
+  // 若缓存中不存在定位城市 或者 过期，则执行删除本地缓存
+  (!locationCityCache.getCache()) && store.dispatch('deleteLocationCity');
+  
   return config;
 }, error => {
   return Promise.reject(error);
