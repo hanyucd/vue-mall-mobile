@@ -30,7 +30,7 @@ router.get('/ipLocation', async (ctx) => {
 });
 
 /**
- * 根据关键字获取商品数据
+ * 根据关键字搜索商品数据
  */
 router.post('/search', async (ctx) => {
   let { keyword, page = 1 } = ctx.request.body; // 关键字，页数

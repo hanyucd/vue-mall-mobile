@@ -30,7 +30,7 @@
     <!-- 其他：收藏商品、地址管理、最近浏览 -->
     <section class="other-entry">
       <!-- 收藏商品 -->
-      <div class="collection">
+      <div class="collection" @click="$router.push({ name: 'Collection' })">
         <van-icon class="mark-icon" name="star-o" />
         <span>收藏商品</span>
         <van-icon class="arrow-icon" name="arrow" />

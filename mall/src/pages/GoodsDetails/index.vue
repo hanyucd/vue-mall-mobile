@@ -176,7 +176,7 @@
         ImagePreview({
           images: new Array(4).fill(this.goodsInfo.image),
           showIndicators: true,
-        })
+        });
       },
       /**
        * 收藏处理
