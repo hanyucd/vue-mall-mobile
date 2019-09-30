@@ -1,6 +1,6 @@
 let mongoose = require('mongoose');
-// const db = 'mongodb://127.0.0.1/vue_mall_mobile';
-const db = 'mongodb://127.0.0.1/vue_mall_mobile_v2'; // 服务器临时部署数据库
+const db = 'mongodb://127.0.0.1/vue_mall_mobile';
+// const db = 'mongodb://127.0.0.1/vue_mall_mobile_v2'; // 服务器临时部署数据库
 
 // 导出一个方法
 exports.connect = () => {

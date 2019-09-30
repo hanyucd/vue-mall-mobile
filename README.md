@@ -1,5 +1,5 @@
 # vue-mall-mobile
-> 一个基于 vue.js + koa.js + mongodb + vant 的移动端电商网站
+> 一个基于 Vue + Koa + Mongodb + Vant 搭建的移动端电商网站
 
 注：**该项目正在重构、完善、优化中。。。**
 
@@ -164,11 +164,23 @@ jwt.verify(token, secret, function (err, decoded) {
 前端使用 localStorage 存储后端传递过来的 token 信息；当请求后端 API 时，使用 axios 请求拦截器将存储的 token 添加到 
 HTTP 头信息 Authorization 字段里，若后端判断 token 失效 或 错误则返回 401 状态码，最后 axios 响应拦截器做响应处理并删除前端 localStorage 中 token。
 
-### 手机注册短信验证码
+### 手机号码注册，短信验证码实现
 
-https://juejin.im/post/5b5730d16fb9a04fca3c7f16
+- 构造手机验证码，生成一个 6 位的随机数字串
+- 使用接口向第三方短信平台发送手机号和验证码，然后短信平台再把验证码发送到制定手机号上
+- 将手机号验证码、操作时间存入 Session 中，作为后面验证使用
+- 接收用户填写的验证码、手机号及其他注册数据
+- 对比提交的验证码与 Session 中的验证码是否一致，同时判断提交动作是否在有效期内
+- 验证码正确且在有效期内，请求通过，处理相应的业务
+
 
 ### 前后端分离模式下跨域读写 cookie
+
+CORS 全称是 "跨域资源共享"（Cross-origin resource sharing），它允许浏览器向跨源服务器，发出 XMLHttpRequest 请求，从而克服了 AJAX 只能同源使用的限制。  
+CORS 需要浏览器和服务器同时支持，对于开发者来说，CORS 通信与同源的 AJAX 通信没有差别，代码完全一样。浏览器一旦发现 AJAX 请求跨源，就会自动添加一些附加的头信息，  
+因此，实现 CORS 通信的关键是服务器。
+
+在前后端项目分离项目中，session 会丢失，原因是，服务端无法跨域写入cookie。
 
 https://github.com/koajs/session
 

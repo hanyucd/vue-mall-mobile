@@ -7,11 +7,11 @@ const router = new Router();
  * ip 定位城市
  */
 router.get('/ipLocation', async (ctx) => {
-  // const clientIp = '42.196.44.48';
-  const clientIp =  ctx.req.headers['x-forwarded-for'] || // 判断是否有反向代理 IP
-    ctx.req.connection.remoteAddress || // 判断 connection 的远程 IP
-    ctx.req.socket.remoteAddress || // 判断后端的 socket 的 IP
-    ctx.req.connection.socket.remoteAddress || '';
+  const clientIp = '42.196.44.48';
+  // const clientIp =  ctx.req.headers['x-forwarded-for'] || // 判断是否有反向代理 IP
+  //   ctx.req.connection.remoteAddress || // 判断 connection 的远程 IP
+  //   ctx.req.socket.remoteAddress || // 判断后端的 socket 的 IP
+  //   ctx.req.connection.socket.remoteAddress || '';
 
   try {
     const locationData = await tools.ipLocation(clientIp);
