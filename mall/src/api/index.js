@@ -66,6 +66,11 @@ class Ajax {
   collectionHandle(goodsId, collectionFlag) {
     return post(Url.goodsCollectionApi, { goodsId, collectionFlag });
   }
+
+  // 获取用户已收藏的商品列表 | GET
+  getCollectionList(page = 1) {
+    return get(Url.collectionListApi, { page });
+  }
 }
 
 export default new Ajax();

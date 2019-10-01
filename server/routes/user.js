@@ -125,4 +125,24 @@ router.post('/queryCollection', checkUserStat, async (ctx) => {
   }
 });
 
+/**
+ * 获取用户已收藏的商品列表
+ */
+router.get('/collectionList', checkUserStat, async (ctx) => {
+  if (ctx.userInfo) {
+    const page = parseInt(ctx.request.query.page) || 1;
+    const userId = ctx.userInfo.id; // 取用户 id
+    let pageSize = 10; // 数据条数
+    let skip = (page - 1) * pageSize; // 跳过的数据条数 (分页的公式)
+    let options = { userId, page, pageSize, skip }; // 整合选项
+
+    try {
+      let result = await userService.getCollectionList(options);
+      ctx.body = result;
+    } catch(error) {
+      console.log(error);
+    }
+  }
+});
+
 module.exports = router;

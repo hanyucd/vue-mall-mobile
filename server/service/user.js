@@ -173,6 +173,7 @@ class userService {
   }
 
   /**
+   * 查询商品是否已收藏
    * @param {String} userId 用户 Id
    * @param {String} goodsId 商品 Id
    */
@@ -183,6 +184,19 @@ class userService {
     } catch(error) {
       console.log(error);
     }
+  }
+
+  /**
+   * 获取用户已收藏的商品列表
+   * @param {String} userId 用户 Id 
+   * @param {Number} page 页数  
+   * @param {Number} pageSize 一页取几条数据
+   * @param {String} skip 跳过的数据条数
+   */
+  async getCollectionList({ userId, page, pageSize, skip }) {
+    const total = await CollectionModel.find({ userId }).countDocuments();
+    const collectionList = await CollectionModel.find({ userId }).sort({ createAt: -1 }).skip(skip).limit(pageSize);
+    return { total, collectionList, page, code: 200 }
   }
 };
 

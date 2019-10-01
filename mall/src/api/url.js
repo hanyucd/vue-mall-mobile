@@ -16,12 +16,12 @@ export const Url = {
   sendPicCodeApi: baseURL + `/api/user/sendPicCode?mt=${ Math.random() }`, // 发送图形验证码接口
   userInfoApi: baseURL + '/api/user/userInfo', // 用户信息
   updateUserInfoApi: baseURL + '/api/user/updateUserInfo', // 更新用户信息
+  collectionListApi: baseURL + '/api/user/collectionList', // 用户收藏列表接口
 
   goodsListApi: baseURL + '/api/goods/goodsList', // 分类商品列表接口
   goodsDetailsApi: baseURL + '/api/goods/goodsDetails', // 单个商品详情接口
   queryCollectionApi: baseURL + '/api/user/queryCollection', // 查询商品是否已收藏接口
   goodsCollectionApi: baseURL + '/api/u-action/collection', // 商品收藏、取消接口
-  
 
 
   addGoodsToCartApi: baseURL + '/user/addGoodsToCart', // 添加商品到购物车接口
