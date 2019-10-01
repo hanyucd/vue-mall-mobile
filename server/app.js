@@ -73,7 +73,7 @@ app.use(async (ctx, next) => {
 router.use('/api', basic.routes()); // 基本
 router.use('/api/goods', goods.routes()); // 商品相关
 router.use('/api/user', user.routes()); // 用户相关
-router.use('/api/uAction', uAction.routes()); // 用户行为相关
+router.use('/api/u-action', uAction.routes()); // 用户行为相关
 // 加载路由中间件
 app.use(router.routes())
    .use(router.allowedMethods());

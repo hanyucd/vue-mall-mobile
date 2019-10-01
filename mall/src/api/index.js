@@ -12,16 +12,6 @@ class Ajax {
     return get(Url.ipLocation);
   }
 
-  // 获取商品详情 | GET
-  getGoodsDetails(goodsId) {
-    return get(Url.goodsDetailsApi, { goodsId });
-  }
-
-  // 获取分类商品数据 | GET
-  getGoodsList(categorySubId) {
-    return get(Url.goodsListApi, { categorySubId });
-  }
-
   // 搜索 | POST
   search(keyword, page = 1) {
     return post(Url.searchApi, { keyword, page });
@@ -55,6 +45,26 @@ class Ajax {
   // 更新用户信息 | POST
   updateUserInfo(userInfoData) {
     return post(Url.updateUserInfoApi, userInfoData);
+  }
+
+  // 获取商品详情 | GET
+  getGoodsDetails(goodsId) {
+    return get(Url.goodsDetailsApi, { goodsId });
+  }
+
+  // 获取分类商品数据 | GET
+  getGoodsList(categorySubId) {
+    return get(Url.goodsListApi, { categorySubId });
+  }
+
+  // 查询商品是否已收藏 | POST
+  queryCollection(goodsId) {
+    return post(Url.queryCollectionApi, { goodsId });
+  }
+
+  // 商品收藏、取消 | POST
+  collectionHandle(goodsId, collectionFlag) {
+    return post(Url.goodsCollectionApi, { goodsId, collectionFlag });
   }
 }
 

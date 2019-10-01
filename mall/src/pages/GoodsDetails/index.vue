@@ -144,6 +144,7 @@
     },
     created() {
       this._goodsDetails(this.goodsId);
+      this._queryCollection(this.goodsId);
     },
     methods: {
       /**
@@ -166,6 +167,19 @@
         }
       },
       /**
+       * 查询商品是否已收藏
+       */
+      async _queryCollection(goodsId) {
+        try {
+          const res = await ajax.queryCollection(goodsId);
+          if (res.code === 200) {
+            this.isCollection = (res.status === 1) ? true : false;
+          }
+        } catch(error) {
+          console.log(error);
+        }
+      },
+      /**
        * 监听一页轮播结束事件
        */
       onChangeSwipe(index) { this.currentImg = index },
@@ -179,10 +193,32 @@
         });
       },
       /**
-       * 收藏处理
+       * 收藏、取消处理
        */
-      collectionHandle() {
-        this.isCollection = !this.isCollection;
+      async collectionHandle() {
+        if (!this.userToken) {
+          this.$router.push({ name: 'Login' });
+          return;
+        }
+        let isCollection = this.isCollection;
+        let goodsId = this.goodsId;
+        
+        try {
+          if (!isCollection) {
+            // 收藏行为
+            let res = await ajax.collectionHandle(goodsId, 1); // 1: 指收藏
+            if (res.code == 200) this.isCollection = true;
+            this.$toast(res.msg);
+          } else {
+            // 取消收藏行为
+            let res = await ajax.collectionHandle(goodsId, 0); // 0: 指取消收藏
+            if (res.code == 200) this.isCollection = false;
+            this.$toast(res.msg);
+          }
+        } catch(error) {
+          (error.response && error.response.status === 401 || 400) && (this.$router.push({ name: 'Login' }));
+          console.log(error);
+        }
       },
       /**
        * 加入购物车

@@ -53,7 +53,10 @@ router.post('/login', async (ctx) => {
  */
 router.post('/sendSMSCode', async (ctx) => {
   let { mobilePhone } = ctx.request.body; // 手机号码
-  const clientIp = ctx.request.ip.substr(0, 7) == "::ffff:" ? ctx.request.ip.substr(7) : ctx.request.ip; // 客户端 ip
+  const clientIp =  ctx.req.headers['x-forwarded-for'] || // 判断是否有反向代理 IP
+    ctx.req.connection.remoteAddress || // 判断 connection 的远程 IP
+    ctx.req.socket.remoteAddress || // 判断后端的 socket 的 IP
+    ctx.req.connection.socket.remoteAddress || '';
   const curDate = tools.getCurDate(); // 当前时间
   // console.log('ip:', clientIp)
   // console.log('date:', curDate)
@@ -104,6 +107,22 @@ router.post('/updateUserInfo', checkUserStat, async (ctx) => {
       console.log(error);
     }
   }
-})
+});
+
+/**
+ * 查询商品是否已收藏
+ */
+router.post('/queryCollection', checkUserStat, async (ctx) => {
+  if (ctx.userInfo) {
+    const userId = ctx.userInfo.id; // 取用户 id
+    const { goodsId } = ctx.request.body;
+    try {
+      let queryResut = await userService.queryCollection(userId, goodsId);
+      ctx.body = { code: 200, ...queryResut };
+    } catch(error) {
+      console.log(error);
+    }
+  }
+});
 
 module.exports = router;

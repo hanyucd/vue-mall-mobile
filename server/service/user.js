@@ -1,5 +1,6 @@
 const MobilePhoneModel = require('../models/mobilePhone');
 const UserModel = require('../models/user');
+const CollectionModel = require('../models/collection');
 const sendSMSCode = require('../utils/sms');
 // “投影” (projection) | 数据库需要返回的数据
 const PROJECTION = { userName: 1, gender: 1, avatar: 1, mobilePhone: 1, email: 1, year: 1, month: 1, day: 1 };
@@ -100,6 +101,7 @@ class userService {
             let userInfo = await userEntity.save();
             return {
               code: 200,
+              id: userInfo._id,
               userName: userInfo.userName,
               gender: userInfo.gender,
               avatar: userInfo.avatar, 
@@ -120,6 +122,7 @@ class userService {
               ? { code: -2, msg: '密码不正确' }
               : {
                   code: 200,
+                  id: userDoc._id,
                   userName: userDoc.userName,
                   gender: userDoc.gender,
                   avatar: userDoc.avatar, 
@@ -164,6 +167,19 @@ class userService {
       } else {
         return { code: 0, msg: '您还未注册账号' };
       }
+    } catch(error) {
+      console.log(error);
+    }
+  }
+
+  /**
+   * @param {String} userId 用户 Id
+   * @param {String} goodsId 商品 Id
+   */
+  async queryCollection(userId, goodsId) {
+    try {
+      const collectionDoc = await CollectionModel.findOne({ userId, goodsId });
+      return (!collectionDoc) ? { goodsId, status: 0, msg: '未收藏' } : { goodsId, status: 1, msg: '已收藏' };
     } catch(error) {
       console.log(error);
     }

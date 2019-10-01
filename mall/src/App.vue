@@ -27,7 +27,7 @@
         reload: this.reload
       }
     },
-    components: { FooterNav },
+  components: { FooterNav },
     data() {
       return {
         mainName: '', // 内容区域动画名
@@ -41,11 +41,12 @@
     watch: {
       $route(to, from) {
         const { navTabs } = this.$data;
-        const { name } = to;
+        const toName = to.name;
+        const fromName = from.name;
         // 如果是在 navTab 页面内刷新浏览器，则显示导航栏
-        if (navTabs.includes(name) && !from.name) this.isShowNav = true;
+        if (navTabs.includes(toName) && !fromName) this.isShowNav = true;
 
-        switch (name) {
+        switch (toName) {
           case 'Home': this.activeNavIndex = 0; break;
           case 'Category': this.activeNavIndex = 1; break;
           case 'Cart': this.activeNavIndex = 2; break;
@@ -53,15 +54,17 @@
         }
 
         // 判断是否是底部导航之间相互切换
-        if (navTabs.includes(name) && navTabs.includes(from.name)) {
+        if (navTabs.includes(toName) && navTabs.includes(fromName)) {
           this.mainName = 'fade';
-        } else {
-          if (from.name) {
-            // 如果 to 索引大于 from 索引, 判断为前进状态, 反之则为后退状态
-            this.mainName = (to.meta.index > from.meta.index) ? 'slide-left' : 'slide-right';
-            this.navName = 'nav-slide'; // 设置底部导航动画名
-            this.isShowNav = (to.meta.index > from.meta.index) ? false : true;
-          }
+        // 如果 to 索引大于 from 索引, 判断为前进状态, 反之则为后退状态
+        } else if (to.meta.index > from.meta.index) {
+          this.mainName = 'slide-left';
+          this.navName = 'nav-slide';
+          (navTabs.includes(fromName) || !navTabs.includes(fromName)) && (this.isShowNav = false);
+        } else if (to.meta.index < from.meta.index) {
+          this.mainName = 'slide-right';
+          this.navName = 'nav-slide';
+          (navTabs.includes(toName)) && (this.isShowNav = true);
         }
       }
     },
