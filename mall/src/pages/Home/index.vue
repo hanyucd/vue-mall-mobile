@@ -224,14 +224,16 @@
        * 搜索滚动到底部 | 处理子组件派发的事件 | 加载更多
        */
       searchScrollEnd() {
-        // 判断是否还有更多数据，方法在 loadMixin 中
-        if (!this.hasMoreData()) {
-          this.isloadMore = false;
-          return;
-        } else {
-          this.isloadMore = true;
-          this.page++;
-          this._search(this.searchKeyword, true);
+        if (this.dataList.length >= 10) {
+          // 判断是否还有更多数据，方法在 loadMixin 中
+          if (this.hasMoreData()) {
+            this.isloadMore = true;
+            this.page++;
+            this._search(this.searchKeyword, true);
+          } else {
+            this.isloadMore = false;
+            this.$toast('没有更多数据了~~');
+          }
         }
       },
       /**

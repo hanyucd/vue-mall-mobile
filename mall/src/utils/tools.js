@@ -11,7 +11,7 @@ function addLocCacheTime(value, expires = 86400000) {
 /**
  * 获取本地缓存数据
  * @param {String} key 缓存的键
- * @param {Number} expires 过期时间 默认 1天n
+ * @param {Number} expires 过期时间 默认 1天
  */
 function getLocCacheDate(key, expires = 86400000) {
   // 获取数据
