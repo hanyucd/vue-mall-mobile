@@ -22,6 +22,7 @@ export const Url = {
   goodsDetailsApi: baseURL + '/api/goods/goodsDetails', // 单个商品详情接口
   queryCollectionApi: baseURL + '/api/user/queryCollection', // 查询商品是否已收藏接口
   goodsCollectionApi: baseURL + '/api/u-action/collection', // 商品收藏、取消接口
+  addToShopCartApi: baseURL + '/api/u-action/addToShopCart', // 加入到购物车
 
 
   addGoodsToCartApi: baseURL + '/user/addGoodsToCart', // 添加商品到购物车接口

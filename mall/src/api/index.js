@@ -47,6 +47,11 @@ class Ajax {
     return post(Url.updateUserInfoApi, userInfoData);
   }
 
+  // 获取用户已收藏的商品列表 | GET
+  getCollectionList(page = 1) {
+    return get(Url.collectionListApi, { page });
+  }
+
   // 获取商品详情 | GET
   getGoodsDetails(goodsId) {
     return get(Url.goodsDetailsApi, { goodsId });
@@ -67,9 +72,9 @@ class Ajax {
     return post(Url.goodsCollectionApi, { goodsId, collectionFlag });
   }
 
-  // 获取用户已收藏的商品列表 | GET
-  getCollectionList(page = 1) {
-    return get(Url.collectionListApi, { page });
+  // 查询商品是否已收藏 | POST
+  addToShopCart(goodsId) {
+    return post(Url.addToShopCartApi, { goodsId });
   }
 }
 

@@ -103,7 +103,7 @@
         <span>购物车</span>
       </section>
       <!-- 加入购物车 -->
-      <section class="com-text add-cart" @click="addCart">加入购物车</section>
+      <section class="com-text add-cart" @click="addToShopCart">加入购物车</section>
       <!-- 立即购买 -->
       <section class="com-text buy-now" @click="popupBuyDrawer">立即购买</section>
     </article>
@@ -223,7 +223,22 @@
       /**
        * 加入购物车
        */
-      addCart() {},
+      async addToShopCart() {
+        if (!this.userToken) {
+          this.$router.push({ name: 'Login' });
+          return;
+        }
+        const goodsId = this.goodsId;
+
+        try {
+          let res = await ajax.addToShopCart(goodsId);
+          console.log(res)
+          this.$toast(res.msg)
+        } catch(error) {
+          (error.response && error.response.status === 401 || 400) && (this.$router.push({ name: 'Login' }));
+          console.log(error);
+        }
+      },
       /**
        * 弹出立即购买抽屉
        */

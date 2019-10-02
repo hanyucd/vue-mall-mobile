@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
+// 首页数据模型
 const RecommendSchema = new Schema({
   advertesPicture: Object,
   buyTime: String,

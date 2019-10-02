@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
+// 手机号数据模型 （用于发送验证码）
 const mobilePhoneSchema = new Schema({
   mobilePhone: Number, // 手机号
   clientIp: String, // 客户端 ip

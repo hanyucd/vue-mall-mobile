@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
+// 商品数据模型
 const GoodsSchema = new Schema({
   id: { type: String, unique: true },
   shop_id: String,
