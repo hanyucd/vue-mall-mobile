@@ -42,6 +42,9 @@
       }
     },
     methods: {
+      /**
+       * 关键字高亮处理
+       */
       keyWordLight(goodsName, searchKeyword) {
         // 若是搜索的话则执行
         if (searchKeyword) {
@@ -54,6 +57,9 @@
 
         return goodsName;
       },
+      /**
+       * 处理移除
+       */
       handleRemove(item, index){
         if (this.isBrowseHistory) {
           this.$emit('deleteOneHistory', item);

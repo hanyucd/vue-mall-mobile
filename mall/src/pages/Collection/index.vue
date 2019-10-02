@@ -2,12 +2,13 @@
   <div class="collection-list">
     <top-bar title="我的收藏" hasBack outBrowse></top-bar>
 
-    <b-scroll class="content-scroll" :data="dataList" v-on:scrollEnd="collectionScrollEnd">
-      <div v-if="!dataList.length" class="empty-collection-list">
-        暂无收藏商品 ~~
-      </div>
-      <goods-list v-else :goodsList="dataList" isCollectionList v-on:cancelOneCollection="cancelOneCollection"></goods-list>
+    <b-scroll class="content-scroll" v-if="dataList.length" :data="dataList" pullup v-on:scrollEnd="collectionScrollEnd">
+      <goods-list :goodsList="dataList" isCollectionList :isLoadMore="isLoadMore" v-on:cancelOneCollection="cancelOneCollection"></goods-list>
     </b-scroll>
+    
+    <div v-if="!dataList.length" class="empty-collection-list">
+      暂无收藏商品 ~~
+    </div>
   </div>
 </template>
 
@@ -55,6 +56,7 @@
         } catch(error) {
           // 解锁，方法在 loadMixin 中
           this.unLocked();
+          (error.response && error.response.status === 401 || 403) && this.$toast(error.response.data.msg);
           console.log(error);
         }
       },
@@ -71,9 +73,20 @@
         }
       },
       /**
-       * 滚动到底部
+       * 监听 better-scroll 滚动到底部事件，加载更多数据
        */
-      collectionScrollEnd() {}
+      collectionScrollEnd() {
+        if (this.dataList.length >= 10) {
+          if (this.hasMoreData()) {
+            this.isLoadMore = true;
+            this.page++;
+            this._getCollectionList(this.isLoadMore);
+          } else {
+            this.isLoadMore = false;
+            this.$toast('没有更多数据了~~');
+          }
+        }
+      }
     }
   }
 </script>

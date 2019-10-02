@@ -21,7 +21,8 @@ class uActionService {
             goodsId,
             goods_name: goodsDoc.name,
             image_path: goodsDoc.image_path,
-            present_price: goodsDoc.present_price
+            present_price: goodsDoc.present_price,
+            createAt: +new Date()
           });
           return { code: 200, goodsId: collectionDoc.goodsId, msg: '收藏成功' };
         // 取消

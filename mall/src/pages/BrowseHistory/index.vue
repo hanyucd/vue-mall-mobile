@@ -32,12 +32,6 @@
 
 <style lang="scss" scoped>
   .browse-history {
-    .empty-browse-history {
-      text-align: center;
-      margin-top: 100px;
-      letter-spacing: 2px;
-      color: #999 ;
-    }
     .content-scroll {
       position: fixed;
       top: 11.5vw;
@@ -45,6 +39,12 @@
       right: 0;
       bottom: 0;
       overflow: hidden;
+      .empty-browse-history {
+        text-align: center;
+        margin-top: 100px;
+        letter-spacing: 2px;
+        color: #999 ;
+      }
     }
   }
 </style>
