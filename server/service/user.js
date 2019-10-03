@@ -1,7 +1,9 @@
 const MobilePhoneModel = require('../models/mobilePhone');
+const sendSMSCode = require('../utils/sms');
 const UserModel = require('../models/user');
 const CollectionModel = require('../models/collection');
-const sendSMSCode = require('../utils/sms');
+const ShopCartModel = require('../models/shopCart');
+
 // “投影” (projection) | 数据库需要返回的数据
 const PROJECTION = { userName: 1, gender: 1, avatar: 1, mobilePhone: 1, email: 1, year: 1, month: 1, day: 1 };
 
@@ -197,6 +199,20 @@ class userService {
     const total = await CollectionModel.find({ userId }).countDocuments();
     const collectionList = await CollectionModel.find({ userId }).sort({ createAt: -1 }).skip(skip).limit(pageSize);
     return { total, collectionList, page, code: 200 }
+  }
+
+  /**
+   * 查询购物车数据
+   * @param {String} userId 用户 Id 
+   */
+  async checkShopCart(userId) {
+    try {
+      const shopCartList = await ShopCartModel.find({ userId }).sort({ createAt: -1 });
+      if (!shopCartList) return { code: 0, msg: '购物车暂无商品' };
+      return { shopCartList, code: 200 };
+    } catch(error) {
+      console.log(error);
+    }
   }
 };
 

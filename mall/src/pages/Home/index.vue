@@ -51,6 +51,9 @@
       
       <!-- 下拉刷新 -->
       <!-- <refresh></refresh> -->
+
+      <!-- 加载状态 -->
+      <loading :loadingStatus="loadingStatus" />
     </section>
     <!-- 搜索结果 -->
     <search
@@ -159,8 +162,10 @@
           let res = await ajax.getHomeData();
           if (res.code === 200) {
             this.homeData = res.result;
+            this.loadingStatus = false;
           }
         } catch (error) {
+          this.loadingStatus = false;
           console.log(error);
         }
       },
@@ -173,7 +178,7 @@
         if (this.isLocked()) return;
         // 上锁，方法在 loadMixin 中
         this.locked();
-
+        
         try {
           let res = await ajax.search(keyWord, this.page);
           if (res.code === 200) {

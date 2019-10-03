@@ -76,6 +76,11 @@ class Ajax {
   addToShopCart(goodsId) {
     return post(Url.addToShopCartApi, { goodsId });
   }
+
+  // 查询购物车数据 | GET
+  checkShopCart() {
+    return get(Url.checkShopCartApi);
+  }
 }
 
 export default new Ajax();

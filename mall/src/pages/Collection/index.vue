@@ -2,13 +2,17 @@
   <div class="collection-list">
     <top-bar title="我的收藏" hasBack outBrowse></top-bar>
 
-    <b-scroll class="content-scroll" v-if="dataList.length" :data="dataList" pullup v-on:scrollEnd="collectionScrollEnd">
-      <goods-list :goodsList="dataList" isCollectionList :isLoadMore="isLoadMore" v-on:cancelOneCollection="cancelOneCollection"></goods-list>
-    </b-scroll>
-    
-    <div v-if="!dataList.length" class="empty-collection-list">
-      暂无收藏商品 ~~
-    </div>
+    <section class="collection-list-conatiner">
+      <b-scroll class="content-scroll" v-if="dataList.length" :data="dataList" pullup v-on:scrollEnd="collectionScrollEnd">
+        <goods-list :goodsList="dataList" isCollectionList :isLoadMore="isLoadMore" v-on:cancelOneCollection="cancelOneCollection"></goods-list>
+      </b-scroll>
+      
+      <div v-if="!loadingStatus && !dataList.length" class="empty-collection-list">
+        暂无收藏商品 ~~
+      </div>
+      <!-- 加载状态 -->
+      <loading :loadingStatus="loadingStatus"/>
+    </section>
   </div>
 </template>
 
@@ -16,12 +20,13 @@
   import TopBar from '@/components/TopBar';
   import BScroll from '@/components/BScroll';
   import GoodsList from '@/components/GoodsList';
+  import { GoodsMixin } from '@/mixins/goodsMixin';
   import { loadMixin } from '@/mixins/loadMixin';
   import ajax from '@/api';
 
   export default {
     name: 'Collection',
-    mixins: [ loadMixin ],
+    mixins: [ GoodsMixin, loadMixin ],
     components: { TopBar, BScroll, GoodsList },
     data() {
       return {
@@ -50,10 +55,12 @@
             isLoadMore
               ? this.addMoreData(res.collectionList)
               : this.dataList = res.collectionList;
+            this.loadingStatus = false;
             // 解锁，方法在 loadMixin 中
             this.unLocked();
           }
         } catch(error) {
+          this.loadingStatus = false;
           // 解锁，方法在 loadMixin 中
           this.unLocked();
           (error.response && error.response.status === 401 || 403) && this.$toast(error.response.data.msg);
@@ -93,19 +100,26 @@
 
 <style lang="scss">
   .collection-list {
-    .content-scroll {
+    .collection-list-conatiner {
       position: fixed;
       top: 11.5vw;
       left: 0;
       right: 0;
       bottom: 0;
-      overflow: hidden;
-    }
-    .empty-collection-list {
-      text-align: center;
-      margin-top: 100px;
-      letter-spacing: 2px;
-      color: #999 ;
+      .content-scroll {
+        position: absolute;
+        overflow: hidden;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+      }
+      .empty-collection-list {
+        text-align: center;
+        margin-top: 100px;
+        letter-spacing: 2px;
+        color: #999 ;
+      }
     }
   }
 </style>

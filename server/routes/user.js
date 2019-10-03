@@ -145,4 +145,15 @@ router.get('/collectionList', checkUserStat, async (ctx) => {
   }
 });
 
+/**
+ * 查询购物车数据
+ */
+router.get('/checkShopCart', checkUserStat, async (ctx) => {
+  if (ctx.userInfo) {
+    const userId = ctx.userInfo.id; // 取用户 id
+    const result = await userService.checkShopCart(userId);
+    ctx.body = result;
+  }
+});
+
 module.exports = router;

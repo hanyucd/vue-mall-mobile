@@ -26,6 +26,9 @@
             </div>
           </b-scroll>
           <article class="no-data" v-show="isEmptyGoodsList">暂无数据~~</article>
+          
+          <!-- 加载状态 -->
+          <loading :loadingStatus="loadingStatus" />
         </div>
       </section>
     </div>
@@ -116,10 +119,12 @@
           let res = await ajax.getGoodsList(categorySubId);
           if (res.code === 200) {
             this.goodsList = res.result;
+            this.loadingStatus = false;
             // 判断是否为空商品列表
             this.isEmptyGoodsList = !this.goodsList.length ? true : false;
           }
         } catch (error) {
+          this.loadingStatus = false;
           console.log(error);
         }
       },

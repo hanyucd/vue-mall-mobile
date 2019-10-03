@@ -1,6 +1,13 @@
 import { mapMutations, mapGetters, mapActions } from 'vuex';
+import Loading from '@/components/Loading';
 
 export const GoodsMixin = {
+  components: { Loading },
+  data() {
+    return {
+      loadingStatus: true // 是否显示加载状态
+    }
+  },
   computed: {
     ...mapGetters([
       'goodsDetails', // 商品详情

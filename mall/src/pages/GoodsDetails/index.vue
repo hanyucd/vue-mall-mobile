@@ -110,6 +110,8 @@
 
     <!-- 后退 -->
     <back @backEvt="back" />
+    <!-- 加载状态 -->
+    <loading :loadingStatus="loadingStatus"/>
   </div>
 </template>
 
@@ -153,7 +155,10 @@
       async _goodsDetails(goodsId) {
         try {
           let res = await ajax.getGoodsDetails(goodsId);
-          this.goodsInfo = res.result;
+          if (res.code === 200 || 404) {
+            this.goodsInfo = res.result;
+            this.loadingStatus = false;
+          }
           if (this.goodsInfo) {
             document.title = this.goodsInfo.name;
             // 添加该商品到浏览历史 | 方法在 GoodsMixin 中
@@ -162,6 +167,7 @@
             }, 300);
           }
         } catch (error) {
+          this.loadingStatus = false;
           (error.code === 404) && this.$toast(error.message);
           console.log(error);
         }
@@ -232,7 +238,6 @@
 
         try {
           let res = await ajax.addToShopCart(goodsId);
-          console.log(res)
           this.$toast(res.msg)
         } catch(error) {
           (error.response && error.response.status === 401 || 400) && (this.$router.push({ name: 'Login' }));
