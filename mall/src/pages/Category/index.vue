@@ -115,6 +115,7 @@
        * 根据子分类 Id 获取对应分类商品数据
        */
       async _getGoodsList(categorySubId) {
+        this.loadingStatus = true;
         try {
           let res = await ajax.getGoodsList(categorySubId);
           if (res.code === 200) {

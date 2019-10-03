@@ -15,6 +15,14 @@
       return {
         color: '#b532e9',
       }
+    },
+    watch: {
+      loadingStatus(newStatus, oldStatus) {
+        // console.log(newStatus, oldStatus, 'loading...')
+      }
+    },
+    created() {
+      console.log('loading...')
     }
   }
 </script>

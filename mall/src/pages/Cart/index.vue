@@ -14,24 +14,47 @@
       </article>
 
       <!-- 购物车内容 -->
-      <b-scroll class="content-scroll" v-if="shopCartList.length" :data="shopCartList">
+      <b-scroll class="content-scroll" v-if="!loadingStatus && shopCartList.length" :data="shopCartList">
         <div class="container">
           <section class="header">
             <p class="text">共<span class="mark">3</span>件商品</p>
             <p class="text">管理</p>
           </section>
           <!-- 商品列表 -->
-          <ul>
-            <li class="goods" v-for="item of shopCartList" :key="item.goodsId">
-              <section>
+          <ul class="goods-list">
+            <li class="goods-item" v-for="item of shopCartList" :key="item.goodsId">
+              <!-- <section>hanyu</section> -->
+              <section class="goods-left">
+                <img v-lazy="item.image_path" />
+              </section>
+              <section class="goods-right">
+                <p class="goods-name">{{ item.goods_name }}</p>
+                <div class="wrapper">
+                  <p class="goods-price">￥{{ item.present_price * item.buy_count | toFixed}}</p>
+                  <!-- 增加、减少 -->
+                  <section class="stepper">
+                    <i class="minus"></i>
+                    <span>1</span>
+                    <i class="plus"></i>
+                  </section>
+                </div>
               </section>
             </li>
           </ul>
         </div>
       </b-scroll>
 
+      <!-- 计算总价 -->
+      <section class="calc-total-wrapper" v-if="!loadingStatus && shopCartList.length">
+        <div class="calc-price">
+          合计:
+          <span class="total-price">￥1111</span>
+        </div>
+        <div class="calc-btn">去结算</div>
+      </section>
+
       <!-- 加载状态 -->
-      <loading :loadingStatus="loadingStatus"/>
+      <loading :loadingStatus="loadingStatus" />
     </div>
   </div>
 </template>
@@ -50,6 +73,7 @@
       return {
         shopCartList: [], // 购物车列表
         cartImg: require('@/assets/imgs/shop.png'), // 购物车图片
+        allChecked: false, // 全选
       }
     },
     created() {
@@ -68,7 +92,7 @@
         try {
           const resResult = await ajax.checkShopCart();
           if (resResult.code === 200) {
-            // this.shopCartList = resResult.shopCartList;
+            this.shopCartList = resResult.shopCartList;
             this.loadingStatus = false;
           }
         } catch(error) {

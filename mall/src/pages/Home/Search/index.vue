@@ -28,7 +28,7 @@
       
       <article class="empty-search-history" v-show="!searchResult.length && !searchHistoryList.length && !isEmptySearchResult">暂无搜索历史~~</article>
       <!-- 加载状态 -->
-      <!-- <loading :loadingStatus="searchStatus" /> -->
+      <!-- <loading :loadingStatus="loadingStatus" /> -->
     </div>
   </transition>
 </template>

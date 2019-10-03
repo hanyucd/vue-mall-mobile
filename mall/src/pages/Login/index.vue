@@ -153,15 +153,15 @@
         try {
           let res = await ajax.register(userName,  password, mobilePhone, smsCode);
           console.log(res)
-          /// 反馈消息
-          if (res.code !== 200) {
+          // 反馈消息
+         if (res.code !== 200) {
             this.$toast(res.msg);
             this.isLoading = false; // 重置按钮状态
-            return;
           }
           // 设置 token | 方法在 GoodsMixin
-          (res.token) && this.setUserToken(res.token) && setTimeout(() => this.$router.go(-1), 1000);
+          (res.token) && this.setUserToken(res.token) && setTimeout(() => this.$router.back(), 1000);
         } catch (error) {
+          this.isLoading = false;
           console.log(error);
         }
       },
@@ -180,11 +180,12 @@
           if (res.code !== 200) {
             this.$toast(res.msg);
             this.isLoading = false; // 重置按钮状态
-            return;
           }
+
           // 设置 token | 方法在 GoodsMixin
-          (res.token) && this.setUserToken(res.token) && setTimeout(() => this.$router.go(-1), 1000);
+          (res.token) && this.setUserToken(res.token) && setTimeout(() => this.$router.back(), 1000);
         } catch (error) {
+          this.isLoading = false;
           console.log(error);
         }
       },
