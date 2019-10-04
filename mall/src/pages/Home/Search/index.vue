@@ -28,7 +28,7 @@
       
       <article class="empty-search-history" v-show="!searchResult.length && !searchHistoryList.length && !isEmptySearchResult">暂无搜索历史~~</article>
       <!-- 加载状态 -->
-      <!-- <loading :loadingStatus="loadingStatus" /> -->
+      <loading :loadingStatus="searchStatus" type="spinner" />
     </div>
   </transition>
 </template>
@@ -44,6 +44,7 @@
     props: {
       searchResult: { type: Array, default: () => [] },
       searchKeyword: { type: String, default: '' }, // 搜索关键字
+      searchStatus: { type: Boolean, default: false }, // 搜索状态
       isEmptySearchResult: { type: Boolean, default: false }, // 是否无搜索结果
       isloadMore: { type: Boolean, default: false } // 是否加载更多
     },

@@ -6,28 +6,30 @@ const baseURL = 'http://192.168.1.106:3000'; // 开发使用端口，方便用�
 // const baseURL = 'http://132.232.76.126:8000'; // 服务器临时部署端口
 
 export const Url = {
-  homeDataApi: baseURL + '/api/goods/home', // 商城首页所有数据接口
+  homeDataApi: baseURL + '/api/goods/home', // 商城首页所有数据
   ipLocation: baseURL + '/api/ipLocation', // ip 定位
-  searchApi: baseURL + '/api/search', // 搜索接口
+  searchApi: baseURL + '/api/search', // 搜索
   
-  registerApi: baseURL + '/api/user/register', // 用户注册接口
-  loginApi: baseURL + '/api/user/login', // 用户登录接口
-  sendSMSCodeApi: baseURL + '/api/user/sendSMSCode', // 发送短信验证码接口
-  sendPicCodeApi: baseURL + `/api/user/sendPicCode?mt=${ Math.random() }`, // 发送图形验证码接口
+  registerApi: baseURL + '/api/user/register', // 用户注册
+  loginApi: baseURL + '/api/user/login', // 用户登录
+  sendSMSCodeApi: baseURL + '/api/user/sendSMSCode', // 发送短信验证码
+  sendPicCodeApi: baseURL + `/api/user/sendPicCode?mt=${ Math.random() }`, // 发送图形验证码
   userInfoApi: baseURL + '/api/user/userInfo', // 用户信息
   updateUserInfoApi: baseURL + '/api/user/updateUserInfo', // 更新用户信息
-  collectionListApi: baseURL + '/api/user/collectionList', // 用户收藏列表接口
+  collectionListApi: baseURL + '/api/user/collectionList', // 用户收藏列表
 
-  goodsListApi: baseURL + '/api/goods/goodsList', // 分类商品列表接口
-  goodsDetailsApi: baseURL + '/api/goods/goodsDetails', // 单个商品详情接口
-  queryCollectionApi: baseURL + '/api/user/queryCollection', // 查询商品是否已收藏接口
-  goodsCollectionApi: baseURL + '/api/u-action/collection', // 商品收藏、取消接口
+  goodsListApi: baseURL + '/api/goods/goodsList', // 分类商品列表
+  goodsDetailsApi: baseURL + '/api/goods/goodsDetails', // 单个商品详情
+  queryCollectionApi: baseURL + '/api/user/queryCollection', // 查询商品是否已收藏
+  goodsCollectionApi: baseURL + '/api/u-action/collection', // 商品收藏、取消
   addToShopCartApi: baseURL + '/api/u-action/addToShopCart', // 加入到购物车
   checkShopCartApi: baseURL + '/api/user/checkShopCart', // 查询购物车数据
+  editGoodsCountApi: baseURL + '/api/u-action/editGoodsCount', // 编辑商品数量
+  delCartGoodsApi: baseURL + '/api/u-action/delCartGoods', // 删除购物车商品
 
 
-  addGoodsToCartApi: baseURL + '/user/addGoodsToCart', // 添加商品到购物车接口
-  cartInfoApi: baseURL + '/user/getCartInfo', // 购物车数据接口
-  editGoodsNumApi: baseURL + '/user/editGoodsNum', // 修改商品数量接口
-  clearCartApi: baseURL + '/user/clearCart', // 清空购物车接口
+  addGoodsToCartApi: baseURL + '/user/addGoodsToCart', // 添加商品到购物车
+  cartInfoApi: baseURL + '/user/getCartInfo', // 购物车数据
+  editGoodsNumApi: baseURL + '/user/editGoodsNum', // 修改商品数量
+  clearCartApi: baseURL + '/user/clearCart', // 清空购物车
 };

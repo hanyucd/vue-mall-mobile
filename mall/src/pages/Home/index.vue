@@ -59,7 +59,8 @@
     <search
       v-show="isShowSearch" 
       :searchResult="dataList" 
-      :searchKeyword="searchKeyword" 
+      :searchKeyword="searchKeyword"
+      :searchStatus="searchStatus"
       :isEmptySearchResult="isEmptySearchResult"
       :isloadMore="isloadMore"
       v-on:click-search="clickSearch"
@@ -97,6 +98,7 @@
         isShowSearch: false, // 是否显示搜索区
         isEmptySearchResult: false, // 是否无搜索结果
         isloadMore: false, // 是否加载更多
+        searchStatus: false, // 搜索状态
         touch: {},
         isRotate: false,
         isTrans: false,
@@ -178,6 +180,8 @@
         if (this.isLocked()) return;
         // 上锁，方法在 loadMixin 中
         this.locked();
+        // 设置搜索状态
+        keyWord && !this.dataList.length && (this.searchStatus = true);
         
         try {
           let res = await ajax.search(keyWord, this.page);
@@ -187,12 +191,14 @@
             isLoadMore
               ? this.addMoreData(res.result.goodsList)
               : this.dataList = res.result.goodsList;
+            this.searchStatus = false;
             // 解锁，方法在 loadMixin 中
             this.unLocked();
             // 判断是否无搜索结果 | 无结果则赋于 true
             (!this.dataList.length) && (this.isEmptySearchResult = true);
           }
         } catch (error) {
+          this.searchStatus = false;
           // 解锁，方法在 loadMixin 中
           this.unLocked();
           console.log(error);

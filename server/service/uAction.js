@@ -69,6 +69,36 @@ class uActionService {
       console.log(error);
     }
   }
+
+  /**
+   * 编辑商品数量
+   * @param {String} userId 用户 id
+   * @param {String} goodsId 商品 Id
+   * @param {Number} buyCount 购买数量
+   * @param {Number} mallPrice 总价
+   */
+  async editGoodsCount(userId, goodsId, buyCount, mallPrice) {
+    try {
+      await ShopCartModel.findOneAndUpdate({ userId, goodsId }, { $set: { buy_count: buyCount, mall_price: mallPrice } });
+      return { goodsId, code: 200, msg: '修改成功' };
+    } catch(error) {
+      console.log(error);
+    }
+  }
+
+  /**
+   * 删除购物车商品
+   * @param {String} userId 用户 id
+   * @param {Array} delGoodsIds 需删除商品 ids
+   */
+  async delCartGoods(userId, delGoodsIds) {
+    try {
+      await ShopCartModel.deleteMany({ userId, goodsId: delGoodsIds });
+      return { code: 200, msg: '删除成功' };
+    } catch(error) {
+      console.log(error);
+    }
+  }
 }
 
 module.exports = new uActionService();

@@ -76,10 +76,20 @@ class Ajax {
   addToShopCart(goodsId) {
     return post(Url.addToShopCartApi, { goodsId });
   }
-
+  
   // 查询购物车数据 | GET
   checkShopCart() {
     return get(Url.checkShopCartApi);
+  }
+
+  // 编辑商品数量 | POST
+  editGoodsCount(goodsId, buyCount, mallPrice) {
+    return post(Url.editGoodsCountApi, { goodsId, buyCount, mallPrice });
+  }
+
+  // 删除购物车商品 | POST
+  delCartGoods(delGoodsIds) {
+    return post(Url.delCartGoodsApi, { delGoodsIds });
   }
 }
 

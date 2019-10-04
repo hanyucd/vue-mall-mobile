@@ -41,17 +41,6 @@
     letter-spacing: 2px;
 }
 
-.van-checkbox {
-    display: flex;
-    align-items: center;
-    margin-top: 10px;
-}
-
-.van-checkbox-group {
-    padding: 0 10px;
-    box-sizing: border-box;
-}
-
 input[type="checkbox"] {
     -webkit-appearance: none;
     vertical-align: middle;

@@ -100,6 +100,7 @@ router.post('/updateUserInfo', checkUserStat, async (ctx) => {
     const needUpdateInfo = ctx.request.body;
     try {
       let newUserInfo = await userService.updateUserInfo(mobilePhone, needUpdateInfo);
+      console.log(newUserInfo)
       ctx.body = (newUserInfo.code === 1 || 0)
         ? newUserInfo
         : { code: 200, msg: "修改成功", token: jwt._createToken(newUserInfo) };
@@ -114,7 +115,7 @@ router.post('/updateUserInfo', checkUserStat, async (ctx) => {
  */
 router.post('/queryCollection', checkUserStat, async (ctx) => {
   if (ctx.userInfo) {
-    const userId = ctx.userInfo.id; // 取用户 id
+    const userId = ctx.userInfo._id; // 取用户 id
     const { goodsId } = ctx.request.body;
     try {
       let queryResut = await userService.queryCollection(userId, goodsId);
@@ -130,8 +131,8 @@ router.post('/queryCollection', checkUserStat, async (ctx) => {
  */
 router.get('/collectionList', checkUserStat, async (ctx) => {
   if (ctx.userInfo) {
+    const userId = ctx.userInfo._id; // 取用户 id
     const page = parseInt(ctx.request.query.page) || 1;
-    const userId = ctx.userInfo.id; // 取用户 id
     let pageSize = 10; // 数据条数
     let skip = (page - 1) * pageSize; // 跳过的数据条数 (分页的公式)
     let options = { userId, page, pageSize, skip }; // 整合选项
@@ -150,7 +151,7 @@ router.get('/collectionList', checkUserStat, async (ctx) => {
  */
 router.get('/checkShopCart', checkUserStat, async (ctx) => {
   if (ctx.userInfo) {
-    const userId = ctx.userInfo.id; // 取用户 id
+    const userId = ctx.userInfo._id; // 取用户 id
     const result = await userService.checkShopCart(userId);
     ctx.body = result;
   }

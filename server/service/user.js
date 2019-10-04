@@ -5,7 +5,7 @@ const CollectionModel = require('../models/collection');
 const ShopCartModel = require('../models/shopCart');
 
 // “投影” (projection) | 数据库需要返回的数据
-const PROJECTION = { userName: 1, gender: 1, avatar: 1, mobilePhone: 1, email: 1, year: 1, month: 1, day: 1 };
+const PROJECTION = { _id: 1, userName: 1, gender: 1, avatar: 1, mobilePhone: 1, email: 1, year: 1, month: 1, day: 1 };
 
 class userService {
   /**
@@ -103,7 +103,7 @@ class userService {
             let userInfo = await userEntity.save();
             return {
               code: 200,
-              id: userInfo._id,
+              _id: userInfo._id,
               userName: userInfo.userName,
               gender: userInfo.gender,
               avatar: userInfo.avatar, 
@@ -124,7 +124,7 @@ class userService {
               ? { code: -2, msg: '密码不正确' }
               : {
                   code: 200,
-                  id: userDoc._id,
+                  _id: userDoc._id,
                   userName: userDoc.userName,
                   gender: userDoc.gender,
                   avatar: userDoc.avatar, 

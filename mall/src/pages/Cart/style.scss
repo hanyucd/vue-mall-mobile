@@ -101,7 +101,7 @@ $color:#b532e9;
       top: 0;
       left: 0;
       right: 0;
-      bottom: 12vw;
+      bottom: 13vw;
       overflow: hidden;
       .container {
         .header {
@@ -118,8 +118,13 @@ $color:#b532e9;
           .goods-item {
             display: flex;
             box-sizing: border-box;
-            padding: .5rem;
+            padding: 2vw;
             border-bottom: 1px solid #eee;
+            .checked {
+              display: flex;
+              align-items: center;
+              padding-right: 3vw;
+            }
             .goods-left {
               flex-basis: 30%;
               img {
@@ -133,7 +138,7 @@ $color:#b532e9;
               display: flex;
               flex-direction: column;
               justify-content: space-around;
-              padding-left: 5vw;
+              padding-left: 3vw;
               .goods-name {
                 letter-spacing: 0.01rem;
                 line-height: 1.2;
@@ -166,25 +171,39 @@ $color:#b532e9;
       left: 0;
       right: 0;
       bottom: 0;
-      height: 12vw;
+      height: 13vw;
       display: flex;
       align-items: center;
       font-size: 4.5vw;
-      padding: 0 1rem;
-      .calc-price {
-        flex: 1;
-        line-height: 12vw;
-        .total-price {
-          color: red;
-        }
+      padding: 0 2vw;
+      .all-checked {
+        display: flex;
+        align-items: center;
+        height: 13vw;
+        padding-right: 3vw;
+        span { margin-left: 2vw; }
       }
-      .calc-btn {
+      .common-mge {
+        flex: 1;
+        display: flex;
+        align-items: center;
+        line-height: 12vw;
+        span { padding-left: .5rem; }
+        .total-price { color: red; }
+      }
+      .common-btn {
         flex-basis: 25%;
-        line-height: 10vw;
+        line-height: 11vw;
         border-radius: 2rem;
         text-align: center;
+      }
+      .calc-btn {
         color: #fff;
         background: $color;
+      }
+      .remove-btn {
+        color: $color;
+        border: 1px solid $color;
       }
     }
   }

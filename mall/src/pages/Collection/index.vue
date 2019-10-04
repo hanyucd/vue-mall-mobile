@@ -11,7 +11,7 @@
         暂无收藏商品 ~~
       </div>
       <!-- 加载状态 -->
-      <loading :loadingStatus="loadingStatus"/>
+      <loading :loadingStatus="loadingStatus" type="spinner" />
     </section>
   </div>
 </template>
