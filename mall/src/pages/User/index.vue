@@ -31,19 +31,19 @@
     <section class="other-entry">
       <!-- 收藏商品 -->
       <div class="collection" @click="$router.push({ name: 'Collection' })">
-        <van-icon class="mark-icon" name="star-o" />
+        <van-icon class="small-icon" name="star-o" />
         <span>收藏商品</span>
         <van-icon class="arrow-icon" name="arrow" />
       </div>
       <!-- 地址管理 -->
       <div class="address">
-        <van-icon class="mark-icon" name="star-o" />
+        <van-icon class="small-icon" name="location-o" />
         <span>地址管理</span>
         <van-icon class="arrow-icon" name="arrow" />
       </div>
       <!-- 最近浏览 -->
       <div class="browse-history" @click="$router.push({ name: 'BrowseHistory' })">
-        <van-icon class="mark-icon" name="eye-o" />
+        <van-icon class="small-icon" name="eye-o" />
         <span>最近浏览</span>
         <van-icon class="arrow-icon" name="arrow" />
       </div>

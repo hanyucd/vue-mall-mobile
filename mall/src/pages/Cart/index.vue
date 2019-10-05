@@ -23,12 +23,15 @@
           <!-- 商品列表 -->
           <ul class="goods-list">
             <li class="goods-item" v-for="item of shopCartList" :key="item.goodsId">
+              <!-- 选择复选框 -->
               <section class="checked">
                 <van-checkbox v-model="item.checked" :checked-color="checkedColor" />
               </section>
+              <!-- 图片 -->
               <section class="goods-left">
-                <img v-lazy="item.image_path" />
+                <img v-lazy="item.image_path" :onerror="errorImg" />
               </section>
+              <!-- 商品名、操作 -->
               <section class="goods-right">
                 <p class="goods-name">{{ item.goods_name }}</p>
                 <div class="wrapper">
@@ -55,14 +58,14 @@
 
         <div class="common-mge calc-price" v-if="!isShowMange">
           <van-icon name="gold-coin-o" color="#b532e9" size="1.3rem" />
-          <span class="total-price">{{ totalPrice | toFixed }}</span>
+          <span class="total-price">{{ totalPrice }}</span>
         </div>
         <div class="common-mge remove-warn" v-else>
           <van-icon name="warning-o" color="#b532e9" size="1.3rem" />
           <span>清理</span>
         </div>
         
-        <div class="common-btn calc-btn" v-if="!isShowMange">去结算</div>
+        <div class="common-btn calc-btn" v-if="!isShowMange" @click="goPaymentOrder">去结算{{ checkedCount ? `(${ checkedCount })` : '' }}</div>
         <div class="common-btn remove-btn" v-else @click="delCartGoods">删除</div>
       </section>
 
@@ -86,6 +89,7 @@
       return {
         shopCartList: [], // 购物车列表
         cartImg: require('@/assets/imgs/shop.png'), // 购物车图片
+        errorImg: 'this.src="' + require('@/assets/imgs/error-img.png') + '"',
         allChecked: false, // 全选
         checkedColor: '#b532e9', // 选中器颜色
         isShowMange: false, // 是否显示管理：移除
@@ -104,7 +108,7 @@
           item.checked
             && (totalPrice += parseFloat((item.present_price * item.buy_count).toFixed(2)));
         });
-        return totalPrice;
+        return totalPrice.toFixed(2);
       }
     },
     watch: {
@@ -196,7 +200,7 @@
         });
       },
       /**
-       * Bialog 关闭前的回调函数
+       * Bialog 关闭前的回调函数 | 执行删除购物车商品
        */
       beforeClose(action, done) {
         let self = this;
@@ -217,6 +221,19 @@
           this.delGoodsIds = [];
           done();
         }
+      },
+      /**
+       * 去订单支付页
+       */
+      goPaymentOrder() {
+        if (!this.checkedCount) {
+          this.$toast('您还没有选择商品噢~~');
+          return;
+        }
+        const shopList = this.shopCartList.filter(item => item.checked === true);
+        // 将订单列表存入 Vuex，方法在 goodsMixin 中
+        this.setOrderPaymentList(shopList);
+        this.$router.push({ name: 'OrderPayment' });
       }
     }
   }

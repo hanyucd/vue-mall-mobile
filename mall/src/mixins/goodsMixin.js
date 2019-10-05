@@ -16,10 +16,14 @@ export const GoodsMixin = {
       'searchHistoryList', // 搜索历史列表
       'browseHistoryList', // 浏览历史列表
       'userToken', // 用户 token
+      'orderPaymentList', // 订单支付列表
     ])
   },
   methods: {
-    ...mapMutations({ setGoodsDetails: 'GOODS_DETAILS' }),
+    ...mapMutations({ 
+      setGoodsDetails: 'GOODS_DETAILS',
+      setOrderPaymentList: 'ORDER_PAYMENT_LIST', // 设置订单支付列表
+    }),
     ...mapActions([
       'setCategoryList', // 设置大分类列表
       'setLocationCity', // 设置定位城市

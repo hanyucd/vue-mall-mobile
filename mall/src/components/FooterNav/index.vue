@@ -20,7 +20,7 @@
           { title: '首页', name: 'Home', icon: 'wap-home' },
           { title: '分类', name: 'Category', icon: 'wap-nav' },
           { title: '购物车', name: 'Cart', icon: 'shopping-cart' },
-          { title: '我的', name: 'Me', icon: 'contact' }
+          { title: '我的', name: 'Me', icon: 'manager' }
         ],
       };
     },

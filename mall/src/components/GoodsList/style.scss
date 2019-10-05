@@ -29,16 +29,22 @@ ul {
         text-overflow: ellipsis; 
       }
       .goods-num {
-        .pic {
+        .price {
           color: $color;
           font-weight: 700;
           margin-right: .5rem;
         }
-        .orl-pic {
+        .orl-price {
           text-decoration: line-through;
           font-size: 13px;
         }
       }
+    }
+    .order-goods-count {
+      flex-basis: 10%;
+      display: flex;
+      align-items: center;
+      color: $color;
     }
     .delete-btn {
       flex-basis: 10%;

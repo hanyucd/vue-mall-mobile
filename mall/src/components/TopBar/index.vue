@@ -14,11 +14,17 @@
       title: { type: String, default: '' },
       hasBack: { type: Boolean, default: false },
       hasClose: { type: Boolean, default: false },
-      outBrowse: { type: Boolean, default: false }
+      outBrowse: { type: Boolean, default: false },
+      outOrder: { type: Boolean, default: false },
     },
     methods: {
       goBack() {
-        (this.outBrowse) 
+        if (this.outOrder) {
+          this.$emit('outOrderEvt');
+          return;
+        }
+
+        this.outBrowse
           ? this.$router.push({ name: 'Me' })
           : this.$router.back();
       }

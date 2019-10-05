@@ -1,0 +1,70 @@
+$color: #b532e9;
+
+.order-payment {
+  .address-container {
+    position: relative;
+    box-sizing: border-box;
+    height: 30vw;
+    padding: 5vw;
+    .no-address {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      letter-spacing: .2rem;
+    }
+    .colour-bar {
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      height: 1vw;
+      background-image: url('../../assets/imgs/colour-bar.jpg');
+      background-repeat: no-repeat;
+      background-position: center;
+      background-size: cover;
+    }
+  }
+  .content-scroll {
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 41.5vw;
+    bottom: 13vw;
+    overflow: hidden;
+  }
+  .submit-order {
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 13vw;
+    padding: 0 2vw;
+    display: flex;
+    align-items: center;
+    .total-price {
+      display: flex;
+      line-height: 13vw;
+      margin-left: auto;
+      margin-right: 5vw;
+      font-size: 4.5vw;
+      p {
+        .mark {
+          color: red;
+          padding: 0 .3rem;
+        }
+      }
+      .money { color: red; }
+    }
+    .submit-btn {
+      flex-basis: 30%;
+      line-height: 11vw;
+      letter-spacing: .1rem;
+      border-radius: 6vw;
+      text-align: center;
+      background: $color;
+      color: #fff;
+    }
+  }
+}

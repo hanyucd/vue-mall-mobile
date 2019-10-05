@@ -187,12 +187,14 @@ $color:#b532e9;
         flex: 1;
         display: flex;
         align-items: center;
-        line-height: 12vw;
+        line-height: 13vw;
         span { padding-left: .5rem; }
         .total-price { color: red; }
       }
       .common-btn {
-        flex-basis: 25%;
+        min-width: 25%;
+        box-sizing: border-box;
+        padding: 0 .8rem;
         line-height: 11vw;
         border-radius: 2rem;
         text-align: center;

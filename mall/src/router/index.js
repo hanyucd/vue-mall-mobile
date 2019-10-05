@@ -7,9 +7,10 @@ const Cart = () => import('@/pages/Cart'); // 购物车
 const User = () => import('@/pages/User'); // 个人中心
 const GoodsDetails = () => import('@/pages/GoodsDetails'); // 商品详情
 const City = () => import('@/pages/City'); // 城市选择
-const Collection = () => import('@/pages/Collection'); // 浏览历史
+const Collection = () => import('@/pages/Collection'); // 我的收藏
 const BrowseHistory = () => import('@/pages/BrowseHistory'); // 浏览历史
 const Login = () => import('@/pages/Login'); // 登录、注册
+const OrderPayment = () => import('@/pages/OrderPayment'); // 订单支付
 
 Vue.use(Router);
 /**
@@ -24,10 +25,11 @@ const router =  new Router({
     { path: '/cart', name: 'Cart', component: Cart, meta: { index: 3 } }, // 购物车
     { path: '/me', name: 'Me', component: User, meta: { index: 4 } }, // 个人中心
     { path: '/city', name: 'City', component: City, meta: { keepAlive: true, index: 5 } }, // 城市选择
-    { path: '/collection', name: 'Collection', component: Collection, meta: { index: 6 } }, // 浏览历史
+    { path: '/collection', name: 'Collection', component: Collection, meta: { index: 6 } }, // 我的收藏
     { path: '/browseHistory', name: 'BrowseHistory', component: BrowseHistory, meta: { index: 7 } }, // 浏览历史
-    { path: '/goodsDetails', name: 'GoodsDetails', component: GoodsDetails, props: route => ({ goodsId: route.query.goodsId }), meta: { index: 8 } }, // 商品信息
-    { path: '/login', name: 'Login', component: Login, meta: { index: 9 } }, // 登录、注册
+    { path: '/orderPayment', name: 'OrderPayment', component: OrderPayment, meta: { index: 9 } }, // 订单支付
+    { path: '/goodsDetails', name: 'GoodsDetails', component: GoodsDetails, props: route => ({ goodsId: route.query.goodsId }), meta: { index: 10 } }, // 商品信息
+    { path: '/login', name: 'Login', component: Login, meta: { index: 20 } }, // 登录、注册
     { path: '*', redirect: { name: 'Home' } }
   ]
 });
@@ -41,7 +43,8 @@ const title = {
   GoodsDetails: '商品详情',
   BrowseHistory: '浏览历史',
   Collection: '我的收藏',
-  Login: '登录 / 注册'
+  Login: '登录 / 注册',
+  OrderPayment: '订单支付',
 };
 
 // 注册全局导航前置钩子用来拦截导航

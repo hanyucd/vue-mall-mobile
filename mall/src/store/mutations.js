@@ -25,6 +25,10 @@ const mutations = {
   [types.USER_TOKEN](state, token) {
     state.userToken = token;
   },
+  // 设置 state 中 orderPaymentList
+  [types.ORDER_PAYMENT_LIST](state, orderPaymentList) {
+    state.orderPaymentList = orderPaymentList;
+  },
 };
 
 export default mutations;

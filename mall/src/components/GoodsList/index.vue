@@ -9,10 +9,13 @@
       <section class="right-txt">
         <p class="goods-name" v-html="keyWordLight(item.name || item.goods_name, searchKeyword)"></p>
         <p class="goods-num">
-          <span class="pic">￥{{ item.present_price }}</span>
-          <span class="orl-pic">{{ item.orl_price }}</span>
+          <span class="price" v-if="isOrderPaymentList">￥{{ (item.present_price * item.buy_count).toFixed(2) }}</span>
+          <span class="price" v-else>￥{{ item.present_price }}</span>
+          <span class="orl-price">{{ item.orl_price }}</span>
         </p>
       </section>
+      <!-- 单个商品订单数量 -->
+      <section class="order-goods-count" v-if="isOrderPaymentList">x {{ item.buy_count }}</section>
       <!-- 删除按钮 -->
       <section class="delete-btn" v-if="isBrowseHistory || isCollectionList">
         <van-icon name="close" class="delete-icon" @click.stop="handleRemove(item, index)" />
@@ -35,6 +38,7 @@
       isloadMore: { type: Boolean, default: false }, // 是否加载更多
       isBrowseHistory: { type: Boolean, default: false }, // 是否为浏览历史
       isCollectionList: { type: Boolean, default: false }, // 是否为收藏列表
+      isOrderPaymentList: { type: Boolean, default: false }, // 是否订单支付列表
     },
     data() {
       return {
