@@ -22,7 +22,7 @@
         <span>合计：</span>
         <span class="money">￥{{ totalPrice }}</span>
       </div>
-      <div class="submit-btn">提交点单</div>
+      <div class="submit-btn">提交订单</div>
     </section>
   </div>
 </template>

@@ -11,6 +11,8 @@ const Collection = () => import('@/pages/Collection'); // 我的收藏
 const BrowseHistory = () => import('@/pages/BrowseHistory'); // 浏览历史
 const Login = () => import('@/pages/Login'); // 登录、注册
 const OrderPayment = () => import('@/pages/OrderPayment'); // 订单支付
+const AddressManage = () => import('@/pages/AddressManage'); // 地址管理
+const AddressEdit = () => import('@/pages/AddressEdit'); // 地址编辑
 
 Vue.use(Router);
 /**
@@ -27,8 +29,10 @@ const router =  new Router({
     { path: '/city', name: 'City', component: City, meta: { keepAlive: true, index: 5 } }, // 城市选择
     { path: '/collection', name: 'Collection', component: Collection, meta: { index: 6 } }, // 我的收藏
     { path: '/browseHistory', name: 'BrowseHistory', component: BrowseHistory, meta: { index: 7 } }, // 浏览历史
-    { path: '/orderPayment', name: 'OrderPayment', component: OrderPayment, meta: { index: 9 } }, // 订单支付
-    { path: '/goodsDetails', name: 'GoodsDetails', component: GoodsDetails, props: route => ({ goodsId: route.query.goodsId }), meta: { index: 10 } }, // 商品信息
+    { path: '/orderPayment', name: 'OrderPayment', component: OrderPayment, meta: { index: 8 } }, // 订单支付
+    { path: '/addressManage', name: 'AddressManage', component: AddressManage, meta: { index: 9 } }, // 地址管理
+    { path: '/addressEdit', name: 'AddressEdit', component: AddressEdit, meta: { index: 10 } }, // 地址编辑
+    { path: '/goodsDetails', name: 'GoodsDetails', component: GoodsDetails, props: route => ({ goodsId: route.query.goodsId }), meta: { index: 19 } }, // 商品信息
     { path: '/login', name: 'Login', component: Login, meta: { index: 20 } }, // 登录、注册
     { path: '*', redirect: { name: 'Home' } }
   ]
@@ -45,6 +49,8 @@ const title = {
   Collection: '我的收藏',
   Login: '登录 / 注册',
   OrderPayment: '订单支付',
+  AddressManage: '地址管理',
+  AddressEdit: '地址编辑',
 };
 
 // 注册全局导航前置钩子用来拦截导航

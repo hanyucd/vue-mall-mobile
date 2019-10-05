@@ -1,0 +1,37 @@
+$color:#b532e9;
+
+.address-manage {
+  .address-container {
+    position: fixed;
+      top: 11.5vw;
+      left: 0;
+      right: 0;
+      bottom: 13.5vw;
+      .content-scroll {
+        position: absolute;
+        overflow: hidden;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+      }
+      .empty-address-list {
+        text-align: center;
+        margin-top: 100px;
+        letter-spacing: 2px;
+        color: #999 ;
+      }
+  }
+  .add-address {
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 13.5vw;
+    line-height: 13.5vw;
+    text-align: center;
+    letter-spacing: .1rem;
+    color: #fff;
+    background: $color;
+  }
+}

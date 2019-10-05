@@ -51,8 +51,8 @@
 
       <!-- 计算总价 -->
       <section class="calc-total-wrapper" v-if="!loadingStatus && shopCartList.length">
-        <div class="all-checked">
-          <van-checkbox v-model="allChecked" :checked-color="checkedColor" @click="toggleAllChecked" />
+        <div class="all-checked" @click="toggleAllChecked">
+          <van-checkbox v-model="allChecked" :checked-color="checkedColor" />
           <span>全选</span>
         </div>
 

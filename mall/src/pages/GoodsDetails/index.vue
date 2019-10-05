@@ -19,12 +19,11 @@
         <section class="goods-express">
           <span class="goods-ex">运费：{{ goodsInfo.express || 0  }}</span>
           <span class="goods-amount">剩余：{{ goodsInfo.amount }}</span>
-          <span class="goods-collection">
+          <span class="goods-collection" @click="collectionHandle">
             收藏：
             <van-icon 
               :name="isCollection ? 'like' : 'like-o'" 
               class="goods-like"
-              @click="collectionHandle" 
             />
           </span>
         </section>

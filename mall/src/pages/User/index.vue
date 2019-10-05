@@ -36,7 +36,7 @@
         <van-icon class="arrow-icon" name="arrow" />
       </div>
       <!-- 地址管理 -->
-      <div class="address">
+      <div class="address" @click="$router.push({ name: 'AddressManage' })">
         <van-icon class="small-icon" name="location-o" />
         <span>地址管理</span>
         <van-icon class="arrow-icon" name="arrow" />
