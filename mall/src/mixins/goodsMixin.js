@@ -10,7 +10,6 @@ export const GoodsMixin = {
   },
   computed: {
     ...mapGetters([
-      'goodsDetails', // 商品详情
       'categoryList', // 大分类列表
       'locationCity', // 定位城市
       'searchHistoryList', // 搜索历史列表
@@ -20,8 +19,7 @@ export const GoodsMixin = {
     ])
   },
   methods: {
-    ...mapMutations({ 
-      setGoodsDetails: 'GOODS_DETAILS',
+    ...mapMutations({
       setOrderPaymentList: 'ORDER_PAYMENT_LIST', // 设置订单支付列表
     }),
     ...mapActions([
@@ -36,7 +34,6 @@ export const GoodsMixin = {
     ]),
     // 跳转商品详情页
     goGoodsDetails(item) {
-      this.setGoodsDetails(item); // 调取 vuex 中 mutations 设置 state
       this.$router.push({ name: 'GoodsDetails', query: { goodsId: item.goodsId || item.id } });
     },
     // 退回到上一页

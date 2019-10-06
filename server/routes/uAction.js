@@ -70,4 +70,23 @@ router.post('/delCartGoods', checkUserStat, async (ctx) => {
   }
 });
 
+/**
+ * 编辑收货地址
+ */
+router.post('/editAddress', checkUserStat, async (ctx) => {
+  if (ctx.userInfo) {
+    const userId = ctx.userInfo._id; // 取用户 id
+    const { addressInfo } = ctx.request.body; // 地址信息
+
+    try {
+      // const result = await uActionService.editAddress(userId, addressInfo);
+      // ctx.body = result;
+
+      ctx.body = { code: 200, userId, addressInfo }
+    } catch (error) {
+      console.log(error);
+    }
+  }
+});
+
 module.exports = router;

@@ -67,13 +67,13 @@
     components: { TopBar, UserInfo },
     data() {
       return {
-        // 待付款 1，待发货 2，待收货 3，评价 4，已完成
+        // 待付款 1，待发货 2，待收货 3，已完成 4，评价 5，
         orderIndex: [
           { icon: "balance-pay", status: 1, title: "待付款" },
           { icon: "free-postage", status: 2, title: "待发货" },
           { icon: "points", status: 3, title: "待收货" },
-          { icon: "thumb-circle-o", status: 4, title: "评价" },
-          { icon: "like-o", status: 5, title: "已完成" }
+          { icon: "like-o", status: 4, title: "已完成" },
+          { icon: "thumb-circle-o", status: 5, title: "评价" }
         ],
         userInfo: null, // 用户信息
         isShowSetting: false // 是否显示用户设置

@@ -184,3 +184,14 @@
 <style lang="scss" scoped>
   @import './style.scss';
 </style>
+
+<style lang="scss">
+  $color: #b532e9;
+
+  // 强行改变 vant 中默认样式
+  .setting-info {
+    .van-picker__cancel, .van-picker__confirm {
+      color: $color;
+    }
+  }
+</style>

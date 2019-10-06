@@ -25,14 +25,6 @@
     position: initial;
 }
 
-.van-address-list {
-    padding-bottom: 0;
-}
-
-.van-address-list__add {
-    display: none;
-}
-
 .null {
     text-align: center;
     color: #bbbbbb;

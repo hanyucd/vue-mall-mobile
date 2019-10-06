@@ -91,6 +91,11 @@ class Ajax {
   delCartGoods(delGoodsIds) {
     return post(Url.delCartGoodsApi, { delGoodsIds });
   }
+
+  // 编辑地址 | POST
+  editAddress(addressInfo) {
+    return post(Url.editAddressApi, { addressInfo });
+  }
 }
 
 export default new Ajax();

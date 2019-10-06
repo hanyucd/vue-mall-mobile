@@ -27,9 +27,5 @@ export const Url = {
   editGoodsCountApi: baseURL + '/api/u-action/editGoodsCount', // 编辑商品数量
   delCartGoodsApi: baseURL + '/api/u-action/delCartGoods', // 删除购物车商品
 
-
-  addGoodsToCartApi: baseURL + '/user/addGoodsToCart', // 添加商品到购物车
-  cartInfoApi: baseURL + '/user/getCartInfo', // 购物车数据
-  editGoodsNumApi: baseURL + '/user/editGoodsNum', // 修改商品数量
-  clearCartApi: baseURL + '/user/clearCart', // 清空购物车
+  editAddressApi: baseURL + '/api/u-action/editAddress', // 编辑收货地址
 };

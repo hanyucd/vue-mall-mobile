@@ -1,6 +1,7 @@
 const GoodsModel = require('../models/goods');
 const CollectionModel = require('../models/collection');
 const ShopCartModel = require('../models/shopCart');
+const AddressManageModel = require('../models/addressManage');
 
 class uActionService {
   /**
@@ -95,6 +96,38 @@ class uActionService {
     try {
       await ShopCartModel.deleteMany({ userId, goodsId: delGoodsIds });
       return { code: 200, msg: '删除成功' };
+    } catch(error) {
+      console.log(error);
+    }
+  }
+
+  /**
+   * 编辑收货地址
+   * @param {String} userId 用户 id
+   * @param {Object} addressInfo 地址信息
+   */
+  async editAddress(userId, addressInfo) {
+    try {
+      if (addressInfo.is_default) {
+        // 如果在修改默认地址，首先全改为 false
+        await AddressManageModel.updateMany({ userId, is_default: true }, { $set: { is_default: false } });
+      }
+
+      if (addressInfo.id) {
+        // 更新地址
+        await AddressManageModel.updateOne({ userId, _id: addressInfo.id }, addressInfo);
+        return { code: 200, msg: '更新地址成功' };
+      } else {
+        // 加入用户 id 和 创建时间
+        const newAddress = Object.assign(addressInfo, {
+          userId,
+          createAt: +new Date()
+        });
+        // 新增地址
+        const addressDoc = await AddressManageModel.create(newAddress);
+        console.log(addressDoc)
+        return { code: 200, msg: '添加地址成功', ...addressDoc };
+      }
     } catch(error) {
       console.log(error);
     }
