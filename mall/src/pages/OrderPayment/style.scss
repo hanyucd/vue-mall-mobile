@@ -6,13 +6,54 @@ $color: #b532e9;
     box-sizing: border-box;
     height: 30vw;
     padding: 5vw;
-    .no-address {
+    .common {
       width: 100%;
       height: 100%;
       display: flex;
-      justify-content: center;
       align-items: center;
+    }
+    .no-address {
+      justify-content: center;
       letter-spacing: .2rem;
+    }
+    .address-info {
+      .address-text {
+        flex: 1;
+      }
+      .location {
+        width: 2rem;
+        height: 2rem;
+        border-radius: 50%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background: $color;
+      }
+      .address-text {
+        margin-left: 1rem;
+        width: 100%;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        $fontSize: .9rem;
+        .name-tel {
+          .name {
+            padding-right: 1rem;
+          }
+          .tel {
+            color: $color;
+            font-size: $fontSize;
+          }
+        }
+        .address-detail {
+          font-size: $fontSize;
+        }
+        .hint {
+          font-size: $fontSize;
+          color: $color;
+        }
+      }
     }
     .colour-bar {
       position: absolute;

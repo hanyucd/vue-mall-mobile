@@ -16,12 +16,14 @@ export const GoodsMixin = {
       'browseHistoryList', // 浏览历史列表
       'userToken', // 用户 token
       'orderPaymentList', // 订单支付列表
-      'addressInfo' // 地址信息
+      'addressInfo', // 地址信息
+      'tempAddress', // 临时地址
     ])
   },
   methods: {
     ...mapMutations({
       setOrderPaymentList: 'ORDER_PAYMENT_LIST', // 设置订单支付列表
+      setTempAddress: 'TEMP_ADDRESS', // 设置临时地址
     }),
     ...mapActions([
       'setCategoryList', // 设置大分类列表

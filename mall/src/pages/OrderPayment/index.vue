@@ -4,14 +4,27 @@
 
     <!-- 收货地址 -->
     <section class="address-container">
-      <div class="adress no-address">
+      <!-- 不存在默认地址 -->
+      <div class="common no-address" v-if="!defAddress._id && !tempAddress._id" @click="$router.push({ name: 'AddressManage' })">
         <van-icon name="add-o" />
         <span>点击添加收货地址</span>
+      </div>
+      <div class="common address-info" v-else @click="$router.push({ name: 'AddressManage' })">
+        <section class="location"><van-icon name="location" color="#fff" /></section>
+        <section class="address-text">
+          <p class="name-tel">
+            <span class="name">{{ tempAddress.name || defAddress.name }}</span>
+            TEL : <span class="tel">{{ tempAddress.tel || defAddress.tel }}</span>
+          </p>
+          <p class="address-detail">地址 : {{ tempAddress.address || defAddress.address }}</p>
+          <p class="hint">(收货不便时,可选择免费待收货服务)</p>
+        </section>
+        <section class="arrow"><van-icon name="arrow" /></section>
       </div>
       <!-- 彩条 -->
       <div class="colour-bar"></div>
     </section>
-
+    <!-- 订单商品 -->
     <b-scroll class="content-scroll" v-if="orderPaymentList.length">
       <goods-list :goodsList="orderPaymentList" :isOrderPaymentList="true"></goods-list>
     </b-scroll>
@@ -22,7 +35,7 @@
         <span>合计：</span>
         <span class="money">￥{{ totalPrice }}</span>
       </div>
-      <div class="submit-btn">提交订单</div>
+      <div class="submit-btn" @click="submitOrder">提交订单</div>
     </section>
   </div>
 </template>
@@ -40,6 +53,7 @@
     components: { TopBar, BScroll, GoodsList },
     data() {
       return {
+        defAddress: {}, // 默认地址
       }
     },
     computed: {
@@ -52,16 +66,51 @@
         return totalPrice.toFixed(2);
       }
     },
+    // 在进入该组件路由之前被调用 | 在导航完成前获取数据
+    beforeRouteEnter(to, from, next) {
+      next(vm => {
+        vm._getDefAddress();
+        if (!vm.orderPaymentList.length) vm.$router.push({ name: 'Cart' });
+      });
+    },
     methods: {
+      /**
+       * 获取默认地址
+       */
+      async _getDefAddress() {
+        try {
+          const res = await ajax.getDefAddress();
+          if (res.code !== 200) {
+            this.$toast(res.msg);
+            return;
+          }
+          this.defAddress = res.defAddress;
+        } catch(error) {
+          if (error.response && error.response.status === 401 || 403) this.$toast(error.response.data.msg);
+          console.log(error);
+        }
+      },
       /**
        * 退出订单列表 & 清空订单列表
        */
       outOrderEvt() {
         this.$router.back();
         setTimeout(() => {
-          // 清空订单列表，方法在 goodsMixin 中
-          this.setOrderPaymentList([]);
+          // 方法在 goodsMixin 中
+          this.setOrderPaymentList([]); // 清空订单列表
+          this.setTempAddress({}); // 清除临时地址
         }, 300);
+      },
+      /**
+       * 提交订单
+       */
+      submitOrder() {
+        if (!this.defAddress._id && !this.tempAddress._id) {
+          this.$toast('请添加收货地址');
+          return;
+        }
+
+        this.$toast('Coding。。。');
       }
     }
   }

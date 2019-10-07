@@ -228,6 +228,20 @@ class userService {
       console.log(error);
     }
   }
+
+  /**
+   * 获取默认地址
+   * @param {String} userId 用户 Id 
+   */
+  async getDefAddress(userId) {
+    try {
+      const defAddress = await AddressManageModel.findOne({ userId, isDefault: true });
+      if (!defAddress) return { code: 404, msg: '暂无收货地址' };
+      return { code: 200, msg: '获取默认地址成功', defAddress };
+    } catch(error) {
+      console.log(error);
+    }
+  }
 };
 
 module.exports = new userService();

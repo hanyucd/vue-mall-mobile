@@ -30,4 +30,6 @@ export const Url = {
   addressListApi: baseURL + '/api/user/addressList', // 地址列表
   editAddressApi: baseURL + '/api/u-action/editAddress', // 编辑收货地址
   delAddressApi: baseURL + '/api/u-action/delAddress', // 编辑收货地址
+  setDefAddressApi: baseURL + '/api/u-action/setDefAddress', // 设置默认地址
+  defAddressApi: baseURL + '/api/user/defAddress', // 默认地址
 };

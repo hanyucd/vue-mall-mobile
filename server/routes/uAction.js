@@ -104,4 +104,21 @@ router.post('/delAddress', checkUserStat, async (ctx) => {
   }
 });
 
+/**
+ * 设置默认地址
+ */
+router.post('/setDefAddress', checkUserStat, async (ctx) => {
+  if (ctx.userInfo) {
+    const userId = ctx.userInfo._id; // 取用户 id
+    const { addressId } = ctx.request.body; // 地址 id
+    
+    try {
+      const result = await uActionService.setDefAddress(userId, addressId);
+      ctx.body = result;
+    } catch(error) {
+      console.log(error);
+    }
+  }
+});
+
 module.exports = router;

@@ -15,6 +15,7 @@ const state = {
   userToken: tokenCache.getCache(), // 用户 token
   orderPaymentList: [], // 订单支付列表 
   addressInfo: addressInfoCache.getCache(), // 地址信息
+  tempAddress: {}, // 临时地址
 };
 
 export default state;

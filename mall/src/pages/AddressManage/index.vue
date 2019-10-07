@@ -37,8 +37,17 @@
     data() {
       return {
         addressList: [], // 地址列表
-        chosenAddressId: '1', // 当前选中地址的 id
+        chosenAddressId: '0', // 当前选中地址的 id
+        isOrderPayEnter: false, // 是否是从订单支付页进入
       }
+    },
+    // 在进入该组件路由之前被调用
+    beforeRouteEnter(to, from, next) {
+      // 通过 `vm` 访问该组件实例
+      next(vm => {
+        // 若是从订单支付页进入，设为 ture
+        if (from.name === 'OrderPayment') vm.isOrderPayEnter = true;
+      });
     },
     created() {
       this._getAddressList();
@@ -58,11 +67,11 @@
              for (let i = 0; i < this.addressList.length; i++) {
                if (this.addressList[i].isDefault) {
                  defAddress = this.addressList[i];
-                 defAddress.id = '1';
+                 defAddress.id = '0';
                  this.addressList.splice(i, 1); // 删除它
                  this.addressList.unshift(defAddress); // 将元素添加到数组的开头
                } else {
-                 this.addressList[i].id = String(i + 2);
+                 this.addressList[i].id = String(i + 1);
                }
              }
 
@@ -75,18 +84,39 @@
         }
       },
       /**
+       * 设置默认地址
+       */
+      async _setDefAddress(addressId) {
+        try {
+          const res = await ajax.setDefAddress(addressId);
+          if (res.code === 200) {
+            this.$toast(res.msg);
+          }
+        } catch(error) {
+          if (error.response && error.response.status === 401 || 400) this.$router.push({ name: 'Login' });
+          console.log(error);
+        }
+      },
+       /**
+       * 选择地址
+       */
+      selectAddress(item) {
+        // 判断是不是从订单支付页面过来的
+        if (this.isOrderPayEnter) {
+          this.setTempAddress(item);
+          setTimeout(() => {
+            this.$router.back();
+          }, 500);
+        } else {
+          this._setDefAddress(item._id);
+        }
+      },
+      /**
        * 编辑地址
        */
       editAddress(item) {
         this.setAddressInfo(item);
         this.$router.push({ name: 'AddressEdit' });
-      },
-      /**
-       * 选中地址
-       */
-      selectAddress(item) {
-        
-        console.log('选择')
       }
     }
   }

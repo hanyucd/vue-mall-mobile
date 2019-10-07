@@ -96,6 +96,7 @@ class Ajax {
   getAddressList() {
     return get(Url.addressListApi);
   }
+
   // 编辑地址 | POST
   editAddress(addressInfo) {
     return post(Url.editAddressApi, { addressInfo });
@@ -104,6 +105,16 @@ class Ajax {
   // 删除地址 | POST
   delAddress(addressId) {
     return post(Url.delAddressApi, { addressId });
+  }
+
+  // 设置默认地址 | POST
+  setDefAddress(addressId) {
+    return post(Url.setDefAddressApi, { addressId });
+  }
+
+  // 获取默认地址 | GET
+  getDefAddress() {
+    return get(Url.defAddressApi);
   }
 }
 

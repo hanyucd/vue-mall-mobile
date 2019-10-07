@@ -151,6 +151,21 @@ class uActionService {
       console.log(error);
     }
   }
+
+  /**
+   * 设置默认地址
+   * @param {String} userId 用户 id
+   * @param {String} addressId 地址 id
+   */
+  async setDefAddress(userId, addressId) {
+    try {
+      await AddressManageModel.updateMany({ userId, isDefault: true }, { $set: { isDefault: false } });
+      await AddressManageModel.findOneAndUpdate({ userId, _id: addressId }, { $set: { isDefault: true } });
+      return { code: 200, msg: '设置默认地址成功', addressId };
+    } catch(error) {
+      console.log(error);
+    }
+  }
 }
 
 module.exports = new uActionService();

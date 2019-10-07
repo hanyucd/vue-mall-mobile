@@ -168,4 +168,15 @@ router.get('/addressList', checkUserStat, async (ctx) => {
   }
 });
 
+/**
+ * 获取默认地址
+ */
+router.get('/defAddress', checkUserStat, async (ctx) => {
+  if (ctx.userInfo) {
+    const userId = ctx.userInfo._id; // 取用户 id
+    const result = await userService.getDefAddress(userId);
+    ctx.body = result;
+  }
+});
+
 module.exports = router;
