@@ -17,7 +17,7 @@
 
 [查看效果请戳这里](http://132.232.76.126:8888)
 
-> or 用手机扫描下方二维码,浏览器访问效果更佳
+> or 用手机扫描下方二维码，浏览器访问效果更佳
 
 <img src="https://github.com/hanyucd/vue-mall-mobile/blob/master/screenshots/QRcode.png" width="250" height="250" />
 
@@ -209,27 +209,38 @@ https://juejin.im/post/5a6ad754f265da3e513352e5
 ### 实现功能
 
 - [x] 商城首页板块展示
-- [x] 商品详情展示
-- [x] 注册 / 登录
+- [x] 城市定位 / 城市选择
+- [x] 商品详情
+- [x] 商品搜索
+- [x] 注册 / 登录 / 短信验证
 - [x] 用户认证
-- [x] 购物车选择商品结算，数量增加、修改
-- [x] 清空购物车
+- [x] 购物车功能
+- [x] 用户信息修改
+- [x] 地址管理 / 地址修改
+- [x] 收藏商品
+- [x] 浏览历史
 - [ ] 持续完善...
 
 ### 屏幕截图
 
-<img src="https://github.com/hanyucd/vue-mall-mobile/blob/master/screenshots/home.png" width="365" height="619" />
-<img src="https://github.com/hanyucd/vue-mall-mobile/blob/master/screenshots/category.png" width="365" height="619" />
-<img src="https://github.com/hanyucd/vue-mall-mobile/blob/master/screenshots/cart.png" width="365" height="619" />
-<img src="https://github.com/hanyucd/vue-mall-mobile/blob/master/screenshots/me.png" width="365" height="619" />
-<img src="https://github.com/hanyucd/vue-mall-mobile/blob/master/screenshots/city.png" width="365" height="619" />
-<img src="https://github.com/hanyucd/vue-mall-mobile/blob/master/screenshots/search.png" width="365" height="619" />
-<img src="https://github.com/hanyucd/vue-mall-mobile/blob/master/screenshots/goodsDetails.png" width="365" height="619" />
-<img src="https://github.com/hanyucd/vue-mall-mobile/blob/master/screenshots/login.png" width="365" height="619" />
-<img src="https://github.com/hanyucd/vue-mall-mobile/blob/master/screenshots/register.png" width="365" height="619" />
-<img src="https://github.com/hanyucd/vue-mall-mobile/blob/master/screenshots/userInfo.png" width="365" height="619" />
-<img src="https://github.com/hanyucd/vue-mall-mobile/blob/master/screenshots/collection.png" width="365" height="619" />
-<img src="https://github.com/hanyucd/vue-mall-mobile/blob/master/screenshots/browseHistory.png" width="365" height="619" />
-<img src="https://github.com/hanyucd/vue-mall-mobile/blob/master/screenshots/orderPayment.png" width="365" height="619" />
-<img src="https://github.com/hanyucd/vue-mall-mobile/blob/master/screenshots/addressManage.png" width="365" height="619" />
-<img src="https://github.com/hanyucd/vue-mall-mobile/blob/master/screenshots/editAddress.png" width="365" height="619" />
+<p>
+  <img src="https://github.com/hanyucd/vue-mall-mobile/blob/master/screenshots/home.png" width="320" height="600" />
+  <img src="https://github.com/hanyucd/vue-mall-mobile/blob/master/screenshots/category.png" width="320" height="600" />
+  <img src="https://github.com/hanyucd/vue-mall-mobile/blob/master/screenshots/cart.png" width="320" height="600" />
+
+  <img src="https://github.com/hanyucd/vue-mall-mobile/blob/master/screenshots/me.png" width="320" height="600" />
+  <img src="https://github.com/hanyucd/vue-mall-mobile/blob/master/screenshots/city.png" width="320" height="600" />
+  <img src="https://github.com/hanyucd/vue-mall-mobile/blob/master/screenshots/search.png" width="320" height="600" />
+
+  <img src="https://github.com/hanyucd/vue-mall-mobile/blob/master/screenshots/goodsDetails.png" width="320" height="600" />
+  <img src="https://github.com/hanyucd/vue-mall-mobile/blob/master/screenshots/login.png" width="320" height="600" />
+  <img src="https://github.com/hanyucd/vue-mall-mobile/blob/master/screenshots/register.png" width="320" height="600" />
+  
+  <img src="https://github.com/hanyucd/vue-mall-mobile/blob/master/screenshots/userInfo.png" width="320" height="600" />
+  <img src="https://github.com/hanyucd/vue-mall-mobile/blob/master/screenshots/collection.png" width="320" height="600" />
+  <img src="https://github.com/hanyucd/vue-mall-mobile/blob/master/screenshots/browseHistory.png" width="320" height="600" />
+
+  <img src="https://github.com/hanyucd/vue-mall-mobile/blob/master/screenshots/orderPayment.png" width="320" height="600" />
+  <img src="https://github.com/hanyucd/vue-mall-mobile/blob/master/screenshots/addressManage.png" width="320" height="600" />
+  <img src="https://github.com/hanyucd/vue-mall-mobile/blob/master/screenshots/editAddress.png" width="320" height="600" />
+</p>
