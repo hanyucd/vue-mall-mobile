@@ -1,9 +1,9 @@
 // const baseURL = 'http://localhost:3000';
 
-const baseURL = 'http://192.168.1.106:3000'; // 开发使用端口，方便用于真机访问
+// const baseURL = 'http://192.168.1.106:3000'; // 开发使用端口，方便用于真机访问
 // const baseURL = 'http://192.168.43.164:3000'; // 真机测试访问
 
-// const baseURL = 'http://132.232.76.126:8000'; // 服务器临时部署端口
+const baseURL = 'http://132.232.76.126:8000'; // 服务器临时部署端口
 
 export const Url = {
   homeDataApi: baseURL + '/api/goods/home', // 商城首页所有数据
