@@ -13,6 +13,14 @@
 
 其他：**better-scroll + vue-awesome-swiper**
 
+## 效果演示
+
+[查看效果请戳这里](http://132.232.76.126:8888)
+
+> or 用手机扫描下方二维码,浏览器访问效果更佳
+
+<img src="https://github.com/hanyucd/vue-mall-mobile/blob/master/screenshots/QRcode.png" width="250" height="250" />
+
 ### 移动端 Web 页面适配方案
 
 主要使用 **flex + rem** 方案布局，rem 是相对于根元素，rem 定义是根元素的 font-size, 以 rem 为单位，  
