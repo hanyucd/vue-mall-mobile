@@ -59,7 +59,7 @@
       </b-scroll>
 
       <!-- 固定顶部字母标题 -->
-      <article class="fixed-top" v-show="topFixedTitle" ref="topTitleRef">
+      <article class="fixed-top" v-show="topFixedTitle && !isSearchCity" ref="topTitleRef">
         <h1 class="fixed-title">{{ topFixedTitle }}</h1>
       </article>
     </section>
@@ -85,6 +85,7 @@
       return {
         cities: cityData, // 城市数据
         cityKeyword: '', // 搜索城市关键字
+        isSearchCity: false, // 是否在搜索城市
         searchCityList: [], // 搜索城市列表
         listenScroll: true, // 监听滚动位置
         probeType: 3, // 不仅在屏幕滑动的过程中，而且在 momentum 滚动动画运行过程中实时派发 scroll 事件
@@ -103,7 +104,9 @@
     },
     watch: {
       // 监听输入框变化，做函数节流 实现 搜索联想
-      cityKeyword() {
+      cityKeyword(newValue) {
+        this.isSearchCity = newValue ? true : false;
+
         throttle(this._searchCity(), 300, 500);
       },
       // 监听 Y 轴滚动
