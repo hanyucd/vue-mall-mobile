@@ -211,3 +211,17 @@ https://juejin.im/post/5a6ad754f265da3e513352e5
 ### 屏幕截图
 
 <img src="https://github.com/hanyucd/vue-mall-mobile/blob/master/screenshots/home.png" width="365" height="619" />
+<img src="https://github.com/hanyucd/vue-mall-mobile/blob/master/screenshots/category.png" width="365" height="619" />
+<img src="https://github.com/hanyucd/vue-mall-mobile/blob/master/screenshots/cart.png" width="365" height="619" />
+<img src="https://github.com/hanyucd/vue-mall-mobile/blob/master/screenshots/me.png" width="365" height="619" />
+<img src="https://github.com/hanyucd/vue-mall-mobile/blob/master/screenshots/city.png" width="365" height="619" />
+<img src="https://github.com/hanyucd/vue-mall-mobile/blob/master/screenshots/search.png" width="365" height="619" />
+<img src="https://github.com/hanyucd/vue-mall-mobile/blob/master/screenshots/goodsDetails.png" width="365" height="619" />
+<img src="https://github.com/hanyucd/vue-mall-mobile/blob/master/screenshots/login.png" width="365" height="619" />
+<img src="https://github.com/hanyucd/vue-mall-mobile/blob/master/screenshots/register.png" width="365" height="619" />
+<img src="https://github.com/hanyucd/vue-mall-mobile/blob/master/screenshots/userInfo.png" width="365" height="619" />
+<img src="https://github.com/hanyucd/vue-mall-mobile/blob/master/screenshots/collection.png" width="365" height="619" />
+<img src="https://github.com/hanyucd/vue-mall-mobile/blob/master/screenshots/browseHistory.png" width="365" height="619" />
+<img src="https://github.com/hanyucd/vue-mall-mobile/blob/master/screenshots/orderPayment.png" width="365" height="619" />
+<img src="https://github.com/hanyucd/vue-mall-mobile/blob/master/screenshots/addressManage.png" width="365" height="619" />
+<img src="https://github.com/hanyucd/vue-mall-mobile/blob/master/screenshots/editAddress.png" width="365" height="619" />
