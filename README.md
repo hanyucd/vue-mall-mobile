@@ -208,9 +208,6 @@ https://juejin.im/post/5a6ad754f265da3e513352e5
 - [x] 清空购物车
 - [ ] 持续完善...
 
-### 项目截图
-![all.png](./image/all.gif)
-![home.png](./image/home.png)
-![category.png](./image/category.png)
-![cart.png](./image/cart.png)
-![goods_info.png](./image/goods_info.png)
+### 屏幕截图
+
+<img src="https://github.com/hanyucd/vue-mall-mobile/blob/master/screenshots/home.png" width="365" height="619" />
