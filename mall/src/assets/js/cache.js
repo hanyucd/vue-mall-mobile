@@ -1,16 +1,22 @@
 import { addLocCacheTime, getLocCacheDate } from '@/utils/tools';
 
 const storage = window.localStorage;
+
 const CATEGORY_LIST = 'category_list'; // 分类 key
 const LOCATION_CITY = 'location_city'; // 定位城市 key
-const DEF_LOCATION_CITY = '北京'; // 默认定位城市
+
 const SEARCH_HISTORY = 'search_history'; // 搜素历史 key
 const SEARCH_HISTORY_MAX = 20; // 搜索历史缓存最大长度
+
 const BROWSE_HISTORY = 'browse_history'; // 浏览历史 key
 const BROWSE_HISTORY_MAX = 20; // 浏览历史缓存最大长度
-const USER_TOKEN = 'user_token'; // token key
 
-// 分类缓存
+const USER_TOKEN = 'user_token'; // token key
+const ADDRESS_INFO = 'address_info'; // 地址信息 key
+
+/**
+ * 商品大分类缓存
+ */
 let categoryCache = {
   setCache(categoryList = []) {
     storage.setItem(CATEGORY_LIST, JSON.stringify(categoryList));
@@ -21,7 +27,9 @@ let categoryCache = {
   }
 };
 
-// 定位城市缓存
+/**
+ * 定位城市缓存
+ */
 let locationCityCache = {
   setCache(cityName = '') {
     const locCityData = addLocCacheTime(cityName);
@@ -37,7 +45,9 @@ let locationCityCache = {
   }
 };
 
-// 搜索历史缓存
+/**
+ * 搜索历史缓存
+ */
 let searchHistoryCache = {
   setCache(searchKeyword = '') {
     let searchHistoryList = this.getCache();
@@ -66,7 +76,9 @@ let searchHistoryCache = {
   }
 };
 
-// 浏览历史缓存
+/**
+ * 浏览历史缓存
+ */
 let browseHistoryCache = {
   setCache(browseHistory = null) {
     let browseHistoryList = this.getCache();
@@ -102,7 +114,9 @@ let browseHistoryCache = {
   }
 };
 
-// token 缓存
+/**
+ * token 缓存
+ */
 let tokenCache = {
   setCache(userToken = '') {
     storage.setItem(USER_TOKEN, JSON.stringify(userToken));
@@ -117,10 +131,28 @@ let tokenCache = {
   }
 }
 
+/**
+ * 地址信息 缓存
+ */
+let addressInfoCache = {
+  setCache(addressInfo = {}) {
+    storage.setItem(ADDRESS_INFO, JSON.stringify(addressInfo));
+    return addressInfo;
+  },
+  getCache() {
+    return storage.getItem(ADDRESS_INFO) ? JSON.parse(storage.getItem(ADDRESS_INFO)) : {};
+  },
+  deleteCache() {
+    storage.removeItem(ADDRESS_INFO);
+    return {};
+  }
+}
+
 export {
   categoryCache, // 分类缓存
   locationCityCache, // 定位城市缓存
   searchHistoryCache, // 搜索历史缓存
   browseHistoryCache, // 浏览历史缓存
   tokenCache, // token 缓存
+  addressInfoCache // 地址信息 缓存
 };

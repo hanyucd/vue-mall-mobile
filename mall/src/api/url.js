@@ -27,5 +27,7 @@ export const Url = {
   editGoodsCountApi: baseURL + '/api/u-action/editGoodsCount', // 编辑商品数量
   delCartGoodsApi: baseURL + '/api/u-action/delCartGoods', // 删除购物车商品
 
+  addressListApi: baseURL + '/api/user/addressList', // 地址列表
   editAddressApi: baseURL + '/api/u-action/editAddress', // 编辑收货地址
+  delAddressApi: baseURL + '/api/u-action/delAddress', // 编辑收货地址
 };

@@ -35,7 +35,7 @@
     bottom: 0;
     left: 0;
     background: #fff;
-    z-index: 999;
+    z-index: 9999;
     .loading {
       position: absolute;
       top: 50%;

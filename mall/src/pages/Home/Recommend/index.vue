@@ -61,7 +61,7 @@
           let res = await ajax.addToShopCart(goodsId);
           this.$toast(res.msg)
         } catch(error) {
-          (error.response && error.response.status === 401 || 400) && (this.$router.push({ name: 'Login' }));
+          if (error.response && error.response.status === 401 || 400) this.$router.push({ name: 'Login' });
           console.log(error);
         }
       }

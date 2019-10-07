@@ -157,4 +157,15 @@ router.get('/checkShopCart', checkUserStat, async (ctx) => {
   }
 });
 
+/**
+ * 获取地址列表
+ */
+router.get('/addressList', checkUserStat, async (ctx) => {
+  if (ctx.userInfo) {
+    const userId = ctx.userInfo._id; // 取用户 id
+    const result = await userService.getAddressList(userId);
+    ctx.body = result;
+  }
+});
+
 module.exports = router;

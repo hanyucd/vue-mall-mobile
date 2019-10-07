@@ -3,7 +3,8 @@ import {
   locationCityCache,
   searchHistoryCache, 
   browseHistoryCache,
-  tokenCache
+  tokenCache,
+  addressInfoCache
 } from '@/assets/js/cache';
 import * as types from './mutations-type';
 
@@ -48,6 +49,14 @@ const deleteUserToken = ({ commit }) => {
   commit(types.USER_TOKEN, tokenCache.deleteCache());
 };
 
+// 设置地址信息
+const setAddressInfo = ({ commit }, addressInfo) => {
+  commit(types.ADDRESS_INFO, addressInfoCache.setCache(addressInfo));
+};
+// 删除地址信息
+const deleteAddressInfo = ({ commit }) => {
+  commit(types.ADDRESS_INFO, addressInfoCache.deleteCache());
+};
 
 export default {
   setCategoryList, // 设置大分类列表
@@ -59,4 +68,6 @@ export default {
   deleteOneBrowseHistory, // 删除一条浏览历史
   setUserToken, // 设置用户 token
   deleteUserToken, // 删除用户 token
+  setAddressInfo, // 设置地址信息
+  deleteAddressInfo // 删除地址信息
 };

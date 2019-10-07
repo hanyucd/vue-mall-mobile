@@ -1,8 +1,8 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
 import state from './state';
-import mutations from './mutations';
 import getters from './getters';
+import mutations from './mutations';
 import actions from './actions';
 // Vuex 自带一个日志插件用于一般的调试
 import createLogger from 'vuex/dist/logger';

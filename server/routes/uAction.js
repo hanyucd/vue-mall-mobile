@@ -79,11 +79,26 @@ router.post('/editAddress', checkUserStat, async (ctx) => {
     const { addressInfo } = ctx.request.body; // 地址信息
 
     try {
-      // const result = await uActionService.editAddress(userId, addressInfo);
-      // ctx.body = result;
-
-      ctx.body = { code: 200, userId, addressInfo }
+      const result = await uActionService.editAddress(userId, addressInfo);
+      ctx.body = result;
     } catch (error) {
+      console.log(error);
+    }
+  }
+});
+
+/**
+ * 删除单个地址
+ */
+router.post('/delAddress', checkUserStat, async (ctx) => {
+  if (ctx.userInfo) {
+    const userId = ctx.userInfo._id; // 取用户 id
+    const { addressId } = ctx.request.body; // 地址 id
+    
+    try {
+      const result = await uActionService.delAddress(userId, addressId);
+      ctx.body = result;
+    } catch(error) {
       console.log(error);
     }
   }

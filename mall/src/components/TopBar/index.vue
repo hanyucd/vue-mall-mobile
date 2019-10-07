@@ -16,11 +16,19 @@
       hasClose: { type: Boolean, default: false },
       outBrowse: { type: Boolean, default: false },
       outOrder: { type: Boolean, default: false },
+      outAddressEdit: { type: Boolean, default: false },
     },
     methods: {
       goBack() {
         if (this.outOrder) {
+          // 退出订单支付页
           this.$emit('outOrderEvt');
+          return;
+        }
+
+        if (this.outAddressEdit) {
+          // 退出地址编辑页
+          this.$emit('outAddressEditEvt');
           return;
         }
 

@@ -25,6 +25,10 @@ const mutations = {
   [types.ORDER_PAYMENT_LIST](state, orderPaymentList) {
     state.orderPaymentList = orderPaymentList;
   },
+  // 设置 state 中 addressInfo
+  [types.ADDRESS_INFO](state, addressInfo) {
+    state.addressInfo = addressInfo;
+  },
 };
 
 export default mutations;

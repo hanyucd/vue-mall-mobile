@@ -3,6 +3,7 @@ const sendSMSCode = require('../utils/sms');
 const UserModel = require('../models/user');
 const CollectionModel = require('../models/collection');
 const ShopCartModel = require('../models/shopCart');
+const AddressManageModel = require('../models/addressManage');
 
 // “投影” (projection) | 数据库需要返回的数据
 const PROJECTION = { _id: 1, userName: 1, gender: 1, avatar: 1, mobilePhone: 1, email: 1, year: 1, month: 1, day: 1 };
@@ -210,6 +211,19 @@ class userService {
       const shopCartList = await ShopCartModel.find({ userId }).sort({ createAt: -1 });
       if (!shopCartList) return { code: 0, msg: '购物车暂无商品' };
       return { shopCartList, code: 200 };
+    } catch(error) {
+      console.log(error);
+    }
+  }
+
+  /**
+   * 获取地址列表
+   * @param {String} userId 用户 Id 
+   */
+  async getAddressList(userId) {
+    try {
+      const addressList = await AddressManageModel.find({ userId });
+      return { addressList, code: 200 };
     } catch(error) {
       console.log(error);
     }

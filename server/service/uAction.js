@@ -108,26 +108,45 @@ class uActionService {
    */
   async editAddress(userId, addressInfo) {
     try {
-      if (addressInfo.is_default) {
+      if (addressInfo.isDefault) {
         // 如果在修改默认地址，首先全改为 false
-        await AddressManageModel.updateMany({ userId, is_default: true }, { $set: { is_default: false } });
+        await AddressManageModel.updateMany({ userId, isDefault: true }, { $set: { isDefault: false } });
       }
 
-      if (addressInfo.id) {
-        // 更新地址
-        await AddressManageModel.updateOne({ userId, _id: addressInfo.id }, addressInfo);
+      if (addressInfo.addressId) {
+        // 若存在地址 id 则更新地址
+        await AddressManageModel.updateOne({ userId, _id: addressInfo.addressId }, addressInfo);
         return { code: 200, msg: '更新地址成功' };
       } else {
         // 加入用户 id 和 创建时间
-        const newAddress = Object.assign(addressInfo, {
-          userId,
-          createAt: +new Date()
-        });
-        // 新增地址
-        const addressDoc = await AddressManageModel.create(newAddress);
-        console.log(addressDoc)
-        return { code: 200, msg: '添加地址成功', ...addressDoc };
+        const newAddressInfo = Object.assign(addressInfo, { userId, createAt: +new Date() }); 
+        // 增加新的地址
+        const addressDoc = await AddressManageModel.create(newAddressInfo);
+        // 保存后查询一次
+        const addressList = await AddressManageModel.find({ userId });
+        console.log(addressList)
+        // 如果数据库只有 1 条，设置这一条为默认地址
+        if (addressList.length === 1) {
+          if (!addressList[0].isDefault) {
+            await AddressManageModel.findOneAndUpdate({ userId, _id: addressList[0]._id }, { $set: { isDefault: true } });
+          }
+        }
+        return { code: 200, msg: '添加地址成功', id: addressDoc._id , address: addressDoc.address };
       }
+    } catch(error) {
+      console.log(error);
+    }
+  }
+
+  /**
+   * 删除单个地址
+   * @param {String} userId 用户 id
+   * @param {String} addressId 地址 id
+   */
+  async delAddress(userId, addressId) {
+    try {
+      const addressDoc = await AddressManageModel.findOneAndDelete({ userId, _id: addressId });
+      return { code: 200, msg: '删除成功', addressId: addressDoc._id };
     } catch(error) {
       console.log(error);
     }

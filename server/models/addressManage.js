@@ -9,10 +9,10 @@ const AddressManageSchema = new Schema({
   province: String, // 省份
   city: String, // 城市
   county: String, // 区县
-  address_detail: String, // 详细地址
-  area_code: String, // 地区编码
-  is_default: Boolean, // 是否为默认地址
-  total_address: String, // 总地址
+  addressDetail: String, // 详细地址
+  areaCode: String, // 地区编码
+  isDefault: Boolean, // 是否为默认地址
+  address: String, // 整合地址
   createAt: { type: Number, default: +new Date() } // 创建时间
 });
 

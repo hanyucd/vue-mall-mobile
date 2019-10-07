@@ -29,9 +29,16 @@ $color:#b532e9;
     bottom: 0;
     height: 13.5vw;
     line-height: 13.5vw;
+    color: #fff;
     text-align: center;
     letter-spacing: .1rem;
-    color: #fff;
     background: $color;
+  }
+  // 强行改变 vant 中默认样式
+  .van-button--danger {
+    height: 13.5vw;
+    letter-spacing: .1rem;
+    background: $color;
+    border: 1px solid $color;
   }
 }

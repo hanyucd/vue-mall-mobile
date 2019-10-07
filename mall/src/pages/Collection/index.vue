@@ -61,9 +61,8 @@
           }
         } catch(error) {
           this.loadingStatus = false;
-          // 解锁，方法在 loadMixin 中
-          this.unLocked();
-          (error.response && error.response.status === 401 || 403) && this.$toast(error.response.data.msg);
+          this.unLocked(); // 解锁，方法在 loadMixin 中
+          if (error.response && error.response.status === 401 || 403) this.$toast(error.response.data.msg);
           console.log(error);
         }
       },

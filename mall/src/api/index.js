@@ -92,9 +92,18 @@ class Ajax {
     return post(Url.delCartGoodsApi, { delGoodsIds });
   }
 
+  // 获取地址列表 | GET
+  getAddressList() {
+    return get(Url.addressListApi);
+  }
   // 编辑地址 | POST
   editAddress(addressInfo) {
     return post(Url.editAddressApi, { addressInfo });
+  }
+
+  // 删除地址 | POST
+  delAddress(addressId) {
+    return post(Url.delAddressApi, { addressId });
   }
 }
 

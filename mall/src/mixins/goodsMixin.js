@@ -16,6 +16,7 @@ export const GoodsMixin = {
       'browseHistoryList', // 浏览历史列表
       'userToken', // 用户 token
       'orderPaymentList', // 订单支付列表
+      'addressInfo' // 地址信息
     ])
   },
   methods: {
@@ -30,7 +31,9 @@ export const GoodsMixin = {
       'setBrowseHistory', // 设置浏览历史列表
       'deleteOneBrowseHistory', // 删除一条浏览历史
       'setUserToken', // 设置用户 token
-      'deleteUserToken' // 删除用户 token
+      'deleteUserToken', // 删除用户 token
+      'setAddressInfo', // 设置地址信息
+      'deleteAddressInfo' // 删除地址信息
     ]),
     // 跳转商品详情页
     goGoodsDetails(item) {

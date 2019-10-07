@@ -3,7 +3,8 @@ import {
   locationCityCache,
   searchHistoryCache,
   browseHistoryCache,
-  tokenCache
+  tokenCache,
+  addressInfoCache
 } from '@/assets/js/cache';
 
 const state = {
@@ -13,6 +14,7 @@ const state = {
   browseHistoryList: browseHistoryCache.getCache(), // 浏览历史
   userToken: tokenCache.getCache(), // 用户 token
   orderPaymentList: [], // 订单支付列表 
+  addressInfo: addressInfoCache.getCache(), // 地址信息
 };
 
 export default state;
