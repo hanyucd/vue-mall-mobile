@@ -104,13 +104,33 @@
       /**
        * 提交订单
        */
-      submitOrder() {
+      async submitOrder() {
         if (!this.defAddress._id && !this.tempAddress._id) {
           this.$toast('请添加收货地址');
           return;
         }
+        // 提取订单列表中所有商品 id
+        const goodsIds = this.orderPaymentList.map(item => item.goodsId);
 
-        this.$toast('Coding。。。');
+        try {
+          const res = await ajax.submitOrderHandle({
+            goodsIds,
+            tel: this.tempAddress.tel || this.defAddress.tel, // 收货人电话
+            address: this.tempAddress.address || this.defAddress.address, // 收货地址
+            isNowBuy: this.orderPaymentList[0].isNowBuy, // 是否是立即购买
+            nowBuyCount: this.orderPaymentList[0].buy_count // 立即购买商品的数量
+          });
+          console.log(res);
+          if (res.code === 200) {
+            this.$toast(res.msg);
+            setTimeout(() => {
+              this.setOrderPaymentList([]); // 清空订单列表
+              this.$router.back();
+            }, 2000);
+          }
+        } catch(error) {
+          console.log(error);
+        }
       }
     }
   }

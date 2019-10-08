@@ -32,4 +32,6 @@ export const Url = {
   delAddressApi: baseURL + '/api/u-action/delAddress', // 编辑收货地址
   setDefAddressApi: baseURL + '/api/u-action/setDefAddress', // 设置默认地址
   defAddressApi: baseURL + '/api/user/defAddress', // 默认地址
+
+  submitOrderApi: baseURL + '/api/u-action/submitOrder', // 提交订单
 };

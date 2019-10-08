@@ -2,6 +2,9 @@ const GoodsModel = require('../models/goods');
 const CollectionModel = require('../models/collection');
 const ShopCartModel = require('../models/shopCart');
 const AddressManageModel = require('../models/addressManage');
+const OrderManageModel = require('../models/orderManage');
+
+const tools = require('../utils/tools');
 
 class uActionService {
   /**
@@ -124,7 +127,6 @@ class uActionService {
         const addressDoc = await AddressManageModel.create(newAddressInfo);
         // 保存后查询一次
         const addressList = await AddressManageModel.find({ userId });
-        console.log(addressList)
         // 如果数据库只有 1 条，设置这一条为默认地址
         if (addressList.length === 1) {
           if (!addressList[0].isDefault) {
@@ -162,6 +164,64 @@ class uActionService {
       await AddressManageModel.updateMany({ userId, isDefault: true }, { $set: { isDefault: false } });
       await AddressManageModel.findOneAndUpdate({ userId, _id: addressId }, { $set: { isDefault: true } });
       return { code: 200, msg: '设置默认地址成功', addressId };
+    } catch(error) {
+      console.log(error);
+    }
+  }
+
+  /**
+   * 提交订单处理
+   * @param {String} userId 用户 id
+   * @param {Object} orderInfo 订单信息
+   */
+  async submitOrderHandle(userId, orderInfo) {
+    const platform = '688'; // 定义订单号开头数字
+    const randomNum_1 = Math.floor(Math.random() * 10);
+    const randomNum_2 = Math.floor(Math.random() * 10);
+    const sysTime = tools.getCurDate('YYYYMMDDHHmmss');
+    const createAt = tools.getCurDate('YYYY-MM-DD HH:mm:ss'); // 创建订单时间
+
+    let order_id = platform + randomNum_1 + sysTime + randomNum_2; // 创建订单号
+    let order_list = []; // 订单列表
+
+    for (let index in orderInfo.goodsIds) {
+      if (orderInfo.isNowBuy) {
+        // 是立即购买
+      } else {
+        // 否则是购物车支付
+        let item = await ShopCartModel.findOne({ userId, goodsId: orderInfo.goodsIds[index] });
+        order_list[index] = {
+          userId,
+          order_id,
+          goodsId: item.goodsId,
+          goods_name: item.goods_name,
+          image_path: item.image_path,
+          present_price: item.present_price,
+          buy_count: item.buy_count,
+          mall_price: item.mall_price
+        }
+      }
+    }
+    // 计算订单总价
+    const mall_price = order_list.reduce((total, curItem) => parseFloat((total + curItem.mall_price).toFixed(2)), 0);
+    // 整合订单管理数据
+    const orderManage = { 
+      userId,
+      order_id,
+      mall_price,
+      order_list,
+      createAt,
+      status: 4,
+      tel: orderInfo.tel, 
+      address: orderInfo.address,
+    };
+
+    try {
+      const orderManageDoc = await OrderManageModel.create(orderManage);
+      // 清除已购买购物车中的商品
+      if (!orderInfo.isNowBuy) await ShopCartModel.deleteMany({ userId, goodsId: orderInfo.goodsIds });
+
+      return { code: 200, order_id: orderManageDoc.order_id , msg: `共支付 ${ mall_price } 元` };
     } catch(error) {
       console.log(error);
     }

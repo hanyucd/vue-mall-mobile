@@ -81,7 +81,7 @@
           </div>
         </section>
         <!-- 立即购买 -->
-        <section class="drawer-buy-now">立即购买</section>
+        <section class="drawer-buy-now" @click="nowBuy">立即购买</section>
       </div>
     </transition>
     <!-- 蒙层 -->
@@ -246,8 +246,14 @@
       /**
        * 弹出立即购买抽屉
        */
-      popupBuyDrawer() { this.showBuyDrawer = true; }
-    }
+      popupBuyDrawer() { this.showBuyDrawer = true; },
+      /**
+       * 立即购买
+       */
+      nowBuy() {
+        console.log('now buy')
+      }
+    },
   }
 </script>
 

@@ -121,4 +121,22 @@ router.post('/setDefAddress', checkUserStat, async (ctx) => {
   }
 });
 
+/**
+ * 提交订单处理
+ */
+router.post('/submitOrder', checkUserStat, async (ctx) => {
+  if (ctx.userInfo) {
+    const userId = ctx.userInfo._id; // 取用户 id
+    const { orderInfo } = ctx.request.body; // 订单信息
+
+    try {
+      const result = await uActionService.submitOrderHandle(userId, orderInfo);
+
+      ctx.body = result;
+    } catch(error) {
+      console.log(error);
+    }
+  }
+});
+
 module.exports = router;

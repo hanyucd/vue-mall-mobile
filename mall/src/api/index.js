@@ -111,10 +111,15 @@ class Ajax {
   setDefAddress(addressId) {
     return post(Url.setDefAddressApi, { addressId });
   }
-
+  
   // 获取默认地址 | GET
   getDefAddress() {
     return get(Url.defAddressApi);
+  }
+
+  // 提交订单处理 | POST
+  submitOrderHandle(orderInfo) {
+    return post(Url.submitOrderApi, { orderInfo });
   }
 }
 
