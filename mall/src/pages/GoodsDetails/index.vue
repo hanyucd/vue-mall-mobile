@@ -66,18 +66,18 @@
             <p class="goods-name">{{ goodsInfo.name }}</p>
             <p class="goods-pic">
               <span>￥</span>
-              <span>{{ (goodsInfo.present_price * buyTotal) | toFixed }}</span>
+              <span>{{ (goodsInfo.present_price * buyCount) | toFixed }}</span>
             </p>
           </div>
         </section>
         <!-- 购买数量 -->
         <section class="drawer-goods-count">
           <div class="buy-total">
-            <p>购买数量：<span>{{ buyTotal }}</span></p>
+            <p>购买数量：<span>{{ buyCount }}</span></p>
             <span>剩余 {{ goodsInfo.amount }} 件</span>
           </div>
           <div class="change-total">
-            <van-stepper v-model="buyTotal" disable-input />
+            <van-stepper v-model="buyCount" disable-input />
           </div>
         </section>
         <!-- 立即购买 -->
@@ -135,7 +135,7 @@
         currentTab: 0, // 当前标签页索引
         commentList: [], // 评论
         showBuyDrawer: false, // 是否显示购买抽屉
-        buyTotal: 1, // 购买数量
+        buyCount: 1, // 购买数量
       }
     },
     watch: {
@@ -251,7 +251,24 @@
        * 立即购买
        */
       nowBuy() {
-        console.log('now buy')
+        if (!this.userToken) {
+          this.$router.push({ name: 'Login' });
+          return;
+        }
+        // 整合数据
+        let nowBuyList = [{
+          goodsId: this.goodsInfo.id,
+          goods_name: this.goodsInfo.name,
+          image_path: this.goodsInfo.image_path,
+          buy_count: this.buyCount,
+          present_price: this.goodsInfo.present_price,
+          mall_price: parseFloat((this.goodsInfo.present_price * this.buyCount).toFixed(2)),
+          isNowBuy: true,
+          checked: true
+        }];
+        // 将订单列表存入 Vuex，方法在 goodsMixin 中
+        this.setOrderPaymentList(nowBuyList);
+        this.$router.push({ name: 'OrderPayment' });
       }
     },
   }

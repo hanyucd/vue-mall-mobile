@@ -175,7 +175,7 @@ class uActionService {
    * @param {Object} orderInfo 订单信息
    */
   async submitOrderHandle(userId, orderInfo) {
-    const platform = '688'; // 定义订单号开头数字
+    const platform = '688'; // 定义平台码 | 用于订单号开头数字
     const randomNum_1 = Math.floor(Math.random() * 10);
     const randomNum_2 = Math.floor(Math.random() * 10);
     const sysTime = tools.getCurDate('YYYYMMDDHHmmss');
@@ -187,6 +187,17 @@ class uActionService {
     for (let index in orderInfo.goodsIds) {
       if (orderInfo.isNowBuy) {
         // 是立即购买
+        let goods = await GoodsModel.findOne({ id: orderInfo.goodsIds[index] });
+        order_list[index] = {
+          userId,
+          order_id,
+          goodsId: goods.id,
+          goods_name: goods.name,
+          image_path: goods.image_path,
+          present_price: goods.present_price,
+          buy_count: orderInfo.nowBuyCount,
+          mall_price: orderInfo.noweBuyMallPrice
+        };
       } else {
         // 否则是购物车支付
         let item = await ShopCartModel.findOne({ userId, goodsId: orderInfo.goodsIds[index] });

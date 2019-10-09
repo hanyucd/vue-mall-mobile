@@ -70,7 +70,7 @@
     beforeRouteEnter(to, from, next) {
       next(vm => {
         vm._getDefAddress();
-        if (!vm.orderPaymentList.length) vm.$router.push({ name: 'Cart' });
+        // if (!vm.orderPaymentList.length) vm.$router.push({ name: 'Cart' });
       });
     },
     methods: {
@@ -111,16 +111,23 @@
         }
         // 提取订单列表中所有商品 id
         const goodsIds = this.orderPaymentList.map(item => item.goodsId);
+        // 整合数据
+        let orderInfo = {
+          goodsIds,
+          tel: this.tempAddress.tel || this.defAddress.tel, // 收货人电话
+          address: this.tempAddress.address || this.defAddress.address, // 收货地址
+        }
+        // 若是从立即购买过来，就向对象添加三个属性
+        this.orderPaymentList[0].isNowBuy
+          && 
+          Object.assign(orderInfo, {
+            isNowBuy: this.orderPaymentList[0].isNowBuy, // 是否是立即购买
+            nowBuyCount: this.orderPaymentList[0].buy_count, // 立即购买商品的数量
+            noweBuyMallPrice: this.orderPaymentList[0].mall_price // 立即购买商品总价
+          });
 
         try {
-          const res = await ajax.submitOrderHandle({
-            goodsIds,
-            tel: this.tempAddress.tel || this.defAddress.tel, // 收货人电话
-            address: this.tempAddress.address || this.defAddress.address, // 收货地址
-            isNowBuy: this.orderPaymentList[0].isNowBuy, // 是否是立即购买
-            nowBuyCount: this.orderPaymentList[0].buy_count // 立即购买商品的数量
-          });
-          console.log(res);
+          const res = await ajax.submitOrderHandle(orderInfo);
           if (res.code === 200) {
             this.$toast(res.msg);
             setTimeout(() => {
