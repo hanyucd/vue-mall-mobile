@@ -34,4 +34,5 @@ export const Url = {
   defAddressApi: baseURL + '/api/user/defAddress', // 默认地址
 
   submitOrderApi: baseURL + '/api/u-action/submitOrder', // 提交订单
+  orderListApi: baseURL + '/api/user/orderList', // 获取订单列表
 };

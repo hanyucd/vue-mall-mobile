@@ -70,7 +70,7 @@
     beforeRouteEnter(to, from, next) {
       next(vm => {
         vm._getDefAddress();
-        // if (!vm.orderPaymentList.length) vm.$router.push({ name: 'Cart' });
+        if (!vm.orderPaymentList.length) vm.$router.push({ name: 'Cart' });
       });
     },
     methods: {
@@ -119,7 +119,7 @@
         }
         // 若是从立即购买过来，就向对象添加三个属性
         this.orderPaymentList[0].isNowBuy
-          && 
+          &&
           Object.assign(orderInfo, {
             isNowBuy: this.orderPaymentList[0].isNowBuy, // 是否是立即购买
             nowBuyCount: this.orderPaymentList[0].buy_count, // 立即购买商品的数量

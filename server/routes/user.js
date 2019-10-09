@@ -179,4 +179,16 @@ router.get('/defAddress', checkUserStat, async (ctx) => {
   }
 });
 
+/**
+ * 获取订单列表
+ */
+router.get('/orderList', checkUserStat, async (ctx) => {
+  if (ctx.userInfo) {
+    const userId = ctx.userInfo._id; // 取用户 id
+    const result = await userService.getOrderList(userId);
+    ctx.body = result;
+    // ctx.body = { code: 200, msg: '订单' }
+  }
+});
+
 module.exports = router;

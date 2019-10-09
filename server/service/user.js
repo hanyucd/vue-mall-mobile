@@ -4,6 +4,7 @@ const UserModel = require('../models/user');
 const CollectionModel = require('../models/collection');
 const ShopCartModel = require('../models/shopCart');
 const AddressManageModel = require('../models/addressManage');
+const OrderManageModel = require('../models/orderManage');
 
 // “投影” (projection) | 数据库需要返回的数据
 const PROJECTION = { _id: 1, userName: 1, gender: 1, avatar: 1, mobilePhone: 1, email: 1, year: 1, month: 1, day: 1 };
@@ -238,6 +239,19 @@ class userService {
       const defAddress = await AddressManageModel.findOne({ userId, isDefault: true });
       if (!defAddress) return { code: 404, msg: '暂无收货地址' };
       return { code: 200, msg: '获取默认地址成功', defAddress };
+    } catch(error) {
+      console.log(error);
+    }
+  }
+
+  /**
+   * 获取订单列表
+   * @param {String} userId 用户 Id 
+   */
+  async getOrderList(userId) {
+    try {
+      const orderList = await OrderManageModel.find({ userId });
+      return { code: 200, msg: '获取订单列表成功', orderList: orderList.reverse() };
     } catch(error) {
       console.log(error);
     }

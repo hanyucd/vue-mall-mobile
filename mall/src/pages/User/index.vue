@@ -15,8 +15,8 @@
     <!-- 订单索引 -->
     <section class="order-index-wrapper">
       <div class="order-index-list">
-        <section class="order-all">
-          <span>全部订单</span>
+        <section class="order-all" @click="$router.push({ name: 'OrderManage' })">
+          <span>订单管理</span>
           <van-icon class="icon" name="arrow" />
         </section>
         <ul>

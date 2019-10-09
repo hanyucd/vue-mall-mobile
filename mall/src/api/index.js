@@ -116,10 +116,15 @@ class Ajax {
   getDefAddress() {
     return get(Url.defAddressApi);
   }
-
+  
   // 提交订单处理 | POST
   submitOrderHandle(orderInfo) {
     return post(Url.submitOrderApi, { orderInfo });
+  }
+  
+  // 获取订单列表 | GET
+  getOrderList() {
+    return get(Url.orderListApi);
   }
 }
 
