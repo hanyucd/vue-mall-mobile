@@ -152,8 +152,12 @@ router.get('/collectionList', checkUserStat, async (ctx) => {
 router.get('/checkShopCart', checkUserStat, async (ctx) => {
   if (ctx.userInfo) {
     const userId = ctx.userInfo._id; // 取用户 id
-    const result = await userService.checkShopCart(userId);
-    ctx.body = result;
+    try {
+      const result = await userService.checkShopCart(userId);
+      ctx.body = result;
+    } catch(error) {
+      console.log(error);
+    }
   }
 });
 
@@ -163,8 +167,12 @@ router.get('/checkShopCart', checkUserStat, async (ctx) => {
 router.get('/addressList', checkUserStat, async (ctx) => {
   if (ctx.userInfo) {
     const userId = ctx.userInfo._id; // 取用户 id
-    const result = await userService.getAddressList(userId);
-    ctx.body = result;
+    try {
+      const result = await userService.getAddressList(userId);
+      ctx.body = result;
+    } catch(error) {
+      console.log(error);
+    }
   }
 });
 
@@ -174,8 +182,12 @@ router.get('/addressList', checkUserStat, async (ctx) => {
 router.get('/defAddress', checkUserStat, async (ctx) => {
   if (ctx.userInfo) {
     const userId = ctx.userInfo._id; // 取用户 id
-    const result = await userService.getDefAddress(userId);
-    ctx.body = result;
+    try {
+      const result = await userService.getDefAddress(userId);
+      ctx.body = result;
+    } catch(error) {
+      console.log(error);
+    }
   }
 });
 
@@ -185,9 +197,12 @@ router.get('/defAddress', checkUserStat, async (ctx) => {
 router.get('/orderList', checkUserStat, async (ctx) => {
   if (ctx.userInfo) {
     const userId = ctx.userInfo._id; // 取用户 id
-    const result = await userService.getOrderList(userId);
-    ctx.body = result;
-    // ctx.body = { code: 200, msg: '订单' }
+    try {
+      const result = await userService.getOrderList(userId);
+      ctx.body = result;
+    } catch(error) {
+      console.log(error);
+    }
   }
 });
 

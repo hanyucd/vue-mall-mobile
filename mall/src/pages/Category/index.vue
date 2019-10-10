@@ -15,9 +15,8 @@
       </section>
       <!-- 右侧内容 -->
       <section class="right">
-        <van-tabs v-model="curTabIndex" @click="onCategorySubClick">
-          <van-tab v-for="(item, index) in categorySubList" :key="index" :title="item.mallSubName">
-          </van-tab>
+        <van-tabs v-model="curTabIndex" color="#b532e9" @click="onCategorySubClick">
+          <van-tab v-for="(item, index) in categorySubList" :key="index" :title="item.mallSubName"></van-tab>
         </van-tabs>
         <div class="scroll-wrapper">
           <b-scroll class="content-scroll" :data="goodsList" v-if="!isEmptyGoodsList && goodsList.length">

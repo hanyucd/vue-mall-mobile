@@ -1,3 +1,4 @@
+$color: #b532e9;
 
 .category {
   .content {
@@ -27,7 +28,7 @@
           left: 0;
           width: .2rem;
           height: 3rem;
-          background: red;
+          background: $color;
           transition: top .3s ease-out;
         }
       }

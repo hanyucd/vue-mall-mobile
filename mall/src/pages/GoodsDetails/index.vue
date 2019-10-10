@@ -41,7 +41,7 @@
         </section>
         <!-- 商品详情 -->
         <section class="goods-tabs">
-          <van-tabs v-model="currentTab">
+          <van-tabs v-model="currentTab" color="#b532e9">
             <van-tab v-for="item of tabs" :key="item.id" :title="item.title">
               <!-- 图片 -->
               <div v-show="currentTab == 0" v-html="goodsInfo.detail"></div>
