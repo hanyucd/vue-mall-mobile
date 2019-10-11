@@ -8,28 +8,36 @@
         <van-tab v-for="(tab, index) in tables" :key="index" :title="tab">
         </van-tab>
       </van-tabs>
-      <b-scroll class="content-scroll" v-if="orderList.length" :data="orderList">
-        <div class="container">
-          <section class="order-item" v-for="item of orderList" :key="item._id">
-            <div class="order-wrapper" v-if="item.status === curActiveTab">
-              <section class="order-number">
-                <span>订单编号：</span>
-                <span class="number">{{ item.order_id }}</span>
-              </section>
-              <ul class="goods-list">
-                <li class="goods-item" v-for="value of item.order_list" :key="value._id">
-                  <section class="goods-img"><img :src="value.image_path" /></section>
-                  <section class="goods-name">{{ value.goods_name }}</section>
-                  <section class="goods-price">
-                    <p>{{ value.mall_price }}</p>
-                    <p>X {{ value.buy_count }}</p>
-                  </section>
-                </li>
-              </ul>
-            </div>
-          </section>
-        </div>
-      </b-scroll>
+      
+      <div class="content-container">
+        <b-scroll class="content-scroll" v-if="!loadingStatus && orderList.length" :data="orderList">
+          <div class="container">
+            <section class="order-item" v-for="item of orderList" :key="item._id">
+              <div class="order-wrapper" v-if="item.status === curActiveTab">
+                <section class="order-number">
+                  <span>订单编号：</span>
+                  <span class="number">{{ item.order_id }}</span>
+                </section>
+                <ul class="goods-list">
+                  <li class="goods-item" v-for="value of item.order_list" :key="value._id">
+                    <section class="goods-img"><img :src="value.image_path" /></section>
+                    <section class="goods-name">{{ value.goods_name }}</section>
+                    <section class="goods-price">
+                        <p class="money">￥{{ value.mall_price }}</p>
+                        <p class="buy-count">X {{ value.buy_count }}</p>
+                    </section>
+                  </li>
+                </ul>
+                <section class="order-info">
+                  <p>共<span class="goods-count">{{ item.order_list.length }}</span>件商品</p>
+                  <p>创建时间：<span class="create-time">{{ item.createAt }}</span></p>
+                  <p>收货地址：{{ item.address }}</p>
+                </section>
+              </div>
+            </section>
+          </div>
+        </b-scroll>
+      </div>
       <!-- 加载状态 -->
       <loading :loadingStatus="loadingStatus" type="spinner" />
     </section>
