@@ -20,7 +20,7 @@
           <van-icon class="icon" name="arrow" />
         </section>
         <ul>
-          <li class="order-index-item" v-for="(item, index) in orderIndex" :key="item.status">
+          <li class="order-index-item" v-for="(item, index) in orderIndex" :key="item.status" @click="goOrderManage(item.status)">
             <van-icon class="icon" :name="item.icon" />
             <p class="title">{{ item.title }}</p>
           </li>
@@ -116,6 +116,14 @@
         })
         .catch(error => null);
       },
+      /**
+       * 进入对应订单管理
+       */
+      goOrderManage(status) {
+        if (status === 5) return;
+
+        this.$router.push({ name: 'OrderManage', query: { status } });
+      }
     }
   }
 </script>
