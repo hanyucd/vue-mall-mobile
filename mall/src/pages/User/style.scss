@@ -59,9 +59,22 @@ $color: #b532e9;
         justify-content: space-around;
         padding: 4vw 0;
         .order-index-item {
+          position: relative;
           text-align: center;
           .icon { font-size: 6.5vw; }
           .title { font-size: 3.5vw; margin-top: 2vw; }
+          .order-num {
+            position: absolute;
+            top: -2vw;
+            right: -2vw;
+            width: 5vw;
+            height: 5vw;
+            line-height: 5vw;
+            text-align: center;
+            background: $color;
+            border-radius: 50%;
+            color: #fff;
+          }
         }
       }
     }

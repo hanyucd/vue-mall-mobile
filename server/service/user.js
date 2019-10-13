@@ -256,6 +256,17 @@ class userService {
       console.log(error);
     }
   }
-};
+
+  /**
+   * 获取订单对应处理数量
+   * @param {String} userId 用户 Id 
+   */
+  async getOrderNum(userId) {
+    try {
+    } catch(error) {
+      console.log(error);
+    }
+  }
+}
 
 module.exports = new userService();

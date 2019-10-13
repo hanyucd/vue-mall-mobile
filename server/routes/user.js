@@ -206,4 +206,23 @@ router.get('/orderList', checkUserStat, async (ctx) => {
   }
 });
 
+/**
+ * 获取订单对应处理数量
+ */
+router.get('/orderNum', checkUserStat, async (ctx) => {
+  if (ctx.userInfo) {
+    const userId = ctx.userInfo._id; // 取用户 id
+    
+    try {
+      const result = await userService.getOrderNum(userId);
+      ctx.body = {
+        code: 200,
+        orderNum: [0, 0, 0, 0, 9]
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  }
+});
+
 module.exports = router;

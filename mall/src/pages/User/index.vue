@@ -23,6 +23,7 @@
           <li class="order-index-item" v-for="(item, index) in orderIndex" :key="item.status" @click="goOrderManage(item.status)">
             <van-icon class="icon" :name="item.icon" />
             <p class="title">{{ item.title }}</p>
+            <span class="order-num">1</span>
           </li>
         </ul>
       </div>
@@ -73,9 +74,10 @@
           { icon: "logistics", status: 2, title: "待发货" },
           { icon: "points", status: 3, title: "待收货" },
           { icon: "like-o", status: 4, title: "已完成" },
-          { icon: "thumb-circle-o", status: 5, title: "评价" }
+          { icon: "good-job-o", status: 5, title: "评价" }
         ],
         userInfo: null, // 用户信息
+        orderNum: [], // 订单对应处理数量
         isShowSetting: false // 是否显示用户设置
       }
     },
@@ -86,6 +88,7 @@
     },
     created() {
       this._getUserInfo();
+      this._getOrderNum();
     },
     methods: {
       /**
@@ -98,6 +101,18 @@
           if (res.code === 200) this.userInfo = res.userInfo;
         } catch(error) {
           (error.response.status === 403) ? null : console.log(error);
+        }
+      },
+      /**
+       * 获取订单对应处理数量
+       */
+      async _getOrderNum() {
+        try {
+          let res = await ajax.getOrderNum();
+          if (res.code === 200) this.orderNum = res.orderNum;
+          console.log(res);
+        } catch(error) {
+          console.log(error);
         }
       },
       /**

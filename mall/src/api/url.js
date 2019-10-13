@@ -1,6 +1,6 @@
 // const baseURL = 'http://localhost:3000';
 
-const baseURL = 'http://192.168.1.106:3000'; // 开发使用端口，方便用于真机访问
+const baseURL = 'http://192.168.0.112:3000'; // 开发使用端口，方便用于真机访问
 // const baseURL = 'http://192.168.43.164:3000'; // 真机测试访问
 
 // const baseURL = 'http://132.232.76.126:8000'; // 服务器临时部署端口
@@ -35,4 +35,5 @@ export const Url = {
 
   submitOrderApi: baseURL + '/api/u-action/submitOrder', // 提交订单
   orderListApi: baseURL + '/api/user/orderList', // 获取订单列表
+  orderNumApi: baseURL + '/api/user/orderNum', // 获取订单对应处理数量
 };

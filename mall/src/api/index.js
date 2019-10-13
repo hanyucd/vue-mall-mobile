@@ -126,6 +126,11 @@ class Ajax {
   getOrderList() {
     return get(Url.orderListApi);
   }
+
+  // 获取订单对应处理数量 | GET
+  getOrderNum() {
+    return get(Url.orderNumApi);
+  }
 }
 
 export default new Ajax();
