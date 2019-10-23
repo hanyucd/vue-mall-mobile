@@ -68,7 +68,6 @@
     created() {
       let { status }  = this.$route.query;
       this.curActiveTab = status;
-      
       this._getOrderList();
     },
     methods: {
@@ -82,10 +81,9 @@
             this.orderList = res.orderList;
             this.loadingStatus = false;
           }
-          console.log(res);
         } catch(error) {
           this.loadingStatus = false;
-          if (error.response && error.response.status === 401 || 403) this.$toast(error.response.data.msg);
+          if (error.response && (error.response.status === 401 || 403)) this.$toast(error.response.data.msg);
           console.log(error);
         }
       }
