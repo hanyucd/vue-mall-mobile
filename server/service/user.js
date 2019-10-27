@@ -263,6 +263,32 @@ class userService {
    */
   async getOrderNum(userId) {
     try {
+      const orderList = await OrderManageModel.find({ userId });
+      let orderNum = []; // 相应订单数
+      let waitPay = []; // 待付款
+      let waitSend = []; // 待发货
+      let waitTake = []; // 待收货
+      let waitComment = []; // 待评论
+      orderList.forEach(item => {
+        switch (item.status) {
+          case 1:
+            waitPay.push(item);
+            break;
+          case 2:
+            waitSend.push(item);
+            break;
+          case 3:
+            waitTake.push(item);
+            break;
+          case 4:
+            item.order_list.forEach(value => {
+              if (!value.is_comment) waitComment.push(value);
+            });
+            break;
+        }
+      });
+      orderNum.push(waitPay.length, waitSend.length, waitTake.length, 0, waitComment.length);
+      return orderNum;
     } catch(error) {
       console.log(error);
     }

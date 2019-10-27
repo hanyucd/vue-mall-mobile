@@ -23,7 +23,7 @@
           <li class="order-index-item" v-for="(item, index) in orderIndex" :key="item.status" @click="goOrderManage(item.status)">
             <van-icon class="icon" :name="item.icon" />
             <p class="title">{{ item.title }}</p>
-            <span class="order-num">1</span>
+            <span class="order-num" v-if="orderNum.length && orderNum[index] !== 0">{{ orderNum[index] }}</span>
           </li>
         </ul>
       </div>

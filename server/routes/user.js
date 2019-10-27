@@ -217,7 +217,7 @@ router.get('/orderNum', checkUserStat, async (ctx) => {
       const result = await userService.getOrderNum(userId);
       ctx.body = {
         code: 200,
-        orderNum: [0, 0, 0, 0, 9]
+        orderNum: result
       }
     } catch (error) {
       console.log(error);
