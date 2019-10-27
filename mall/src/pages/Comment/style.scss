@@ -1,0 +1,11 @@
+.comment {
+  .top-img {
+    width: 100%;
+    height: 40vw;
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover; // 指定可替换元素的内容应该如何适应到其使用的高度和宽度确定的框
+    }
+  }
+}

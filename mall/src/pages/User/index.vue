@@ -116,6 +116,16 @@
         }
       },
       /**
+       * 进入对应订单管理
+       */
+      goOrderManage(status) {
+        if (status === 5) {
+          this.$router.push({ name: 'Comment' });
+          return;
+        }
+        this.$router.push({ name: 'OrderManage', query: { status } });
+      },
+      /**
        * 退出登录状态
        */
       logout() {
@@ -130,14 +140,6 @@
           (this.userToken) && (this.deleteUserToken()) && this.reload();
         })
         .catch(error => null);
-      },
-      /**
-       * 进入对应订单管理
-       */
-      goOrderManage(status) {
-        if (status === 5) return;
-
-        this.$router.push({ name: 'OrderManage', query: { status } });
       }
     }
   }
