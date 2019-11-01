@@ -131,6 +131,11 @@ class Ajax {
   getOrderNum() {
     return get(Url.orderNumApi);
   }
+
+  // 查询待评论商品列表 | GET
+  queryWaitComment() {
+    return get(Url.waitCommentApi);
+  }
 }
 
 export default new Ajax();

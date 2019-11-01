@@ -97,7 +97,6 @@
       async _getUserInfo() {
         try {
           let res = await ajax.getUserInfo();
-          console.log(res)
           if (res.code === 200) this.userInfo = res.userInfo;
         } catch(error) {
           (error.response.status === 403) ? null : console.log(error);
@@ -110,7 +109,6 @@
         try {
           let res = await ajax.getOrderNum();
           if (res.code === 200) this.orderNum = res.orderNum;
-          console.log(res);
         } catch(error) {
           console.log(error);
         }
@@ -120,7 +118,7 @@
        */
       goOrderManage(status) {
         if (status === 5) {
-          this.$router.push({ name: 'Comment' });
+          this.$router.push({ name: 'CommentCenter' });
           return;
         }
         this.$router.push({ name: 'OrderManage', query: { status } });

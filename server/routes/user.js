@@ -100,7 +100,6 @@ router.post('/updateUserInfo', checkUserStat, async (ctx) => {
     const needUpdateInfo = ctx.request.body;
     try {
       let newUserInfo = await userService.updateUserInfo(mobilePhone, needUpdateInfo);
-      console.log(newUserInfo)
       ctx.body = (newUserInfo.code === 1 || 0)
         ? newUserInfo
         : { code: 200, msg: "修改成功", token: jwt._createToken(newUserInfo) };
@@ -219,6 +218,21 @@ router.get('/orderNum', checkUserStat, async (ctx) => {
         code: 200,
         orderNum: result
       }
+    } catch (error) {
+      console.log(error);
+    }
+  }
+});
+
+/**
+ * 查询待评论商品列表
+ */
+router.get('/waitCommentList', checkUserStat, async (ctx) => {
+  if (ctx.userInfo) {
+    const userId = ctx.userInfo._id; // 取用户 id
+    try {
+      const result = await userService.queryWaitCommentList(userId);
+      ctx.body = { code: 200, waitCommentList: result };
     } catch (error) {
       console.log(error);
     }

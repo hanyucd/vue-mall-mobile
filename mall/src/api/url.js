@@ -36,4 +36,6 @@ export const Url = {
   submitOrderApi: baseURL + '/api/u-action/submitOrder', // 提交订单
   orderListApi: baseURL + '/api/user/orderList', // 获取订单列表
   orderNumApi: baseURL + '/api/user/orderNum', // 获取订单对应处理数量
+  
+  waitCommentApi: baseURL + '/api/user/waitCommentList', // 查询待评论商品列表
 };

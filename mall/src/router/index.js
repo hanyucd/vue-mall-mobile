@@ -9,7 +9,8 @@ const GoodsDetails = () => import('@/pages/GoodsDetails'); // 商品详情
 const City = () => import('@/pages/City'); // 城市选择
 const Collection = () => import('@/pages/Collection'); // 我的收藏
 const BrowseHistory = () => import('@/pages/BrowseHistory'); // 浏览历史
-const Comment = () => import('@/pages/Comment'); // 评价中心
+const CommentCenter = () => import('@/pages/CommentCenter'); // 评价中心
+const CommentGoods = () => import('@/pages/CommentGoods'); // 评价商品
 const OrderManage = () => import('@/pages/OrderManage'); // 订单管理
 const Login = () => import('@/pages/Login'); // 登录、注册
 const OrderPayment = () => import('@/pages/OrderPayment'); // 订单支付
@@ -32,10 +33,11 @@ const router =  new Router({
     { path: '/collection', name: 'Collection', component: Collection, meta: { index: 6 } }, // 我的收藏
     { path: '/browseHistory', name: 'BrowseHistory', component: BrowseHistory, meta: { index: 7 } }, // 浏览历史
     { path: '/orderManage', name: 'OrderManage', component: OrderManage, meta: { index: 8 } }, // 订单管理
-    { path: '/comment', name: 'Comment', component: Comment, meta: { index: 9 } }, // 评价中心
-    { path: '/orderPayment', name: 'OrderPayment', component: OrderPayment, meta: { index: 10 } }, // 订单支付
-    { path: '/addressManage', name: 'AddressManage', component: AddressManage, meta: { index: 11 } }, // 地址管理
-    { path: '/addressEdit', name: 'AddressEdit', component: AddressEdit, meta: { index: 12 } }, // 地址编辑
+    { path: '/commentCenter', name: 'CommentCenter', component: CommentCenter, meta: { index: 9 } }, // 评价中心
+    { path: '/CommentGoods', name: 'CommentGoods', component: CommentGoods, props: route => ({ orderId: route.params.orderId, orderNum: route.params.orderNum }), meta: { index: 10 } }, // 评价中心
+    { path: '/orderPayment', name: 'OrderPayment', component: OrderPayment, meta: { index: 11 } }, // 订单支付
+    { path: '/addressManage', name: 'AddressManage', component: AddressManage, meta: { index: 12 } }, // 地址管理
+    { path: '/addressEdit', name: 'AddressEdit', component: AddressEdit, meta: { index: 13 } }, // 地址编辑
     { path: '/goodsDetails', name: 'GoodsDetails', component: GoodsDetails, props: route => ({ goodsId: route.query.goodsId }), meta: { index: 19 } }, // 商品信息
     { path: '/login', name: 'Login', component: Login, meta: { index: 20 } }, // 登录、注册
     { path: '*', redirect: { name: 'Home' } }
@@ -51,7 +53,8 @@ const title = {
   GoodsDetails: '商品详情',
   BrowseHistory: '浏览历史',
   Collection: '我的收藏',
-  Comment: '评价中心',
+  CommentCenter: '评价中心',
+  CommentGoods: '评价商品',
   Login: '登录 / 注册',
   OrderPayment: '订单支付',
   AddressManage: '地址管理',

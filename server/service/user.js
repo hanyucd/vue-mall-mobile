@@ -1,10 +1,10 @@
 const MobilePhoneModel = require('../models/mobilePhone');
-const sendSMSCode = require('../utils/sms');
 const UserModel = require('../models/user');
 const CollectionModel = require('../models/collection');
 const ShopCartModel = require('../models/shopCart');
 const AddressManageModel = require('../models/addressManage');
 const OrderManageModel = require('../models/orderManage');
+const sendSMSCode = require('../utils/sms');
 
 // “投影” (projection) | 数据库需要返回的数据
 const PROJECTION = { _id: 1, userName: 1, gender: 1, avatar: 1, mobilePhone: 1, email: 1, year: 1, month: 1, day: 1 };
@@ -290,6 +290,27 @@ class userService {
       orderNum.push(waitPay.length, waitSend.length, waitTake.length, 0, waitComment.length);
       return orderNum;
     } catch(error) {
+      console.log(error);
+    }
+  }
+
+  /**
+   * 查询待评论商品列表
+   * @param {String} userId 用户 Id 
+   */
+  async queryWaitCommentList(userId) {
+    const status = 4; // 订单已完成状态
+    const waitCommentList = []; // 待评论商品列表
+    try {
+      const waitCommentOrderList = await OrderManageModel.find({ userId, status, 'order_list.is_comment': false });
+      waitCommentOrderList.forEach(item => {
+        // 查找未评论商品
+        item.order_list.forEach(value => {
+          if (!value.is_comment) waitCommentList.push(value);
+        });
+      });
+      return waitCommentList;
+    } catch (error) {
       console.log(error);
     }
   }

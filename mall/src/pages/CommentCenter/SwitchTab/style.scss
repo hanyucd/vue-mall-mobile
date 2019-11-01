@@ -1,0 +1,33 @@
+$color: #b532e9;
+
+.switch-tab {
+  width: 100%;
+  height: 100%;
+  .tab-wrap {
+    position: relative;
+    display: flex;
+    width: 100%;
+    height: 100%;
+    .item {
+      flex: 1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: .9rem;
+    }
+    .bottom-bar-wrap {
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      width: 50%;
+      height: .6vw;
+      transition: left .3s ease-out;
+      .bottom-bar {
+        width: 50%;
+        margin: 0 auto;
+        height: 100%;
+        background: $color;
+      }
+    }
+  }
+}
