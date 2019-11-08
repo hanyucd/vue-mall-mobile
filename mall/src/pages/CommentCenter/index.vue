@@ -35,6 +35,9 @@
         <div class="container">
         </div>
       </b-scroll>
+      
+      <!-- 加载状态 -->
+      <loading :loadingStatus="loadingStatus" type="spinner" />
     </section>
   </div>
 </template>
@@ -43,10 +46,12 @@
 import TopBar from '@/components/TopBar';
 import SwitchTab from './SwitchTab';
 import BScroll from '@/components/BScroll';
+import { GoodsMixin } from '@/mixins/goodsMixin';
 import ajax from '@/api';
 
 export default {
   name: 'CommentCenter',
+  mixins: [ GoodsMixin ],
   components: { TopBar, SwitchTab, BScroll },
   data() {
     return {
@@ -67,7 +72,9 @@ export default {
       try {
         const res = await ajax.queryWaitComment();
         if (res.code === 200) this.waitCommentList = res.waitCommentList;
+        this.loadingStatus = false;
       } catch (error) {
+        this.loadingStatus = false;
         console.log(error);
       }
     },

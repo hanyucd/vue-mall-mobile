@@ -34,7 +34,7 @@ const router =  new Router({
     { path: '/browseHistory', name: 'BrowseHistory', component: BrowseHistory, meta: { index: 7 } }, // 浏览历史
     { path: '/orderManage', name: 'OrderManage', component: OrderManage, meta: { index: 8 } }, // 订单管理
     { path: '/commentCenter', name: 'CommentCenter', component: CommentCenter, meta: { index: 9 } }, // 评价中心
-    { path: '/CommentGoods', name: 'CommentGoods', component: CommentGoods, props: route => ({ orderId: route.params.orderId, orderNum: route.params.orderNum }), meta: { index: 10 } }, // 评价中心
+    { path: '/CommentGoods', name: 'CommentGoods', component: CommentGoods, props: route => ({ goodsId: route.query.goodsId, orderId: route.params.orderId, orderNum: route.params.orderNum }), meta: { index: 10 } }, // 评价商品
     { path: '/orderPayment', name: 'OrderPayment', component: OrderPayment, meta: { index: 11 } }, // 订单支付
     { path: '/addressManage', name: 'AddressManage', component: AddressManage, meta: { index: 12 } }, // 地址管理
     { path: '/addressEdit', name: 'AddressEdit', component: AddressEdit, meta: { index: 13 } }, // 地址编辑

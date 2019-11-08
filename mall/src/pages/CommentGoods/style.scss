@@ -1,0 +1,27 @@
+$color: #b532e9;
+
+.comment-goods {
+  .top-goods {
+    display: flex;
+    padding: 1rem;
+    .goods-img {
+      flex-basis: 30%;
+      img {
+        width: 100%;
+        height: 100%;
+        box-shadow: 0 2px 8px #f0f1f2;
+      }
+    }
+    .goods-rate {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-around;
+      padding-left: 2rem;
+      .rate-txt {
+        font-size: 1.2rem;
+        font-weight: bold;
+      }
+    }
+  }
+}
