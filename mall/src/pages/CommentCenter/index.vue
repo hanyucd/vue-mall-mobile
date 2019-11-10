@@ -81,11 +81,11 @@ export default {
     /**
      * 前去商品评价
      * @param {String} goodsId 商品 id
-     * @param {String} orderId 订单 id
+     * @param {String} order_id 订单 _id
      * @param {String} orderNum 订单号
      */
-    goCommentGoods(goodsId, orderId, orderNum) {
-      this.$router.push({ name: 'CommentGoods', query: { goodsId }, params: { orderId, orderNum } });
+    goCommentGoods(goodsId, order_id, orderNum) {
+      this.$router.push({ name: 'CommentGoods', query: { goodsId }, params: { order_id, orderNum } });
     }
   }
 };

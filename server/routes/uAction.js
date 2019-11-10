@@ -139,4 +139,21 @@ router.post('/submitOrder', checkUserStat, async (ctx) => {
   }
 });
 
+/**
+ * 商品评论
+ */
+router.post('/goodsComment', checkUserStat, async (ctx) => {
+  if (ctx.userInfo) {
+    const userId = ctx.userInfo._id; // 取用户 id
+    const commentArgs = ctx.request.body; // 评论参数
+    try {
+      const result = await uActionService.commentGoods(userId, commentArgs);
+      
+      ctx.body = result;
+    } catch (error) {
+      console.log(error);
+    }
+  }
+});
+
 module.exports = router;

@@ -3,6 +3,7 @@ const CollectionModel = require('../models/collection');
 const ShopCartModel = require('../models/shopCart');
 const AddressManageModel = require('../models/addressManage');
 const OrderManageModel = require('../models/orderManage');
+const CommentModel = require('../models/comment');
 
 const tools = require('../utils/tools');
 
@@ -234,6 +235,42 @@ class uActionService {
 
       return { code: 200, order_id: orderManageDoc.order_id , msg: `共支付 ${ mall_price } 元` };
     } catch(error) {
+      console.log(error);
+    }
+  }
+
+  /**
+   * 提交订单处理
+   * @param {String} userId 用户 id
+   * @param {Object} commentArgs 评论信息
+   */
+  async commentGoods(userId, commentArgs) {
+    const images = [];
+    // 整合评论数据
+    const commentData = {
+      comment_user_id: userId,
+      goodsId: commentArgs.goodsId,
+      rate: commentArgs.rate,
+      comment_time: tools.getCurDate('YYYY-MM-DD HH:mm:ss'),
+      anonymous: commentArgs.anonymous,
+      content: commentArgs.content,
+      images
+    };
+
+    try {
+      const commentEntity = new CommentModel(commentData);
+      await commentEntity.save();
+      // 查到对应的订单, 修改评论状态
+      await OrderManageModel.findOneAndUpdate({
+        userId, // 用户 id
+        order_id: commentArgs.orderNum, // 订单号 => order_id
+        'order_list._id': commentArgs.order_id // mongoDB 中订单集合 order_list
+      }, {
+        $set: { 'order_list.$.is_comment': true }
+      });
+
+      return { code: 200, msg: '评论成功' };
+    } catch (error) {
       console.log(error);
     }
   }

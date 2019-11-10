@@ -25,6 +25,7 @@ export const Url = {
   addToShopCartApi: baseURL + '/api/u-action/addToShopCart', // 加入到购物车
   checkShopCartApi: baseURL + '/api/user/checkShopCart', // 查询购物车数据
   editGoodsCountApi: baseURL + '/api/u-action/editGoodsCount', // 编辑商品数量
+  goodsCommentApi: baseURL + '/api/u-action/goodsComment', // 商品评论
   delCartGoodsApi: baseURL + '/api/u-action/delCartGoods', // 删除购物车商品
 
   addressListApi: baseURL + '/api/user/addressList', // 地址列表

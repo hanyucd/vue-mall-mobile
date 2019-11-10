@@ -24,4 +24,24 @@ $color: #b532e9;
       }
     }
   }
+  .comment-text {
+    background: #f7f7f7;
+    padding: 0 10px;
+  }
+  .def-sty {
+    background: none;
+  }
+  .check-box {
+    margin: 1rem;
+  }
+  .submit-btn {
+    margin: 0 1rem;
+    text-align: center;
+    height: 3rem;
+    line-height: 3rem;
+    border-radius: 3rem;
+    letter-spacing: .5rem;
+    color: #fff;
+    background: $color;
+  }
 }

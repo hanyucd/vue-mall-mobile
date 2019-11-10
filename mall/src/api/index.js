@@ -136,6 +136,12 @@ class Ajax {
   queryWaitComment() {
     return get(Url.waitCommentApi);
   }
+
+  // 评论商品 | POST
+  commentGoods({ ...args }) {
+    return post(Url.goodsCommentApi, args);
+  }
+  goodsCommentApi
 }
 
 export default new Ajax();
