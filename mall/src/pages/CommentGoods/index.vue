@@ -60,8 +60,7 @@ export default {
       }
     },
     afterRead(file, detail) {
-      console.log('file', file);
-      console.log('detail', detail);
+      // TO DO
     },
     /**
      * 提交评论
