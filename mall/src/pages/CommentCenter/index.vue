@@ -105,7 +105,7 @@ export default {
       }
     },
     /**
-     * 前去商品评价
+     * 前往商品评论
      * @param {String} goodsId 商品 id
      * @param {String} order_id 订单 _id
      * @param {String} orderNum 订单号
@@ -114,11 +114,11 @@ export default {
       this.$router.push({ name: 'CommentGoods', query: { goodsId }, params: { order_id, orderNum } });
     },
     /**
-     * 查看评论
+     * 查看评论详情
      * @param {String} comment_id 评论 _id
      */
     viewGoodsComment(comment_id) {
-      console.log(comment_id);
+      this.$router.push({ name: 'CommentDetails', query: { commentId: comment_id } });
     }
   }
 };

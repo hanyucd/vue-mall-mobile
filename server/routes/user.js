@@ -253,7 +253,23 @@ router.get('/alreadyCommentList', checkUserStat, async (ctx) => {
     } catch (error) {
       console.log(error);
     }
-  } 
+  }
+});
+
+/**
+ * 查询评价详情
+ */
+router.post('/commentDetails', checkUserStat, async (ctx) => {
+  if (ctx.userInfo) {
+    const { commentId } = ctx.request.body;
+    
+    try {
+      const result = await userService.queryCommentDetails(commentId);
+      ctx.body = { code: 200, commentDetails: result };
+    } catch (error) {
+      console.log(error);
+    }
+  }
 });
 
 module.exports = router;

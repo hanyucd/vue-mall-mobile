@@ -43,7 +43,6 @@ export default {
     }
   },
   created() {
-    console.log(this.goodsId, this.order_id, this.orderNum);
     this._getGoodsDetails();
   },
   methods: {

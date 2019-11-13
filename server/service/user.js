@@ -324,7 +324,7 @@ class userService {
   async queryAlreadyCommentList(userId) {
     try {
       // 聚合管道 $lookup 连接操作符 | 用于连接同一个数据库中另一个集合，并获取指定的文档
-      const alreadyCommentList = CommentModel.aggregate([
+      const alreadyCommentList = await CommentModel.aggregate([
         {
           $lookup: { from: 'goods', localField: 'goodsId', foreignField: 'id', as: 'goods'}
         }, {
@@ -334,6 +334,28 @@ class userService {
         }
       ]);
       return alreadyCommentList;
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  /**
+   * 查询评价详情
+   * @param {String} commentId 评价 _id
+   */
+  async queryCommentDetails(commentId) {
+    try {
+      const commentList = await CommentModel.aggregate([
+        {
+          $lookup: { from: 'goods', localField: 'goodsId', foreignField: 'id', as: 'goods'}
+        }, {
+          $lookup: { from: 'users', localField: 'comment_user_id', foreignField: '_id', as: 'user'}
+        }, {
+          $match: { _id: mongoose.Types.ObjectId(commentId) }
+        }
+      ]);
+
+      return commentList[0];
     } catch (error) {
       console.log(error);
     }

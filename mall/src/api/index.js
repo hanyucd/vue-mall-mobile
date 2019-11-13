@@ -132,18 +132,23 @@ class Ajax {
     return get(Url.orderNumApi);
   }
 
-  // 查询待评论商品列表 | GET
+  // 查询待评价商品列表 | GET
   queryWaitComment() {
     return get(Url.waitCommentApi);
   }
-  // 查询已评论商品列表 | GET
+  // 查询已评价商品列表 | GET
   queryAlreadyComment() {
     return get(Url.alreadyCommentApi);
   }
 
-  // 评论商品 | POST
+  // 评价商品 | POST
   commentGoods({ ...args }) {
     return post(Url.goodsCommentApi, args);
+  }
+
+  // 评价详情 | POST
+  commentDetails(commentId) {
+    return post(Url.commentDetailsApi, { commentId });
   }
 }
 
