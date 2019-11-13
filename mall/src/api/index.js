@@ -136,12 +136,15 @@ class Ajax {
   queryWaitComment() {
     return get(Url.waitCommentApi);
   }
+  // 查询已评论商品列表 | GET
+  queryAlreadyComment() {
+    return get(Url.alreadyCommentApi);
+  }
 
   // 评论商品 | POST
   commentGoods({ ...args }) {
     return post(Url.goodsCommentApi, args);
   }
-  goodsCommentApi
 }
 
 export default new Ajax();

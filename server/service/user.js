@@ -4,6 +4,8 @@ const CollectionModel = require('../models/collection');
 const ShopCartModel = require('../models/shopCart');
 const AddressManageModel = require('../models/addressManage');
 const OrderManageModel = require('../models/orderManage');
+const CommentModel = require('../models/comment');
+const mongoose = require('mongoose');
 const sendSMSCode = require('../utils/sms');
 
 // “投影” (projection) | 数据库需要返回的数据
@@ -310,6 +312,28 @@ class userService {
         });
       });
       return waitCommentList;
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  /**
+   * 查询已评论商品列表
+   * @param {String} userId 用户 Id 
+   */
+  async queryAlreadyCommentList(userId) {
+    try {
+      // 聚合管道 $lookup 连接操作符 | 用于连接同一个数据库中另一个集合，并获取指定的文档
+      const alreadyCommentList = CommentModel.aggregate([
+        {
+          $lookup: { from: 'goods', localField: 'goodsId', foreignField: 'id', as: 'goods'}
+        }, {
+          $match: { comment_user_id: mongoose.Types.ObjectId(userId) }
+        }, {
+          $sort: { comment_time: -1 }
+        }
+      ]);
+      return alreadyCommentList;
     } catch (error) {
       console.log(error);
     }

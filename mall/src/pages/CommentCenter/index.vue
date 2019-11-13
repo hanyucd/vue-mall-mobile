@@ -30,9 +30,23 @@
           </ul>
         </div>
       </b-scroll>
-      <!-- 待评价商品 -->
+      <!-- 已评价商品 -->
       <b-scroll class="content-scroll" v-else-if="curTabIndex === 1">
         <div class="container">
+          <ul class="goods-list">
+            <li class="goods-item" v-for="item of alreadyCommentList" :key="item._id">
+              <section class="goods-img">
+                <img :src="item.goods[0].image_path" alt="">
+              </section>
+              <section class="goods-name">
+                <p>{{ item.goods[0].name }}</p>
+                <div class="comment-btn" @click="viewGoodsComment(item._id)">
+                  <van-icon name="search" />
+                  <span>查看评论</span>
+                </div>
+              </section>
+            </li>
+          </ul>
         </div>
       </b-scroll>
       
@@ -63,6 +77,7 @@ export default {
   },
   created() {
     this._queryWaitComment();
+    this._alreadyComment();
   },
   methods: {
     /**
@@ -79,6 +94,17 @@ export default {
       }
     },
     /**
+     * 查询已评论商品列表
+     */
+    async _alreadyComment() {
+      try {
+        const res = await ajax.queryAlreadyComment();
+        if (res.code === 200) this.alreadyCommentList = res.alreadyCommentList;
+      } catch (error) {
+        console.log(error);
+      }
+    },
+    /**
      * 前去商品评价
      * @param {String} goodsId 商品 id
      * @param {String} order_id 订单 _id
@@ -86,6 +112,13 @@ export default {
      */
     goCommentGoods(goodsId, order_id, orderNum) {
       this.$router.push({ name: 'CommentGoods', query: { goodsId }, params: { order_id, orderNum } });
+    },
+    /**
+     * 查看评论
+     * @param {String} comment_id 评论 _id
+     */
+    viewGoodsComment(comment_id) {
+      console.log(comment_id);
     }
   }
 };

@@ -230,6 +230,7 @@ router.get('/orderNum', checkUserStat, async (ctx) => {
 router.get('/waitCommentList', checkUserStat, async (ctx) => {
   if (ctx.userInfo) {
     const userId = ctx.userInfo._id; // 取用户 id
+    
     try {
       const result = await userService.queryWaitCommentList(userId);
       ctx.body = { code: 200, waitCommentList: result };
@@ -237,6 +238,22 @@ router.get('/waitCommentList', checkUserStat, async (ctx) => {
       console.log(error);
     }
   }
+});
+
+/**
+ * 查询已评论商品列表
+ */
+router.get('/alreadyCommentList', checkUserStat, async (ctx) => {
+  if (ctx.userInfo) {
+    const userId = ctx.userInfo._id; // 取用户 id
+    
+    try {
+      const result = await userService.queryAlreadyCommentList(userId);
+      ctx.body = { code: 200, alreadyCommentList: result };
+    } catch (error) {
+      console.log(error);
+    }
+  } 
 });
 
 module.exports = router;
