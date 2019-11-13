@@ -1,8 +1,6 @@
 # vue-mall-mobile
 > 一个基于 Vue + Koa + Mongodb + Vant 搭建的移动端电商网站
 
-注：**该项目正在重构、完善、优化中。。。**
-
 ## 技术栈 
 
 前端：脚手架工具 vue-cli@3.0
@@ -20,6 +18,12 @@
 > or 用手机扫描下方二维码，浏览器访问效果更佳
 
 <img src="https://github.com/hanyucd/vue-mall-mobile/blob/master/screenshots/QRcode.png" width="250" height="250" />
+
+## 运行项目
+
+mall：前端，进入目录文件，首先 **npm install** 安装相关依赖。
+
+server：后端，进入目录文件，首先 **npm install** 安装相关依赖，第一次运行项目，得先浏览器访问 **localhost:3000**，执行初始化数据导入数据库任务。
 
 ### 移动端 Web 页面适配方案
 
@@ -181,7 +185,6 @@ HTTP 头信息 Authorization 字段里，若后端判断 token 失效 或 错误
 - 对比提交的验证码与 Session 中的验证码是否一致，同时判断提交动作是否在有效期内
 - 验证码正确且在有效期内，请求通过，处理相应的业务
 
-
 ### 前后端分离模式下跨域读写 cookie
 
 CORS 全称是 "跨域资源共享"（Cross-origin resource sharing），它允许浏览器向跨源服务器，发出 XMLHttpRequest 请求，从而克服了 AJAX 只能同源使用的限制。  
@@ -213,7 +216,7 @@ CORS 需要浏览器和服务器同时支持，对于开发者来说，CORS 通�
   <img src="https://github.com/hanyucd/vue-mall-mobile/blob/master/screenshots/category.png" width="320" height="600" />
 
   <img src="https://github.com/hanyucd/vue-mall-mobile/blob/master/screenshots/cart.png" width="320" height="600" />
-  <img src="https://github.com/hanyucd/vue-mall-mobile/blob/master/screenshots/me.png" width="320" height="600" />
+  <img src="https://github.com/hanyucd/vue-mall-mobile/blob/master/screenshots/empty-cart.png.png" width="320" height="600" />
   
   <img src="https://github.com/hanyucd/vue-mall-mobile/blob/master/screenshots/city.png" width="320" height="600" />
   <img src="https://github.com/hanyucd/vue-mall-mobile/blob/master/screenshots/search.png" width="320" height="600" />
@@ -224,8 +227,8 @@ CORS 需要浏览器和服务器同时支持，对于开发者来说，CORS 通�
   <img src="https://github.com/hanyucd/vue-mall-mobile/blob/master/screenshots/collection.png" width="320" height="600" />
   <img src="https://github.com/hanyucd/vue-mall-mobile/blob/master/screenshots/goodsDetails.png" width="320" height="600" />
   
+  <img src="https://github.com/hanyucd/vue-mall-mobile/blob/master/screenshots/me.png" width="320" height="600" />
   <img src="https://github.com/hanyucd/vue-mall-mobile/blob/master/screenshots/userInfo.png" width="320" height="600" />
-  <img src="https://github.com/hanyucd/vue-mall-mobile/blob/master/screenshots/browseHistory.png" width="320" height="600" />
 
   <img src="https://github.com/hanyucd/vue-mall-mobile/blob/master/screenshots/orderPayment.png" width="320" height="600" />
   <img src="https://github.com/hanyucd/vue-mall-mobile/blob/master/screenshots/addressManage.png" width="320" height="600" />
@@ -233,8 +236,9 @@ CORS 需要浏览器和服务器同时支持，对于开发者来说，CORS 通�
   <img src="https://github.com/hanyucd/vue-mall-mobile/blob/master/screenshots/editAddress.png" width="320" height="600" />
   <img src="https://github.com/hanyucd/vue-mall-mobile/blob/master/screenshots/orderManage.png" width="320" height="600" />
 
+  <img src="https://github.com/hanyucd/vue-mall-mobile/blob/master/screenshots/browseHistory.png" width="320" height="600" />
   <img src="https://github.com/hanyucd/vue-mall-mobile/blob/master/screenshots/commentCenter.png" width="320" height="600" />
-  <img src="https://github.com/hanyucd/vue-mall-mobile/blob/master/screenshots/commentGoods.png" width="320" height="600" />
 
+  <img src="https://github.com/hanyucd/vue-mall-mobile/blob/master/screenshots/commentGoods.png" width="320" height="600" />
   <img src="https://github.com/hanyucd/vue-mall-mobile/blob/master/screenshots/commentDetails.png" width="320" height="600" />
 </p>
