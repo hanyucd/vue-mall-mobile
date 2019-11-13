@@ -190,27 +190,12 @@ CORS 需要浏览器和服务器同时支持，对于开发者来说，CORS 通�
 
 在前后端项目分离项目中，session 会丢失，原因是，服务端无法跨域写入cookie。
 
-https://github.com/koajs/session
-
-https://blog.moxiaonai.cn/koa2-session.html
-
-https://blog.inhere.top/axios-yu-koa-kua-yu-xi-dai-cookie/
-
-https://www.qingtingip.com/h_280412.html
-
-http://www.ruanyifeng.com/blog/2016/04/cors.html
-
-https://www.jianshu.com/p/5b3acded5182
-
-https://juejin.im/post/5c8faf386fb9a0710a1bbfbe
-
-https://juejin.im/post/5a6ad754f265da3e513352e5
-
 ### 实现功能
 
 - [x] 商城首页板块展示
 - [x] 城市定位 / 城市选择
 - [x] 商品详情
+- [x] 商品评论
 - [x] 商品搜索
 - [x] 注册 / 登录 / 短信验证
 - [x] 用户认证
@@ -246,4 +231,10 @@ https://juejin.im/post/5a6ad754f265da3e513352e5
   <img src="https://github.com/hanyucd/vue-mall-mobile/blob/master/screenshots/addressManage.png" width="320" height="600" />
 
   <img src="https://github.com/hanyucd/vue-mall-mobile/blob/master/screenshots/editAddress.png" width="320" height="600" />
+  <img src="https://github.com/hanyucd/vue-mall-mobile/blob/master/screenshots/orderManage.png" width="320" height="600" />
+
+  <img src="https://github.com/hanyucd/vue-mall-mobile/blob/master/screenshots/commentCenter.png" width="320" height="600" />
+  <img src="https://github.com/hanyucd/vue-mall-mobile/blob/master/screenshots/commentGoods.png" width="320" height="600" />
+
+  <img src="https://github.com/hanyucd/vue-mall-mobile/blob/master/screenshots/commentDetails.png" width="320" height="600" />
 </p>

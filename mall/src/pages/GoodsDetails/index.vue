@@ -48,7 +48,6 @@
               <!-- 评论 -->
               <div v-show="currentTab == 1" class="comment-wrapper">
                 <div v-if="!commentList.length" class="no-comment">该商品暂无评论噢~~</div>
-                <div></div>
               </div>
             </van-tab>
           </van-tabs>
