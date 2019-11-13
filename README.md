@@ -216,7 +216,7 @@ CORS 需要浏览器和服务器同时支持，对于开发者来说，CORS 通�
   <img src="https://github.com/hanyucd/vue-mall-mobile/blob/master/screenshots/category.png" width="320" height="600" />
 
   <img src="https://github.com/hanyucd/vue-mall-mobile/blob/master/screenshots/cart.png" width="320" height="600" />
-  <img src="https://github.com/hanyucd/vue-mall-mobile/blob/master/screenshots/empty-cart.png.png" width="320" height="600" />
+  <img src="https://github.com/hanyucd/vue-mall-mobile/blob/master/screenshots/empty-cart.png" width="320" height="600" />
   
   <img src="https://github.com/hanyucd/vue-mall-mobile/blob/master/screenshots/city.png" width="320" height="600" />
   <img src="https://github.com/hanyucd/vue-mall-mobile/blob/master/screenshots/search.png" width="320" height="600" />
