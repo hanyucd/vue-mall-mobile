@@ -54,9 +54,33 @@ function throttle(fn, delay, atleast = 0) {
   }
 }
 
+/**
+ * 数组分块
+ * @param {Array} arr 原数组
+ * @param {Number} size 分块数量
+ */
+const chunk = (arr, size) => {
+  return Array.from({ length: Math.ceil(arr.length / size) }, (item, index) => {
+    return arr.slice(index * size, index * size + size);
+  });
+};
+
+/**
+ * 搜索关键词高亮显示
+ * @param String str 要替换的关键词
+ * @param String value 搜索框里面的内容
+ */
+const keyword = (str, value) => {
+  const replaceReg = new RegExp(value, 'g');
+  const replaceString = `<span style='color:red'>${value}</span>`
+  str = str.replace(replaceReg, replaceString);
+  return str;
+}
 
 export {
   addLocCacheTime, // 给本地缓存添加个时间
   getLocCacheDate, // 获取本地缓存数据
   throttle, // 函数节流
+  chunk, // 数组分块
+  keyword // 搜索关键词高亮显示
 };
