@@ -2,11 +2,9 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 const bcrypt = require('bcryptjs'); // 用于密码哈希的加密算法
 const SALT_WORK_FACTOR = 10; // 定义加密密码计算强度
-let ObjectId = Schema.Types.ObjectId; //声明 Object 类型
 
 // 用户数据模型
 const userSchema = new Schema({
-  userId: ObjectId, // 主键
   userName: { type: String, unique: true }, //  用户名 | unique 表示唯一
   password: String, // 密码
   mobilePhone: String, // 手机号码
