@@ -15,7 +15,7 @@
       click: { type: Boolean, default: true }, // 默认派发浏览器的原生 click 事件
       listenScroll: { type: Boolean, default: false }, // 是否监听滚动位置
       pullup: { type: Boolean, default: false },  // 是否开启上拉加载
-      pullDownRefresh: { type: null, default: false }, // 是否开启下拉刷新
+      pullDownRefresh: { type: Boolean, default: false }, // 是否开启下拉刷新
       beforeScroll: { type: Boolean, default: false }, // 滚动前是否触发事件，如：滚动前让输入框失去焦点，避免滚动搜索结果时移动端键盘遮挡
       bounce: { type: Object, default: () => ({ top: true }) }, // 当滚动超过边缘的时候会有一小段回弹动画
       swipeTime: { type: Number, default: 1600 }, // 滚动动画时长 ms
