@@ -24,7 +24,7 @@
     "koa-static": "^3.0.0",
     "koa-views": "^5.2.1",
     "koa2-cors": "^2.0.6",
-    "mongoose": "^5.5.5",
+    "mongoose": "^5.7.5",
     "request": "^2.88.0",
     "silly-datetime": "^0.1.2",
     "svg-captcha": "^1.4.0"
